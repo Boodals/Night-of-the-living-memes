@@ -29,7 +29,7 @@ public class PatrolManz : TVManz
         //state controller
         //
         m_SC = new StateContoller(this);
-        m_SC.transition(PASSIVE);
+        m_SC.transition(PATROL);
     }
 
     public void changePatrolTarget()
@@ -51,7 +51,6 @@ public class PatrolManz : TVManz
     [Update(PATROL)]
     protected void patrolUpdate()
     {
-        Debug.Log("patrol update");
         if ((m_target - transform.position).magnitude <= 0.5f/*radius of enemy*/)
         {
             changePatrolTarget();
@@ -69,9 +68,7 @@ public class PatrolManz : TVManz
     [Transition(StateContoller.ANY_STATE, PATROL)]
     private void anyToPatrol()
     {
-        Debug.Log("trans to patrol");
         changePatrolTarget();
-
         m_viewbox.size = m_viewBoxPassive;
         m_listenRadius = m_passiveListenRadius;
         m_navAgent.speed = m_defaultSpeed;

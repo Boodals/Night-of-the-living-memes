@@ -23,14 +23,12 @@ public class TVManz : EnemyBase
     protected float m_defaultSpeed;
     protected float m_listenRadius;
     protected bool m_playerInViewbox;
-    [SerializeField]
     protected float m_alertTimer;
     //state stuff
     protected StateContoller m_SC;
     protected const short PASSIVE = 1;
     protected const short ALERT = 2;
     protected const short CHASING = 4;
-    public short STATE;
     // Use this for initialization
     void Start()
     {
@@ -63,14 +61,12 @@ public class TVManz : EnemyBase
         //    //Debug.Log("Heard the player!");
         //}
         m_SC.update();
-        STATE = m_SC.currentState();
     }
 
     public bool canSeePlayer()
     {
         //can do a timer here if necessary
         bool r = !Physics.Linecast(transform.position, m_player.GetCamera().transform.position);
-        Debug.Log("can see player: " + r);
         return r;
     }
 
@@ -81,7 +77,6 @@ public class TVManz : EnemyBase
 
     public void setNewDestination()
     {
-        Debug.Log("old dest set");
         m_target = m_anchor + (Random.insideUnitSphere * m_wanderRadius);
         NavMeshHit hit;
         NavMesh.SamplePosition(m_target, out hit, m_wanderRadius, int.MaxValue);
@@ -109,11 +104,10 @@ public class TVManz : EnemyBase
     }
     
     [Update(ALERT)]
-    private void alertUpdate()
+    protected void alertUpdate()
     {
         if (m_playerInViewbox)
         {
-            //raycast to search for player (have on a timer if it's laggy)
             if (canSeePlayer())
             {
                 m_SC.transition(CHASING);
@@ -127,7 +121,7 @@ public class TVManz : EnemyBase
     }
     
     [Update(CHASING)]
-    private void chasingUpdate()
+    protected void chasingUpdate()
     {
         m_navAgent.SetDestination(m_player.gameObject.transform.position);
         if (!m_playerInViewbox || !canSeePlayer())
@@ -137,9 +131,8 @@ public class TVManz : EnemyBase
     }
 
     [Transition(StateContoller.ANY_STATE, ALERT)]
-    private void anyToAlert()
+    protected void anyToAlert()
     {
-        //Debug.Log("Transitioning to alert");
         m_viewbox.size = m_viewBoxAlert;
         m_listenRadius = m_alertListenRadius;
         m_navAgent.speed = m_defaultSpeed;
@@ -148,11 +141,9 @@ public class TVManz : EnemyBase
     }
 
     [Transition(StateContoller.ANY_STATE, PASSIVE)]
-    private void anyToPassive()
+    protected void anyToPassive()
     {
-        //Debug.Log("Transitioning to passive");
-        //move to random point in wander radius
-        Debug.Log("trans to passive");
+
         setNewDestination();
 
         m_viewbox.size = m_viewBoxPassive;
@@ -161,9 +152,8 @@ public class TVManz : EnemyBase
     }
 
     [Transition(StateContoller.ANY_STATE, CHASING)]
-    private void anyToChasing()
+    protected void anyToChasing()
     {
-        //Debug.Log("Chasing player");
         m_viewbox.size = m_viewBoxChase;
         m_navAgent.speed = m_chaseSpeed;
     }
@@ -172,7 +162,6 @@ public class TVManz : EnemyBase
     {
         if (_other.tag == Tags.Player)
         {
-            //Debug.Log("I know you're there!");
             m_playerInViewbox = true;
         }
     }
@@ -181,7 +170,6 @@ public class TVManz : EnemyBase
     {
         if (_other.tag == Tags.Player)
         {
-            //Debug.Log("Where did you go?!");
             m_playerInViewbox = false;
         }
     }

@@ -57,7 +57,7 @@ public class StateContoller
                 TransPair p;
                 p.m_key = getKey(attribute.m_from, attribute.m_to);
                
-                //IF it already exists do not overrwrite! derrived fncts are handled first!
+                //IF it already exists do not overrwrite! derrived fncts are handled first! @@actually should add some priority system bc the methodinfo can be any order
                 int index;
                 if (tryGetValue(p.m_key, out p.m_fnct, out index))
                 {
