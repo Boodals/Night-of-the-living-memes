@@ -1,0 +1,144 @@
+﻿using UnityEngine;
+using System;
+using System.Reflection;
+using System.Collections.Generic;
+
+public class StateContoller
+{
+    public delegate void BasicFnct();
+    //key - function
+    protected List<TransPair> m_transitions;
+    protected Dictionary<short, BasicFnct> m_updates;
+
+    protected short m_curState;
+
+    //protected List<TransPair> m_transitions;
+    public const short ANY_STATE = short.MaxValue;
+
+    protected struct TransPair
+    {
+        public int m_key;
+        public BasicFnct m_fnct;
+    }
+
+    public StateContoller(object _obj)
+    {
+        m_curState = ANY_STATE;
+        m_transitions = new List<TransPair>();
+        m_updates = new Dictionary<short, BasicFnct>();
+
+        MethodInfo[] mthds = _obj.GetType().GetMethods(BindingFlags.Instance | BindingFlags.NonPublic);
+        // search all fields and find the attribute [TransitionAttribute]
+        for (int i = 0; i < mthds.Length; i++)
+        {
+            TransitionAttribute attribute = Attribute.GetCustomAttribute(mthds[i], typeof(TransitionAttribute)) as TransitionAttribute;
+            // if we detect a RememberMe attribute, generate field for dynamic class
+            if (attribute != null)
+            {
+                TransPair p;
+                p.m_key = getKey(attribute.m_from, attribute.m_to);
+               
+                //see if it already exists
+                int index;
+                if (tryGetValue(p.m_key, out p.m_fnct, out index))
+                {
+                    //if so, overwrite it
+                    m_transitions[index] = p;
+                }
+                else
+                {
+                    //else add it
+                    p.m_fnct = Delegate.CreateDelegate(typeof(BasicFnct), _obj, mthds[i]) as BasicFnct;
+                    m_transitions.Add(p);
+                }
+                
+            }
+            else //otherwise check for state update fnct
+            {
+                UpdateAttribute updateAttribute = Attribute.GetCustomAttribute(mthds[i], typeof(UpdateAttribute)) as UpdateAttribute;
+                if (updateAttribute != null)
+                {
+                    //should overwrite old updates
+                    m_updates[updateAttribute.m_state] = Delegate.CreateDelegate(typeof(BasicFnct), _obj, mthds[i]) as BasicFnct;
+                }
+
+            }
+        }
+    }
+
+    public void update()
+    {
+        m_updates[m_curState]();
+    }
+    public void transition(short _to)
+    { 
+        //look for transition for forward call
+        int key = getKey(m_curState, _to);
+        BasicFnct trans = null;
+
+        //if there's a transition function, call it!
+        //@@implementt they "higher key = lower priority" system
+        if (tryGetValue(key, out trans))
+        {
+            trans();
+        }
+        
+        //change curstate to target state
+        m_curState = _to;
+    }
+
+    private bool tryGetValue(int _key, out BasicFnct _fnct)
+    {
+        bool result = false;
+        _fnct = null;
+
+        for (int i = 0; i < m_transitions.Count; ++i)
+        {
+            TransPair p = m_transitions[i];
+            if ((getTo(p.m_key) & getTo(_key)) > 0 && (getFrom(p.m_key) & getFrom(_key)) > 0)
+            {
+                _fnct = p.m_fnct;
+                result = true;
+                break;
+            }
+        }
+    
+
+        return result;
+    }
+
+    private bool tryGetValue(int _key, out BasicFnct _fnct, out int _index)
+    {
+        bool result = false;
+        _fnct = null;
+        _index = -1;
+
+        for (int i = 0; i < m_transitions.Count; ++i)
+        {
+            TransPair p = m_transitions[i];
+            if ((getTo(p.m_key) & getTo(_key)) > 0 && (getFrom(p.m_key) & getFrom(_key)) > 0)
+            {
+                _fnct = p.m_fnct;
+                result = true;
+                _index = i;
+                break;
+            }
+        }
+
+        return result;
+    }
+    private int getKey(short _from, short _to)
+    {
+        int key = (int)_to | ((int)_from << 15);
+        return key;
+    }
+
+    private short getFrom(int _key)
+    {
+        return (short)(_key >> 15);
+    }
+    private short getTo(int _key)
+    {
+        return (short)(_key & short.MaxValue);
+    }
+}
