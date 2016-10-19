@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour {
     public string horizontal = "Horizontal";
     public string vertical = "Vertical";
     public string crouch = "Crouch";
+    public string sprint = "Sprint";
 
     public float playerSpeed;
     public float maxSpeed;
@@ -18,6 +19,7 @@ public class PlayerScript : MonoBehaviour {
     float horizontalValue;
     float verticalValue;
     float crouchValue;
+    float sprintValue;
 
     Vector3 currentVelocity;
     Vector3 oppositeForce;
@@ -27,7 +29,7 @@ public class PlayerScript : MonoBehaviour {
     public CrouchState myCrouchState;
     Vector3[] cameraPositions;
 
-    public enum State { Standard, Reloading, Dead}
+    public enum State { Standard, Sprinting, Reloading, Dead}
     public State myState;
 
     public Vector3 currentLookDirection;
@@ -80,6 +82,7 @@ public class PlayerScript : MonoBehaviour {
         horizontalValue = Input.GetAxis(horizontal);
         verticalValue = Input.GetAxis(vertical);
         crouchValue = Input.GetAxis(crouch);
+        sprintValue = Input.GetAxis(sprint);
 
         //Performs movement based on player input
         Vector3 movement = new Vector3(horizontalValue, 0, verticalValue);
@@ -97,6 +100,7 @@ public class PlayerScript : MonoBehaviour {
         playerRigidbody.AddForce(movement, ForceMode.VelocityChange);
 
         HandleCrouching();
+        HandleSprinting();
         HandleNoise();
         LookingAround();
 
@@ -109,18 +113,28 @@ public class PlayerScript : MonoBehaviour {
         }
     }
 
+    void HandleSprinting()
+    {
+        if (sprintValue == 1)
+        {
+            if (myState == State.Standard && myCrouchState != CrouchState.Crouching)
+            {
+                myState = State.Sprinting;
+                playerSpeed = 655;
+                maxSpeed = 6;
+            }
+            else
+            {
+                myState = State.Standard;
+                playerSpeed = 455;
+                maxSpeed = 3;
+            }
+        }
+    }
+
     void HandleCrouching()
     {
         Vector3 targetCamPos = myCamera.transform.InverseTransformDirection(cameraPositions[(int)myCrouchState]);
-
-        //if (crouchValue == 1 && myCrouchState == CrouchState.Standing)
-        //{
-        //    myCrouchState = CrouchState.Crouching;
-        //}
-        //else if (crouchValue == 1 && myCrouchState == CrouchState.Crouching)
-        //{
-        //    myCrouchState = CrouchState.Standing;
-        //}
 
         if (crouchValue == 1)
         {
