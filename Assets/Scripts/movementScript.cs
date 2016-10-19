@@ -17,6 +17,12 @@ public class movementScript : MonoBehaviour {
     public Vector3 oppositeForce;
     public Rigidbody playerRigidbody;
 
+    public enum CrouchState { Standing, Crouching, Hiding}
+    public CrouchState myCrouchState;
+
+    public enum State { Standard, Reloading, Dead}
+    public State myState;
+
 	// Use this for initialization
 	void Start () {
         playerRigidbody = GameObject.Find("Player").GetComponent<Rigidbody>();
@@ -33,7 +39,7 @@ public class movementScript : MonoBehaviour {
 
         //Applies friction
 
-        playerRigidbody.AddRelativeForce(oppositeForce * frictionValue);
+        playerRigidbody.AddForce(oppositeForce * frictionValue);
 
         //Makes sure the player doesn't go above a certain speed
 
@@ -48,23 +54,36 @@ public class movementScript : MonoBehaviour {
         verticalValue = Input.GetAxis(vertical);
 
         //Performs movement based on player input
+        Vector3 movement = new Vector3(horizontalValue, 0, verticalValue);
+        movement = transform.TransformDirection(movement);
+        
+        if(movement.magnitude>1)
+        {
+            movement = movement.normalized;
+        }
 
-        if (verticalValue > 0)
-        {
-            playerRigidbody.AddForce(Vector3.forward * playerSpeed);
-        }
-        else if (verticalValue < 0)
-        {
-            playerRigidbody.AddForce(Vector3.back * playerSpeed);
-        }
-        else if (horizontalValue > 0)
-        {
-            playerRigidbody.AddForce(Vector3.right * playerSpeed);
-        }
-        else if (horizontalValue < 0)
-        {
-            playerRigidbody.AddForce(Vector3.left * playerSpeed);
-        }
-	
+        movement = LookForWalls(movement);
+
+        playerRigidbody.AddForce(movement, ForceMode.VelocityChange);
+
+        if(HUDScript.HUDsingleton)
+            HUDScript.HUDsingleton.SetCrosshairScale();
 	}
+
+    Vector3 LookForWalls(Vector3 direction)
+    {
+        RaycastHit wall;
+        float rayDistance = 0.65f;
+
+        //This will be improved later probably
+        if(Physics.SphereCast(transform.position, 0.6f, direction, out wall, rayDistance))
+        {
+            Vector3 temp = direction;
+            //direction = Vector3.Cross(direction, wall.normal);
+            //direction = Vector3.Cross(temp, direction);
+            direction = Vector3.Lerp(direction, wall.normal, 0.5f);
+        }
+
+        return direction;
+    }
 }
