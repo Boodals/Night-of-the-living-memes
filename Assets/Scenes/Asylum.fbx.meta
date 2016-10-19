@@ -25,6 +25,16 @@ ModelImporter:
     100034: ARCH.004
     100036: DoubleDoors_Door1
     100038: DoubleDoors_Door1.001
+    100040: ARCH_001
+    100042: ARCH_002
+    100044: ARCH_003
+    100046: ARCH_004
+    100048: Cube_001
+    100050: Cube_002
+    100052: Cube_003
+    100054: Cube_004
+    100056: Cylinder_001
+    100058: DoubleDoors_Door1_001
     400000: ARCH
     400002: ARCH.001
     400004: ARCH.002
@@ -45,6 +55,16 @@ ModelImporter:
     400034: ARCH.004
     400036: DoubleDoors_Door1
     400038: DoubleDoors_Door1.001
+    400040: ARCH_001
+    400042: ARCH_002
+    400044: ARCH_003
+    400046: ARCH_004
+    400048: Cube_001
+    400050: Cube_002
+    400052: Cube_003
+    400054: Cube_004
+    400056: Cylinder_001
+    400058: DoubleDoors_Door1_001
     2300000: ARCH
     2300002: ARCH.001
     2300004: ARCH.002
@@ -62,6 +82,16 @@ ModelImporter:
     2300028: ARCH.004
     2300030: DoubleDoors_Door1
     2300032: DoubleDoors_Door1.001
+    2300034: ARCH_001
+    2300036: ARCH_002
+    2300038: ARCH_003
+    2300040: ARCH_004
+    2300042: Cube_001
+    2300044: Cube_002
+    2300046: Cube_003
+    2300048: Cube_004
+    2300050: Cylinder_001
+    2300052: DoubleDoors_Door1_001
     3300000: ARCH
     3300002: ARCH.001
     3300004: ARCH.002
@@ -79,6 +109,16 @@ ModelImporter:
     3300028: ARCH.004
     3300030: DoubleDoors_Door1
     3300032: DoubleDoors_Door1.001
+    3300034: ARCH_001
+    3300036: ARCH_002
+    3300038: ARCH_003
+    3300040: ARCH_004
+    3300042: Cube_001
+    3300044: Cube_002
+    3300046: Cube_003
+    3300048: Cube_004
+    3300050: Cylinder_001
+    3300052: DoubleDoors_Door1_001
     4300000: ARCH.003
     4300002: ARCH.002
     4300004: ARCH.001
@@ -96,6 +136,16 @@ ModelImporter:
     4300028: DoubleDoors_Door1.001
     4300030: DoubleDoors_Door1
     4300032: ARCH.004
+    4300034: DoubleDoors_Door1_001
+    4300036: ARCH_004
+    4300038: ARCH_003
+    4300040: ARCH_002
+    4300042: ARCH_001
+    4300044: Cube_004
+    4300046: Cube_003
+    4300048: Cylinder_001
+    4300050: Cube_002
+    4300052: Cube_001
     6400000: ARCH
     6400002: ARCH.001
     6400004: ARCH.002
@@ -113,6 +163,16 @@ ModelImporter:
     6400028: ARCH.004
     6400030: DoubleDoors_Door1
     6400032: DoubleDoors_Door1.001
+    6400034: ARCH_001
+    6400036: ARCH_002
+    6400038: ARCH_003
+    6400040: ARCH_004
+    6400042: Cube_001
+    6400044: Cube_002
+    6400046: Cube_003
+    6400048: Cube_004
+    6400050: Cylinder_001
+    6400052: DoubleDoors_Door1_001
   materials:
     importMaterials: 1
     materialName: 0

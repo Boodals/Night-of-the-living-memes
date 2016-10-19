@@ -4,7 +4,91 @@ timeCreated: 1476881987
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: ARCH
+    100002: ARCH_001
+    100004: ARCH_002
+    100006: ARCH_003
+    100008: ARCH_004
+    100010: //RootNode
+    100012: Cube
+    100014: Cube_001
+    100016: Cube_002
+    100018: Cube_003
+    100020: Cube_004
+    100022: Cylinder
+    100024: Cylinder_001
+    100026: DOOR_PREFAB
+    100028: DOORBOOLEAN_PREFAB
+    100030: DoubleDoors_Door1
+    100032: DoubleDoors_Door1_001
+    400000: ARCH
+    400002: ARCH_001
+    400004: ARCH_002
+    400006: ARCH_003
+    400008: ARCH_004
+    400010: //RootNode
+    400012: Cube
+    400014: Cube_001
+    400016: Cube_002
+    400018: Cube_003
+    400020: Cube_004
+    400022: Cylinder
+    400024: Cylinder_001
+    400026: DOOR_PREFAB
+    400028: DOORBOOLEAN_PREFAB
+    400030: DoubleDoors_Door1
+    400032: DoubleDoors_Door1_001
+    2300000: ARCH
+    2300002: ARCH_001
+    2300004: ARCH_002
+    2300006: ARCH_003
+    2300008: ARCH_004
+    2300010: Cube
+    2300012: Cube_001
+    2300014: Cube_002
+    2300016: Cube_003
+    2300018: Cube_004
+    2300020: Cylinder
+    2300022: Cylinder_001
+    2300024: DOOR_PREFAB
+    2300026: DOORBOOLEAN_PREFAB
+    2300028: DoubleDoors_Door1
+    2300030: DoubleDoors_Door1_001
+    3300000: ARCH
+    3300002: ARCH_001
+    3300004: ARCH_002
+    3300006: ARCH_003
+    3300008: ARCH_004
+    3300010: Cube
+    3300012: Cube_001
+    3300014: Cube_002
+    3300016: Cube_003
+    3300018: Cube_004
+    3300020: Cylinder
+    3300022: Cylinder_001
+    3300024: DOOR_PREFAB
+    3300026: DOORBOOLEAN_PREFAB
+    3300028: DoubleDoors_Door1
+    3300030: DoubleDoors_Door1_001
+    4300000: DoubleDoors_Door1_001
+    4300002: DoubleDoors_Door1
+    4300004: ARCH_004
+    4300006: ARCH_003
+    4300008: ARCH_002
+    4300010: ARCH_001
+    4300012: ARCH
+    4300014: Cube_004
+    4300016: Cube_003
+    4300018: Cylinder_001
+    4300020: Cube_002
+    4300022: DOOR_PREFAB
+    4300024: DOORBOOLEAN_PREFAB
+    4300026: Cylinder
+    4300028: Cube
+    4300030: Cube_001
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

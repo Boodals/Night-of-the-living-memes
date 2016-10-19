@@ -176,4 +176,9 @@ public class PlayerScript : MonoBehaviour {
     {
         return currentNoise;
     }
+
+    public Camera GetCamera()
+    {
+        return myCamera;
+    }
 }
