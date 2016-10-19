@@ -141,10 +141,14 @@ public class PlayerScript : MonoBehaviour {
             if(myCrouchState == CrouchState.Standing)
             {
                 myCrouchState = CrouchState.Crouching;
+                playerSpeed = 255;
+                maxSpeed = 1.5f;
             }
             else
             {
                 myCrouchState = CrouchState.Standing;
+                playerSpeed = 455;
+                maxSpeed = 3;
             }
         }
 
