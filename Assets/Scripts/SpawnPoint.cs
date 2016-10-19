@@ -10,8 +10,8 @@ public class SpawnPoint : MonoBehaviour
     public int[] m_enemiesPerLevel;
     [Tooltip("If current level > m_enemies.Count then\n enemiesSpawned = (int)(level* multiplier * highestEnemyCount)")]
     public float m_multiplier;
+    public int m_maxEnemies;
     public GameObject m_EnemyPrefab;
-
     private EnemyBase[] m_enemies;
 	// Use this for initialization
 
