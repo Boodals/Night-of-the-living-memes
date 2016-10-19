@@ -35,6 +35,9 @@ ModelImporter:
     100054: Cube_004
     100056: Cylinder_001
     100058: DoubleDoors_Door1_001
+    100060: ARCH_005
+    100062: Cube_000
+    100064: HangingLamp
     400000: ARCH
     400002: ARCH.001
     400004: ARCH.002
@@ -65,6 +68,9 @@ ModelImporter:
     400054: Cube_004
     400056: Cylinder_001
     400058: DoubleDoors_Door1_001
+    400060: ARCH_005
+    400062: Cube_000
+    400064: HangingLamp
     2300000: ARCH
     2300002: ARCH.001
     2300004: ARCH.002
@@ -92,6 +98,9 @@ ModelImporter:
     2300048: Cube_004
     2300050: Cylinder_001
     2300052: DoubleDoors_Door1_001
+    2300054: ARCH_005
+    2300056: Cube_000
+    2300058: HangingLamp
     3300000: ARCH
     3300002: ARCH.001
     3300004: ARCH.002
@@ -119,6 +128,9 @@ ModelImporter:
     3300048: Cube_004
     3300050: Cylinder_001
     3300052: DoubleDoors_Door1_001
+    3300054: ARCH_005
+    3300056: Cube_000
+    3300058: HangingLamp
     4300000: ARCH.003
     4300002: ARCH.002
     4300004: ARCH.001
@@ -146,6 +158,9 @@ ModelImporter:
     4300048: Cylinder_001
     4300050: Cube_002
     4300052: Cube_001
+    4300054: ARCH_005
+    4300056: Cube_000
+    4300058: HangingLamp
     6400000: ARCH
     6400002: ARCH.001
     6400004: ARCH.002
@@ -173,6 +188,9 @@ ModelImporter:
     6400048: Cube_004
     6400050: Cylinder_001
     6400052: DoubleDoors_Door1_001
+    6400054: ARCH_005
+    6400056: Cube_000
+    6400058: HangingLamp
   materials:
     importMaterials: 1
     materialName: 0

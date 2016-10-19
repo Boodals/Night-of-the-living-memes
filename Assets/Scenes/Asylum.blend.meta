@@ -22,6 +22,9 @@ ModelImporter:
     100028: DOORBOOLEAN_PREFAB
     100030: DoubleDoors_Door1
     100032: DoubleDoors_Door1_001
+    100034: ARCH_005
+    100036: Cube_000
+    100038: HangingLamp
     400000: ARCH
     400002: ARCH_001
     400004: ARCH_002
@@ -39,6 +42,9 @@ ModelImporter:
     400028: DOORBOOLEAN_PREFAB
     400030: DoubleDoors_Door1
     400032: DoubleDoors_Door1_001
+    400034: ARCH_005
+    400036: Cube_000
+    400038: HangingLamp
     2300000: ARCH
     2300002: ARCH_001
     2300004: ARCH_002
@@ -55,6 +61,9 @@ ModelImporter:
     2300026: DOORBOOLEAN_PREFAB
     2300028: DoubleDoors_Door1
     2300030: DoubleDoors_Door1_001
+    2300032: ARCH_005
+    2300034: Cube_000
+    2300036: HangingLamp
     3300000: ARCH
     3300002: ARCH_001
     3300004: ARCH_002
@@ -71,6 +80,9 @@ ModelImporter:
     3300026: DOORBOOLEAN_PREFAB
     3300028: DoubleDoors_Door1
     3300030: DoubleDoors_Door1_001
+    3300032: ARCH_005
+    3300034: Cube_000
+    3300036: HangingLamp
     4300000: DoubleDoors_Door1_001
     4300002: DoubleDoors_Door1
     4300004: ARCH_004
@@ -87,6 +99,9 @@ ModelImporter:
     4300026: Cylinder
     4300028: Cube
     4300030: Cube_001
+    4300032: ARCH_005
+    4300034: Cube_000
+    4300036: HangingLamp
     7400000: Default Take
     9500000: //RootNode
   materials:
