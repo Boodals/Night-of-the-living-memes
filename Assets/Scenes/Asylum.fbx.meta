@@ -38,6 +38,19 @@ ModelImporter:
     100060: ARCH_005
     100062: Cube_000
     100064: HangingLamp
+    100066: BigPillar
+    100068: BigPillar_001
+    100070: BigPillar_002
+    100072: BigPillar_003
+    100074: BigPillar_004
+    100076: BigPillar_005
+    100078: BigPillar_006
+    100080: BigPillar_007
+    100082: BigPillar_008
+    100084: BigPillar_009
+    100086: BigPillar_010
+    100088: BigPillar_011
+    100090: Cube_005
     400000: ARCH
     400002: ARCH.001
     400004: ARCH.002
@@ -71,6 +84,19 @@ ModelImporter:
     400060: ARCH_005
     400062: Cube_000
     400064: HangingLamp
+    400066: BigPillar
+    400068: BigPillar_001
+    400070: BigPillar_002
+    400072: BigPillar_003
+    400074: BigPillar_004
+    400076: BigPillar_005
+    400078: BigPillar_006
+    400080: BigPillar_007
+    400082: BigPillar_008
+    400084: BigPillar_009
+    400086: BigPillar_010
+    400088: BigPillar_011
+    400090: Cube_005
     2300000: ARCH
     2300002: ARCH.001
     2300004: ARCH.002
@@ -101,6 +127,19 @@ ModelImporter:
     2300054: ARCH_005
     2300056: Cube_000
     2300058: HangingLamp
+    2300060: BigPillar
+    2300062: BigPillar_001
+    2300064: BigPillar_002
+    2300066: BigPillar_003
+    2300068: BigPillar_004
+    2300070: BigPillar_005
+    2300072: BigPillar_006
+    2300074: BigPillar_007
+    2300076: BigPillar_008
+    2300078: BigPillar_009
+    2300080: BigPillar_010
+    2300082: BigPillar_011
+    2300084: Cube_005
     3300000: ARCH
     3300002: ARCH.001
     3300004: ARCH.002
@@ -131,6 +170,19 @@ ModelImporter:
     3300054: ARCH_005
     3300056: Cube_000
     3300058: HangingLamp
+    3300060: BigPillar
+    3300062: BigPillar_001
+    3300064: BigPillar_002
+    3300066: BigPillar_003
+    3300068: BigPillar_004
+    3300070: BigPillar_005
+    3300072: BigPillar_006
+    3300074: BigPillar_007
+    3300076: BigPillar_008
+    3300078: BigPillar_009
+    3300080: BigPillar_010
+    3300082: BigPillar_011
+    3300084: Cube_005
     4300000: ARCH.003
     4300002: ARCH.002
     4300004: ARCH.001
@@ -161,6 +213,19 @@ ModelImporter:
     4300054: ARCH_005
     4300056: Cube_000
     4300058: HangingLamp
+    4300060: BigPillar_011
+    4300062: BigPillar_010
+    4300064: BigPillar_009
+    4300066: BigPillar_008
+    4300068: BigPillar_007
+    4300070: BigPillar_006
+    4300072: BigPillar_005
+    4300074: BigPillar_004
+    4300076: BigPillar_003
+    4300078: BigPillar_002
+    4300080: BigPillar_001
+    4300082: BigPillar
+    4300084: Cube_005
     6400000: ARCH
     6400002: ARCH.001
     6400004: ARCH.002
@@ -191,6 +256,19 @@ ModelImporter:
     6400054: ARCH_005
     6400056: Cube_000
     6400058: HangingLamp
+    6400060: BigPillar
+    6400062: BigPillar_001
+    6400064: BigPillar_002
+    6400066: BigPillar_003
+    6400068: BigPillar_004
+    6400070: BigPillar_005
+    6400072: BigPillar_006
+    6400074: BigPillar_007
+    6400076: BigPillar_008
+    6400078: BigPillar_009
+    6400080: BigPillar_010
+    6400082: BigPillar_011
+    6400084: Cube_005
   materials:
     importMaterials: 1
     materialName: 0

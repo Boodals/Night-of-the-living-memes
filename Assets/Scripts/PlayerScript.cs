@@ -43,7 +43,6 @@ public class PlayerScript : MonoBehaviour {
     void Awake()
     {
         playerSingleton = this;
-
     }
 
 	// Use this for initialization
@@ -64,6 +63,9 @@ public class PlayerScript : MonoBehaviour {
 
         float currentMaxSpeedMultiplier = 1 / ((int)myCrouchState+1);
 
+        if (myState == State.Sprinting)
+            currentMaxSpeedMultiplier *= 2;
+
         //Fetches rigidbody velocity values
         currentSpeedMagnitude = playerRigidbody.velocity.magnitude;
         currentVelocity = playerRigidbody.velocity;
@@ -81,7 +83,6 @@ public class PlayerScript : MonoBehaviour {
         //Fetches the input value input manager
         horizontalValue = Input.GetAxis(horizontal);
         verticalValue = Input.GetAxis(vertical);
-        crouchValue = Input.GetAxis(crouch);
         sprintValue = Input.GetAxis(sprint);
 
         //Performs movement based on player input
@@ -91,13 +92,13 @@ public class PlayerScript : MonoBehaviour {
 
         if (movement.magnitude > 1)
         {
-            movementIntensity = movement.magnitude;
             movement = movement.normalized;
         }
 
         movement = LookForWalls(movement);
 
         playerRigidbody.AddForce(movement, ForceMode.VelocityChange);
+        movementIntensity = movement.magnitude;
 
         HandleCrouching();
         HandleSprinting();
@@ -115,20 +116,25 @@ public class PlayerScript : MonoBehaviour {
 
     void HandleSprinting()
     {
-        if (sprintValue == 1)
+        if (Input.GetButtonDown("Sprint"))
         {
             if (myState == State.Standard && myCrouchState != CrouchState.Crouching)
             {
                 myState = State.Sprinting;
-                playerSpeed = 655;
-                maxSpeed = 6;
+                //playerSpeed = 655;
+                //maxSpeed = 6;
             }
             else
             {
                 myState = State.Standard;
-                playerSpeed = 455;
-                maxSpeed = 3;
+                //playerSpeed = 455;
+                //maxSpeed = 3;
             }
+        }
+
+        if(myState==State.Sprinting && movementIntensity<0.75f)
+        {
+            myState = State.Standard;
         }
     }
 
@@ -136,7 +142,7 @@ public class PlayerScript : MonoBehaviour {
     {
         Vector3 targetCamPos = myCamera.transform.InverseTransformDirection(cameraPositions[(int)myCrouchState]);
 
-        if (crouchValue == 1)
+        if (Input.GetButtonDown("Crouch"))
         {
             if(myCrouchState == CrouchState.Standing)
             {
