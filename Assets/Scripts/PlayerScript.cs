@@ -105,7 +105,7 @@ public class PlayerScript : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            MakeNoise(1);
+            MakeNoise(100);
         }
     }
 
@@ -150,7 +150,7 @@ public class PlayerScript : MonoBehaviour {
     public void MakeNoise(float amount = 1)
     {
         currentNoise += amount;
-        Debug.Log("Current noise level is " + currentNoise);
+        //Debug.Log("Current noise level is " + currentNoise);
     }
 
     void Footstep()
