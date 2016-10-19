@@ -42,9 +42,14 @@ public class PlayerScript : MonoBehaviour {
 
     float curBobAmount = 0;
 
+    AudioSource snd;
+    bool waitingForFootstep = true;
+
     void Awake()
     {
         playerSingleton = this;
+
+        snd = GetComponent<AudioSource>();
     }
 
 	// Use this for initialization
@@ -120,16 +125,32 @@ public class PlayerScript : MonoBehaviour {
     void HandleHeadbob()
     {
         float targetBobAmount = movementIntensity * 0.29f;
-        float bobSpeed = 7;
+        float bobSpeed = 1 + (5 * movementIntensity);
 
         if (myState == State.Sprinting)
         {
             targetBobAmount = 1.55f;
-            bobSpeed = 20;
+            bobSpeed = 12;
         }
 
+        float sinAmount = Mathf.Sin(Time.timeSinceLevelLoad * bobSpeed);
 
-        curBobAmount = Mathf.Lerp(curBobAmount, Mathf.Sin(Time.timeSinceLevelLoad * bobSpeed) * targetBobAmount, 4 * Time.deltaTime);
+        if (movementIntensity > 0.1f)
+        {
+            if (Mathf.Abs(sinAmount) > 0.5f && waitingForFootstep)
+            {
+                waitingForFootstep = false;
+                Footstep();
+            }
+
+            if (Mathf.Abs(sinAmount) < 0.1f)
+            {
+                waitingForFootstep = true;
+            }
+        }
+        
+
+        curBobAmount = Mathf.Lerp(curBobAmount, sinAmount * targetBobAmount, 4 * Time.deltaTime);
 
         //Final position is applied in the crouch bit
     }
@@ -213,7 +234,8 @@ public class PlayerScript : MonoBehaviour {
 
     void Footstep()
     {
-        MakeNoise(1);
+        snd.PlayOneShot(SoundBank.singleton.footstep1, movementIntensity);
+        MakeNoise(movementIntensity);
     }
 
     void LookingAround()
