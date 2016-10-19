@@ -4,15 +4,16 @@ using System.Collections;
 public class movementScript : MonoBehaviour {
 
     //public String jumpButton = "Jump"; //Input Manager name here
-    //public String crouchButton = "Crouch"; //Input Manager name here
     public string horizontal = "Horizontal";
     public string vertical = "Vertical";
+    public string crouch = "Crouch";
     public float playerSpeed;
     public float maxSpeed;
     public float frictionValue;
     public float currentSpeedMagnitude; //Current speed 'Magnitude of the velocity of the rigidbody'
     public float horizontalValue;
     public float verticalValue;
+    public float crouchValue;
     public Vector3 currentVelocity;
     public Vector3 oppositeForce;
     public Rigidbody playerRigidbody;
@@ -22,6 +23,8 @@ public class movementScript : MonoBehaviour {
 
     public enum State { Standard, Reloading, Dead}
     public State myState;
+
+    public bool isCrouching;
 
 	// Use this for initialization
 	void Start () {
@@ -52,10 +55,22 @@ public class movementScript : MonoBehaviour {
 
         horizontalValue = Input.GetAxis(horizontal);
         verticalValue = Input.GetAxis(vertical);
+        crouchValue = Input.GetAxis(crouch);
 
         //Performs movement based on player input
         Vector3 movement = new Vector3(horizontalValue, 0, verticalValue);
         movement = transform.TransformDirection(movement);
+
+        if (crouchValue == 1)
+        {
+            isCrouching = true;
+            myCrouchState = CrouchState.Crouching;
+        }
+        else
+        {
+            isCrouching = false;
+            myCrouchState = CrouchState.Standing;
+        }
         
         if(movement.magnitude>1)
         {
@@ -68,6 +83,8 @@ public class movementScript : MonoBehaviour {
 
         if(HUDScript.HUDsingleton)
             HUDScript.HUDsingleton.SetCrosshairScale();
+
+
 	}
 
     Vector3 LookForWalls(Vector3 direction)
