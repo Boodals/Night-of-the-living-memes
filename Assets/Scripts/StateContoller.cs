@@ -3,6 +3,22 @@ using System;
 using System.Reflection;
 using System.Collections.Generic;
 
+
+/// <summary>
+/// To use the state controller correctly:
+///     -Define some const short _name_ variables for state names. 
+///      These will be used like flags so use 1,2,4,8 etc so you can combine.
+///      
+///     -Add the [Update(state)] attribute to a function with signature void _name_() 
+///      with state = the state this update function is for
+///      
+///     -Add the [Transition(from, to)] attribute to a function with signature void _name_() 
+///      This function will get called when transitioning from state "from" to state "to".
+///      
+///     -call constructor with object that is defining the transition and update functions.
+///     -call update to call the right update function.
+///     -call transition to transition to target state.
+/// </summary>
 public class StateContoller
 {
     public delegate void BasicFnct();
