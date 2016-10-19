@@ -40,6 +40,8 @@ public class PlayerScript : MonoBehaviour {
     float currentNoise = 0;
     float movementIntensity = 0;
 
+    float curBobAmount = 0;
+
     void Awake()
     {
         playerSingleton = this;
@@ -100,6 +102,7 @@ public class PlayerScript : MonoBehaviour {
         playerRigidbody.AddForce(movement, ForceMode.VelocityChange);
         movementIntensity = movement.magnitude;
 
+        HandleHeadbob();
         HandleCrouching();
         HandleSprinting();
         HandleNoise();
@@ -112,6 +115,23 @@ public class PlayerScript : MonoBehaviour {
         {
             MakeNoise(100);
         }
+    }
+
+    void HandleHeadbob()
+    {
+        float targetBobAmount = movementIntensity * 0.29f;
+        float bobSpeed = 7;
+
+        if (myState == State.Sprinting)
+        {
+            targetBobAmount = 1.55f;
+            bobSpeed = 20;
+        }
+
+
+        curBobAmount = Mathf.Lerp(curBobAmount, Mathf.Sin(Time.timeSinceLevelLoad * bobSpeed) * targetBobAmount, 4 * Time.deltaTime);
+
+        //Final position is applied in the crouch bit
     }
 
     void HandleSprinting()
@@ -132,7 +152,7 @@ public class PlayerScript : MonoBehaviour {
             }
         }
 
-        if(myState==State.Sprinting && movementIntensity<0.75f)
+        if((myState==State.Sprinting && movementIntensity<0.75f) || myCrouchState==CrouchState.Crouching)
         {
             myState = State.Standard;
         }
@@ -157,6 +177,8 @@ public class PlayerScript : MonoBehaviour {
                 maxSpeed = 3;
             }
         }
+
+        targetCamPos -= Vector3.up * curBobAmount;
 
         myCamera.transform.localPosition = Vector3.Lerp(myCamera.transform.localPosition, targetCamPos, 4 * Time.deltaTime);
     }
