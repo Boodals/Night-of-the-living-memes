@@ -25,7 +25,7 @@ public class PlayerScript : MonoBehaviour {
 
     public enum CrouchState { Standing, Crouching, Hiding}
     public CrouchState myCrouchState;
-    public Vector3[] cameraPositions;
+    Vector3[] cameraPositions;
 
     public enum State { Standard, Reloading, Dead}
     public State myState;
@@ -50,26 +50,30 @@ public class PlayerScript : MonoBehaviour {
         currentLookDirection = transform.forward;
 
         myCamera = gameObject.GetComponentInChildren<Camera>();
+
+        cameraPositions = new Vector3[3];
+        cameraPositions[0] = new Vector3(0, 0.75f, 0);
+        cameraPositions[1] = new Vector3(0, 0, 0.25f);
+        cameraPositions[2] = new Vector3(0, -0.65f, 0.35f);
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
 
-        //Fetches rigidbody velocity values
+        float currentMaxSpeedMultiplier = 1 / ((int)myCrouchState+1);
 
+        //Fetches rigidbody velocity values
         currentSpeedMagnitude = playerRigidbody.velocity.magnitude;
         currentVelocity = playerRigidbody.velocity;
         oppositeForce = -currentVelocity;
 
         //Applies friction
-
         playerRigidbody.AddForce(oppositeForce * frictionValue);
 
         //Makes sure the player doesn't go above a certain speed
-
         if (currentSpeedMagnitude >= maxSpeed)
         {
-            playerRigidbody.velocity = playerRigidbody.velocity.normalized * maxSpeed;
+            playerRigidbody.velocity = playerRigidbody.velocity.normalized * maxSpeed * currentMaxSpeedMultiplier;
         }
 
         //Fetches the input value input manager
@@ -98,11 +102,16 @@ public class PlayerScript : MonoBehaviour {
 
         if (HUDScript.HUDsingleton)
             HUDScript.HUDsingleton.SetCrosshairScale();
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            MakeNoise(1);
+        }
     }
 
     void HandleCrouching()
     {
-        Vector3 targetCamPos = cameraPositions[(int)myCrouchState];
+        Vector3 targetCamPos = myCamera.transform.InverseTransformDirection(cameraPositions[(int)myCrouchState]);
 
         if (crouchValue == 1)
         {
