@@ -113,13 +113,25 @@ public class PlayerScript : MonoBehaviour {
     {
         Vector3 targetCamPos = myCamera.transform.InverseTransformDirection(cameraPositions[(int)myCrouchState]);
 
+        //if (crouchValue == 1 && myCrouchState == CrouchState.Standing)
+        //{
+        //    myCrouchState = CrouchState.Crouching;
+        //}
+        //else if (crouchValue == 1 && myCrouchState == CrouchState.Crouching)
+        //{
+        //    myCrouchState = CrouchState.Standing;
+        //}
+
         if (crouchValue == 1)
         {
-            myCrouchState = CrouchState.Crouching;
-        }
-        else
-        {
-            myCrouchState = CrouchState.Standing;
+            if(myCrouchState == CrouchState.Standing)
+            {
+                myCrouchState = CrouchState.Crouching;
+            }
+            else
+            {
+                myCrouchState = CrouchState.Standing;
+            }
         }
 
         myCamera.transform.localPosition = Vector3.Lerp(myCamera.transform.localPosition, targetCamPos, 4 * Time.deltaTime);
