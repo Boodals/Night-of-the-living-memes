@@ -36,7 +36,10 @@ public class StateContoller
         public int m_key;
         public BasicFnct m_fnct;
     }
-
+    public short currentState()
+    {
+        return m_curState;
+    }
     public StateContoller(object _obj)
     {
         m_curState = ANY_STATE;

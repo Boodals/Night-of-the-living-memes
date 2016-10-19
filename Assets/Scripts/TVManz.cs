@@ -3,10 +3,10 @@ using System.Collections;
 
 public class TVManz : EnemyBase
 {
-
     public float m_passiveListenRadius;
     public float m_alertListenRadius;
     public float m_chaseSpeed;
+    public float m_alertTime;
 
     public Vector3 m_viewBoxPassive;
     public Vector3 m_viewBoxAlert;
@@ -23,6 +23,7 @@ public class TVManz : EnemyBase
     private float m_defaultSpeed;
     private float m_listenRadius;
     private bool m_playerInViewbox;
+    private float m_alertTimer;
     //state stuff
     protected StateContoller m_SC;
     private const short PASSIVE = 1;
@@ -54,10 +55,26 @@ public class TVManz : EnemyBase
     // Update is called once per frame
     void Update()
     {
+        if (canHearPlayer() && m_SC.currentState() != CHASING)
+        {
+            m_navAgent.SetDestination(m_player.gameObject.transform.position);
+            m_SC.transition(ALERT);
+            Debug.Log("Heard the player!");
+        }
         m_SC.update();
-
     }
-    
+
+    private bool canSeePlayer()
+    {
+        //can do a timer here if necessary
+        return !Physics.Linecast(transform.position, m_player.GetCamera().transform.position);
+    }
+
+    public bool canHearPlayer()
+    {
+        return m_player.GetCurrentNoiseLevel() >= 0 && (m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius;
+    }
+   
     [Update(PASSIVE)]
     private void passiveUpdate()
     {
@@ -69,12 +86,7 @@ public class TVManz : EnemyBase
             m_navAgent.SetDestination(m_target);
         }
 
-        if ((m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius)
-        {
-            m_navAgent.SetDestination(m_player.gameObject.transform.position);//shoddy job for now
-            m_SC.transition(ALERT);
-        }
-        else if (m_playerInViewbox)
+        if (m_playerInViewbox)
         {
             m_SC.transition(ALERT);
         }
@@ -83,35 +95,32 @@ public class TVManz : EnemyBase
     [Update(ALERT)]
     private void alertUpdate()
     {
-        //look around
+        
         if (m_playerInViewbox)
         {
             //raycast to search for player (have on a timer if it's laggy)
-            RaycastHit hit;
-            if (Physics.Linecast(transform.position, m_player.transform.position, out hit))
+            if (canSeePlayer())
             {
-                if (hit.collider.tag == Tags.Player)
-                {
-                    Debug.Log("LOS drawn");
-                    m_SC.transition(CHASING);
-                }
+                Debug.Log("LOS drawn");
+                m_SC.transition(CHASING);
             }
         }
+        else if (m_alertTimer >= m_alertTime)
+        {
+            m_SC.transition(PASSIVE);
+        }
+        else m_alertTimer += Time.deltaTime;
     }
-
+    
     [Update(CHASING)]
     private void chasingUpdate()
     {
         m_navAgent.SetDestination(m_player.gameObject.transform.position);
-        if (!m_playerInViewbox)
+        if (!m_playerInViewbox || !canSeePlayer())
         {
             m_SC.transition(ALERT);
         }
-        //should also check raycast ...
-
     }
-
-    
 
     [Transition(StateContoller.ANY_STATE, ALERT)]
     private void anyToAlert()
@@ -120,12 +129,18 @@ public class TVManz : EnemyBase
         m_viewbox.size = m_viewBoxAlert;
         m_listenRadius = m_alertListenRadius;
         m_navAgent.speed = m_defaultSpeed;
+        m_alertTimer = 0.0f;
     }
 
     [Transition(StateContoller.ANY_STATE, PASSIVE)]
     private void anyToPassive()
     {
         Debug.Log("Transitioning to passive");
+        //move to random point in wander radius
+        m_target = m_anchor + (Random.insideUnitSphere * m_wanderRadius);
+        m_target.y = transform.position.y;
+        m_navAgent.SetDestination(m_target);
+
         m_viewbox.size = m_viewBoxPassive;
         m_listenRadius = m_passiveListenRadius;
         m_navAgent.speed = m_defaultSpeed;
