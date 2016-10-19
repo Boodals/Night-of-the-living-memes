@@ -74,16 +74,23 @@ public class TVManz : EnemyBase
     {
         return m_player.GetCurrentNoiseLevel() >= 0 && (m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius;
     }
-   
+
+    public void setNewDestination()
+    {
+        m_target = m_anchor + (Random.insideUnitSphere * m_wanderRadius);
+        NavMeshHit hit;
+        NavMesh.SamplePosition(m_target, out hit, m_wanderRadius, int.MaxValue);
+
+        m_target = hit.position;
+        m_navAgent.SetDestination(m_target);
+    }
+
     [Update(PASSIVE)]
     private void passiveUpdate()
     {
-        if ((m_target - transform.position).magnitude <= 0.1f)
+        if ((m_target - transform.position).magnitude <= 0.5f/*radius of enemy*/)
         {
-            m_target = m_anchor + (Random.insideUnitSphere * m_wanderRadius);
-            m_target.y = transform.position.y;
-
-            m_navAgent.SetDestination(m_target);
+            setNewDestination();
         }
 
         if (m_playerInViewbox)
@@ -137,9 +144,7 @@ public class TVManz : EnemyBase
     {
         Debug.Log("Transitioning to passive");
         //move to random point in wander radius
-        m_target = m_anchor + (Random.insideUnitSphere * m_wanderRadius);
-        m_target.y = transform.position.y;
-        m_navAgent.SetDestination(m_target);
+        setNewDestination();
 
         m_viewbox.size = m_viewBoxPassive;
         m_listenRadius = m_passiveListenRadius;
