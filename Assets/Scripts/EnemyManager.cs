@@ -8,7 +8,7 @@ public class EnemyManager : MonoBehaviour
     //keeping a reference to them because idk if i might need to access them some more at some point
     private static SpawnPoint[] m_spawnPoints;
 
-    // Use this for initialization
+
     void Start ()
     {
         Debug.Assert(s_inst == null, "Only one enemy manager per scene!");
@@ -23,22 +23,17 @@ public class EnemyManager : MonoBehaviour
             m_spawnPoints[i].spawn();
         }
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
-	
-	}
 
-    public static void begin()
+
+    /// <summary>
+    /// Spawns enemies at every spawn point
+    /// </summary>
+    public void spawn()
     {
+        for (int i = 0; i < m_spawnPoints.Length; ++i)
+        {
+            m_spawnPoints[i].spawn();
+        }
 
     }
-
-    public static void end()
-    {
-
-    }
-
-
 }
