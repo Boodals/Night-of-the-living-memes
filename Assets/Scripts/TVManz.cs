@@ -54,12 +54,6 @@ public class TVManz : EnemyBase
     // Update is called once per frame
     void Update()
     {
-        //if (canHearPlayer() && m_SC.currentState() != CHASING)
-        //{
-        //    m_navAgent.SetDestination(m_player.gameObject.transform.position);
-        //    m_SC.transition(ALERT);
-        //    //Debug.Log("Heard the player!");
-        //}
         m_SC.update();
     }
 
@@ -72,7 +66,9 @@ public class TVManz : EnemyBase
 
     public bool canHearPlayer()
     {
-        return m_player.GetCurrentNoiseLevel() >= 0 && (m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius;
+        bool r = m_player.GetCurrentNoiseLevel() >= 0 && (m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius;
+        if (r) Debug.Log("can hear player");
+        return r;
     }
 
     public void setNewDestination()
@@ -88,7 +84,6 @@ public class TVManz : EnemyBase
     [Update(PASSIVE)]
     protected void passiveUpdate()
     {
-      
         if ((m_target - transform.position).magnitude <= 0.5f/*radius of enemy*/)
         {
             setNewDestination();
@@ -106,6 +101,7 @@ public class TVManz : EnemyBase
     [Update(ALERT)]
     protected void alertUpdate()
     {
+        m_navAgent.SetDestination(m_player.gameObject.transform.position);
         if (m_playerInViewbox)
         {
             if (canSeePlayer())
@@ -133,17 +129,18 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, ALERT)]
     protected void anyToAlert()
     {
+        //Debug.Log("trans to alert");
         m_viewbox.size = m_viewBoxAlert;
         m_listenRadius = m_alertListenRadius;
         m_navAgent.speed = m_defaultSpeed;
         m_alertTimer = 0.0f;
-        m_navAgent.SetDestination(m_player.gameObject.transform.position);
+   
     }
 
     [Transition(StateContoller.ANY_STATE, PASSIVE)]
     protected void anyToPassive()
     {
-
+        //Debug.Log("trans to passive");
         setNewDestination();
 
         m_viewbox.size = m_viewBoxPassive;
@@ -154,6 +151,7 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, CHASING)]
     protected void anyToChasing()
     {
+        //Debug.Log("trans to chasing");
         m_viewbox.size = m_viewBoxChase;
         m_navAgent.speed = m_chaseSpeed;
     }
