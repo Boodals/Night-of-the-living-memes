@@ -23,13 +23,14 @@ public class TVManz : EnemyBase
     private float m_defaultSpeed;
     private float m_listenRadius;
     private bool m_playerInViewbox;
+    [SerializeField]
     private float m_alertTimer;
     //state stuff
     protected StateContoller m_SC;
     private const short PASSIVE = 1;
     private const short ALERT = 2;
     private const short CHASING = 4;
-
+    public short STATE;
     // Use this for initialization
     void Start()
     {
@@ -55,19 +56,22 @@ public class TVManz : EnemyBase
     // Update is called once per frame
     void Update()
     {
-        if (canHearPlayer() && m_SC.currentState() != CHASING)
-        {
-            m_navAgent.SetDestination(m_player.gameObject.transform.position);
-            m_SC.transition(ALERT);
-            Debug.Log("Heard the player!");
-        }
+        //if (canHearPlayer() && m_SC.currentState() != CHASING)
+        //{
+        //    m_navAgent.SetDestination(m_player.gameObject.transform.position);
+        //    m_SC.transition(ALERT);
+        //    //Debug.Log("Heard the player!");
+        //}
         m_SC.update();
+        STATE = m_SC.currentState();
     }
 
     private bool canSeePlayer()
     {
         //can do a timer here if necessary
-        return !Physics.Linecast(transform.position, m_player.GetCamera().transform.position);
+        bool r = !Physics.Linecast(transform.position, m_player.GetCamera().transform.position);
+        Debug.Log("can see player: " + r);
+        return r;
     }
 
     public bool canHearPlayer()
@@ -92,7 +96,10 @@ public class TVManz : EnemyBase
         {
             setNewDestination();
         }
-
+        if (canHearPlayer())
+        {
+            m_SC.transition(ALERT);
+        }
         if (m_playerInViewbox)
         {
             m_SC.transition(ALERT);
@@ -102,13 +109,12 @@ public class TVManz : EnemyBase
     [Update(ALERT)]
     private void alertUpdate()
     {
-        
         if (m_playerInViewbox)
         {
             //raycast to search for player (have on a timer if it's laggy)
             if (canSeePlayer())
             {
-                Debug.Log("LOS drawn");
+                //Debug.Log("LOS drawn");
                 m_SC.transition(CHASING);
             }
         }
@@ -116,7 +122,7 @@ public class TVManz : EnemyBase
         {
             m_SC.transition(PASSIVE);
         }
-        else m_alertTimer += Time.deltaTime;
+        m_alertTimer += Time.deltaTime;
     }
     
     [Update(CHASING)]
@@ -132,17 +138,18 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, ALERT)]
     private void anyToAlert()
     {
-        Debug.Log("Transitioning to alert");
+        //Debug.Log("Transitioning to alert");
         m_viewbox.size = m_viewBoxAlert;
         m_listenRadius = m_alertListenRadius;
         m_navAgent.speed = m_defaultSpeed;
         m_alertTimer = 0.0f;
+        m_navAgent.SetDestination(m_player.gameObject.transform.position);
     }
 
     [Transition(StateContoller.ANY_STATE, PASSIVE)]
     private void anyToPassive()
     {
-        Debug.Log("Transitioning to passive");
+        //Debug.Log("Transitioning to passive");
         //move to random point in wander radius
         setNewDestination();
 
@@ -154,7 +161,7 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, CHASING)]
     private void anyToChasing()
     {
-        Debug.Log("Chasing player");
+        //Debug.Log("Chasing player");
         m_viewbox.size = m_viewBoxChase;
         m_navAgent.speed = m_chaseSpeed;
     }
@@ -163,16 +170,16 @@ public class TVManz : EnemyBase
     {
         if (_other.tag == Tags.Player)
         {
-            Debug.Log("I know you're there!");
+            //Debug.Log("I know you're there!");
             m_playerInViewbox = true;
         }
     }
 
-    void OnTriggerEXit(Collider _other)
+    void OnTriggerExit(Collider _other)
     {
         if (_other.tag == Tags.Player)
         {
-            Debug.Log("Where did you go?!");
+            //Debug.Log("Where did you go?!");
             m_playerInViewbox = false;
         }
     }
