@@ -14,13 +14,13 @@ public class TVManz : EnemyBase
     public Vector3 m_anchor;
     public Vector3 m_target;
     public float m_wanderRadius;
-
-    private GameObject m_player;
+    
+    private PlayerScript m_player;
     private NavMeshAgent m_navAgent;
     private BoxCollider m_viewbox;
 
     private float m_listenRadius;
-
+    private bool m_playerInViewbox;
     //state stuff
     protected StateContoller m_SC;
     private const short PASSIVE = 1;
@@ -30,7 +30,7 @@ public class TVManz : EnemyBase
     // Use this for initialization
     void Start()
     {
-        m_player = GameObject.Find("Player");
+        m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
 
         //nav agent
         //
@@ -52,6 +52,8 @@ public class TVManz : EnemyBase
     void Update()
     {
         m_SC.update();
+
+      
     }
 
    
@@ -64,6 +66,11 @@ public class TVManz : EnemyBase
             m_target.y = transform.position.y;
 
             m_navAgent.SetDestination(m_target);
+        }
+
+        if ((m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius)
+        {
+            m_SC.transition(ALERT);
         }
     }
 
@@ -88,6 +95,12 @@ public class TVManz : EnemyBase
     {
         //look around
         Debug.Log("Looking for player");
+        if (m_playerInViewbox)
+        {
+            //raycast to search for player (have on a timer if it's laggy)
+            //if canseeplayer
+                //m_SC.transition(CHASING)
+        }
     }
 
     [Update(CHASING)]
@@ -98,9 +111,20 @@ public class TVManz : EnemyBase
         Debug.Log("Chasing player");
     }
 
-    void OnTriggerStay(Collider _other)
+    void OnTriggerEnter(Collider _other)
     {
-        //if it's a player...
-            //raycast to check vision (if this is slow then put a timer on it)
+        if (_other.tag == Tags.Player)
+        {
+            Debug.Log("I know you're there!");
+            m_playerInViewbox = true;
+        }
+    }
+    void OnTriggerEXit(Collider _other)
+    {
+        if (_other.tag == Tags.Player)
+        {
+            Debug.Log("Where did you go?!");
+            m_playerInViewbox = false;
+        }
     }
 }
