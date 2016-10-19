@@ -57,12 +57,13 @@ public class StateContoller
                 TransPair p;
                 p.m_key = getKey(attribute.m_from, attribute.m_to);
                
-                //see if it already exists
+                //IF it already exists do not overrwrite! derrived fncts are handled first!
                 int index;
                 if (tryGetValue(p.m_key, out p.m_fnct, out index))
                 {
-                    //if so, overwrite it
-                    m_transitions[index] = p;
+                    //DO NO OVERWRITE
+                    ////if so, overwrite it
+                    ////m_transitions[index] = p;
                 }
                 else
                 {
@@ -77,8 +78,12 @@ public class StateContoller
                 UpdateAttribute updateAttribute = Attribute.GetCustomAttribute(mthds[i], typeof(UpdateAttribute)) as UpdateAttribute;
                 if (updateAttribute != null)
                 {
-                    //should overwrite old updates
-                    m_updates[updateAttribute.m_state] = Delegate.CreateDelegate(typeof(BasicFnct), _obj, mthds[i]) as BasicFnct;
+                    //seems like derrived class gets looked at first so we want first thing to not get overwritten...
+                    BasicFnct fnc = null;
+                    if (!m_updates.TryGetValue(updateAttribute.m_state, out fnc))
+                    {
+                        m_updates[updateAttribute.m_state] = Delegate.CreateDelegate(typeof(BasicFnct), _obj, mthds[i]) as BasicFnct;
+                    }
                 }
 
             }

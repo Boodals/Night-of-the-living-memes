@@ -15,21 +15,21 @@ public class TVManz : EnemyBase
     public Vector3 m_anchor;
     public Vector3 m_target;
     public float m_wanderRadius;
-    
-    private PlayerScript m_player;
-    private NavMeshAgent m_navAgent;
-    private BoxCollider m_viewbox;
 
-    private float m_defaultSpeed;
-    private float m_listenRadius;
-    private bool m_playerInViewbox;
+    protected PlayerScript m_player;
+    protected NavMeshAgent m_navAgent;
+    protected BoxCollider m_viewbox;
+
+    protected float m_defaultSpeed;
+    protected float m_listenRadius;
+    protected bool m_playerInViewbox;
     [SerializeField]
-    private float m_alertTimer;
+    protected float m_alertTimer;
     //state stuff
     protected StateContoller m_SC;
-    private const short PASSIVE = 1;
-    private const short ALERT = 2;
-    private const short CHASING = 4;
+    protected const short PASSIVE = 1;
+    protected const short ALERT = 2;
+    protected const short CHASING = 4;
     public short STATE;
     // Use this for initialization
     void Start()
@@ -66,7 +66,7 @@ public class TVManz : EnemyBase
         STATE = m_SC.currentState();
     }
 
-    private bool canSeePlayer()
+    public bool canSeePlayer()
     {
         //can do a timer here if necessary
         bool r = !Physics.Linecast(transform.position, m_player.GetCamera().transform.position);
@@ -81,6 +81,7 @@ public class TVManz : EnemyBase
 
     public void setNewDestination()
     {
+        Debug.Log("old dest set");
         m_target = m_anchor + (Random.insideUnitSphere * m_wanderRadius);
         NavMeshHit hit;
         NavMesh.SamplePosition(m_target, out hit, m_wanderRadius, int.MaxValue);
@@ -90,8 +91,9 @@ public class TVManz : EnemyBase
     }
 
     [Update(PASSIVE)]
-    private void passiveUpdate()
+    protected void passiveUpdate()
     {
+      
         if ((m_target - transform.position).magnitude <= 0.5f/*radius of enemy*/)
         {
             setNewDestination();
@@ -114,7 +116,6 @@ public class TVManz : EnemyBase
             //raycast to search for player (have on a timer if it's laggy)
             if (canSeePlayer())
             {
-                //Debug.Log("LOS drawn");
                 m_SC.transition(CHASING);
             }
         }
@@ -151,6 +152,7 @@ public class TVManz : EnemyBase
     {
         //Debug.Log("Transitioning to passive");
         //move to random point in wander radius
+        Debug.Log("trans to passive");
         setNewDestination();
 
         m_viewbox.size = m_viewBoxPassive;
