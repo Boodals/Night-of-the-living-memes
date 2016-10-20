@@ -13,7 +13,12 @@ public class FlashlightBehaviour : MonoBehaviour {
     public flashlightState myState;
 
     public Light flashlight;
+    public static FlashlightBehaviour flashlightSingleton;
 
+    void Awake()
+    {
+        flashlightSingleton = this;
+    }
 
 	// Use this for initialization
 	void Start () {
