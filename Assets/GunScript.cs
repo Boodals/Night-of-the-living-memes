@@ -62,7 +62,7 @@ public class GunScript : MonoBehaviour
         canFire = false;
         anim.SetTrigger("Fire");
         muzzleLight.intensity = 8;
-        ammo--;
+        ChangeAmmo(-1);
 
         waitingToReleaseRT = true;
     }
@@ -70,6 +70,12 @@ public class GunScript : MonoBehaviour
     public void StartReloading()
     {
 
+    }
+
+    public void ChangeAmmo(int amount)
+    {
+        ammo += amount;
+        HUDScript.HUDsingleton.UpdateAmmoTotal(ammo);
     }
 
     public void Reload()
