@@ -7,6 +7,9 @@ public class TVManz : EnemyBase
     public float m_alertListenRadius;
     public float m_chaseSpeed;
     public float m_alertTime;
+    public float m_susiciousTime;
+    public float m_incappedTime;
+    public float m_maxSusSearchAngle;
     public float m_torchOnViewboxMultiplier;
 
     public Vector3 m_curViewbox;
@@ -17,21 +20,24 @@ public class TVManz : EnemyBase
     public float m_wanderRadius;
     protected Vector3 m_anchor;
     protected Vector3 m_target;
+    protected Quaternion m_susStartRot;
 
     protected PlayerScript m_player;
     protected NavMeshAgent m_navAgent;
     protected BoxCollider m_viewbox;
-    
+
     protected float m_defaultSpeed;
     protected float m_listenRadius;
     protected bool m_playerInViewbox;
-    [SerializeField]
-    protected float m_alertTimer;
+    protected float m_timer;
     //state stuff
     protected StateContoller m_SC;
     protected const short PASSIVE = 1;
     protected const short ALERT = 2;
     protected const short CHASING = 4;
+    protected const short SUSPICIOUS = 8;
+    protected const short INCAPPED = 16;//not implemented yet!
+
     // Use this for initialization
     void Start()
     {
@@ -47,7 +53,7 @@ public class TVManz : EnemyBase
         //viewbox
         //
         m_viewbox = GetComponent<BoxCollider>();
-        
+
         //state controller
         //
         m_SC = new StateContoller(this);
@@ -79,7 +85,7 @@ public class TVManz : EnemyBase
         return r;
     }
 
-    public void setNewDestination()
+    protected void setNewDestination()
     {
         m_target = m_anchor + (Random.insideUnitSphere * m_wanderRadius);
         NavMeshHit hit;
@@ -87,6 +93,22 @@ public class TVManz : EnemyBase
 
         m_target = hit.position;
         m_navAgent.SetDestination(m_target);
+    }
+
+    protected void lookAround()
+    {
+        //float angle = 0;
+        ////if in second half of rot...
+        //if (m_timer >= m_susiciousTime / 2)
+        //{
+        //    angle = Mathf.Sin(m_timer / (m_susiciousTime / 2)) * m_maxSusSearchAngle;
+        //}
+        //else
+        //{
+        //    angle = Mathf.Sin((m_timer  - m_susiciousTime /2)/ (m_susiciousTime / 2)) * -m_maxSusSearchAngle;
+        //}
+        //transform.rotation = m_susStartRot;
+        //transform.Rotate(new Vector3(0, angle, 0));
     }
 
     [Update(PASSIVE)]
@@ -101,7 +123,7 @@ public class TVManz : EnemyBase
             m_SC.transition(ALERT);
         }
     }
-    
+
     [Update(ALERT)]
     protected void alertUpdate()
     {
@@ -113,21 +135,32 @@ public class TVManz : EnemyBase
                 m_SC.transition(CHASING);
             }
         }
-        else if (m_alertTimer >= m_alertTime)
+        else if (m_timer >= m_alertTime)
+        {
+            //m_SC.transition(PASSIVE);
+            m_SC.transition(SUSPICIOUS);
+        }
+        m_timer += Time.deltaTime;
+    }
+
+    [Update(SUSPICIOUS)]
+    protected void susUpdate()
+    {
+        //rotate around, from side to side
+        lookAround();
+
+        if (m_playerInViewbox || canHearPlayer())
+        {
+            m_SC.transition(ALERT);
+        }
+        else if (m_timer >= m_susiciousTime)
         {
             m_SC.transition(PASSIVE);
         }
-        else
-        {
-            //look around Sort this out
-            //float angle = Mathf.Sin(m_alertTimer / m_alertTime) * 50;
-            //float angle = Mathf.Asin(m_alertTimer / m_alertTime) * 10;
-            //transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
 
-        }
-        m_alertTimer += Time.deltaTime;
+        m_timer += Time.deltaTime;
     }
-    
+
     [Update(CHASING)]
     protected void chasingUpdate()
     {
@@ -138,22 +171,57 @@ public class TVManz : EnemyBase
         }
     }
 
-    [Transition(StateContoller.ANY_STATE, ALERT)]
-    protected void anyToAlert()
+    [Update(INCAPPED)]
+    protected void incappedUpdate()
     {
-        //Debug.Log("trans to alert");
+        //do nothing!
+        //when timer is up, go back to passive
+        if (m_timer >= m_incappedTime)
+        {
+            m_SC.transition(PASSIVE);
+        }
+        else m_timer += Time.deltaTime;
+    }
+
+    [Transition(StateContoller.ANY_STATE, INCAPPED)]
+    protected void anyToIncapped()
+    {
+        Debug.Log("trans to incapped");
+        m_timer = 0.0f;
+        m_navAgent.SetDestination(transform.position);
+    }
+
+    [Transition(StateContoller.ANY_STATE, SUSPICIOUS)]
+    protected void anyTosus()
+    {
+        Debug.Log("trans to sus");
         m_curViewbox = m_viewBoxAlert;
         m_viewbox.size = m_curViewbox;
         m_listenRadius = m_alertListenRadius;
         m_navAgent.speed = m_defaultSpeed;
-        m_alertTimer = 0.0f;
+        m_timer = 0.0f;
+
+        //stand still
+        m_susStartRot = transform.rotation;
+        m_navAgent.SetDestination(transform.position);
+    }
+
+    [Transition(StateContoller.ANY_STATE, ALERT)]
+    protected void anyToAlert()
+    {
+        Debug.Log("trans to alert");
+        m_curViewbox = m_viewBoxAlert;
+        m_viewbox.size = m_curViewbox;
+        m_listenRadius = m_alertListenRadius;
+        m_navAgent.speed = m_defaultSpeed;
+        m_timer = 0.0f;
    
     }
 
     [Transition(StateContoller.ANY_STATE, PASSIVE)]
     protected void anyToPassive()
     {
-        //Debug.Log("trans to passive");
+        Debug.Log("trans to passive");
         setNewDestination();
 
         m_curViewbox = m_viewBoxPassive;
@@ -165,7 +233,7 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, CHASING)]
     protected void anyToChasing()
     {
-        //Debug.Log("trans to chasing");
+        Debug.Log("trans to chasing");
         m_curViewbox = m_viewBoxChase;
         m_viewbox.size = m_curViewbox;
         m_navAgent.speed = m_chaseSpeed;
