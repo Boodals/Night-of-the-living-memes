@@ -38,7 +38,7 @@ public class PlayerScript : MonoBehaviour {
     public static float sensitivity = 170;
 
     float currentNoise = 0;
-    float movementIntensity = 0;
+    public float movementIntensity = 0;
 
     float curBobAmount = 0;
 
@@ -60,8 +60,8 @@ public class PlayerScript : MonoBehaviour {
         myCamera = gameObject.GetComponentInChildren<Camera>();
 
         cameraPositions = new Vector3[3];
-        cameraPositions[0] = new Vector3(0, 0.75f, 0);
-        cameraPositions[1] = new Vector3(0, 0, 0.25f);
+        cameraPositions[0] = new Vector3(0, 1.1f, 0);
+        cameraPositions[1] = new Vector3(0, 0.3f, 0.0f);
         cameraPositions[2] = new Vector3(0, -0.65f, 0.35f);
 	}
 	
@@ -114,7 +114,9 @@ public class PlayerScript : MonoBehaviour {
         LookingAround();
 
         if (HUDScript.HUDsingleton)
-           // HUDScript.HUDsingleton.SetCrosshairScale();
+        {
+            HUDScript.HUDsingleton.SetCrosshairScale(myCrouchState == CrouchState.Crouching, movementIntensity);
+        }
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
