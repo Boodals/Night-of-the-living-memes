@@ -86,6 +86,11 @@ public class TVManz : EnemyBase
         }
     }
 
+    public void sleep()
+    {
+        m_SC.transition(INCAPPED);
+    }
+
     public bool canSeePlayer()
     {
         //can do a timer here if necessary
