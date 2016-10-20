@@ -12,7 +12,6 @@ public class MemeManager : MonoBehaviour {
     void Start()
     {
         randomArrayIndex = Random.Range(0, memeAmount);
-        Debug.Log(randomArrayIndex);
         memeImages = Resources.LoadAll<Texture>("Memes");
         memeImage = memeImages[randomArrayIndex];
 
