@@ -114,7 +114,7 @@ public class PlayerScript : MonoBehaviour {
         LookingAround();
 
         if (HUDScript.HUDsingleton)
-            HUDScript.HUDsingleton.SetCrosshairScale();
+           // HUDScript.HUDsingleton.SetCrosshairScale();
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
