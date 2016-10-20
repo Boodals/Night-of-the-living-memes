@@ -1,43 +1,53 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PickupManager : MonoBehaviour {
 
     public Transform[] pickupLocations;
 
-    int randomIndex;
-    int[] randomIndexesChosen;
-
     public GameObject ammoBoxPrefab;
-    bool locationUsed;
 
-    int amountOfPickupsToSpawn = 5;
+    public List<int> usedValues;
 
-	// Use this for initialization
-	void Start () {
-        locationUsed = false;
-        randomIndexesChosen = new int[amountOfPickupsToSpawn];
-        for (int i = 0; i < amountOfPickupsToSpawn; i++)
-        {
-            randomIndex = Random.Range(0, 10);
-            for(int index = 0; index < amountOfPickupsToSpawn; index++)
-            {
-                if (randomIndex == randomIndexesChosen[index])
-                {
-                    locationUsed = true;
-                }
-            }
-            if (locationUsed == false)
-            {
-                Instantiate(ammoBoxPrefab, pickupLocations[randomIndex].position, pickupLocations[randomIndex].rotation);
-            }
-            randomIndexesChosen[i] = randomIndex;
-        }
-	
-	}
+    int amountOfPickupsToSpawn;
+    public int pickupsSpawned;
+    int randomIndex;
+
+    bool spawnObject;
+
+    // Use this for initialization
+    void Start () {
+        usedValues = new List<int>();
+        pickupsSpawned = 0;
+        amountOfPickupsToSpawn = 5;
+        spawnObject = true;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+
+        if (pickupsSpawned < amountOfPickupsToSpawn)
+        {
+            randomIndex = Random.Range(0, 10);
+            spawnObject = true;
+
+            for (int i = 0; i != usedValues.Count; i++)
+            {
+                if (randomIndex == usedValues[i])
+                {
+                    spawnObject = false;
+                }
+            }
+            
+            if (spawnObject == true)
+            {
+                usedValues.Add(randomIndex);
+                Instantiate(ammoBoxPrefab, pickupLocations[randomIndex].position, pickupLocations[randomIndex].rotation);
+                pickupsSpawned++;
+            }
+
+        }
+
+    }
 }
