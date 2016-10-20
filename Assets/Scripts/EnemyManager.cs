@@ -25,15 +25,15 @@ public class EnemyManager : MonoBehaviour
     }
 
 
-    /// <summary>
-    /// Spawns enemies at every spawn point
-    /// </summary>
-    public void spawn()
-    {
-        for (int i = 0; i < m_spawnPoints.Length; ++i)
-        {
-            m_spawnPoints[i].spawn();
-        }
+    ///// <summary>
+    ///// Spawns enemies at every spawn point
+    ///// </summary>
+    //public void spawn()
+    //{
+    //    for (int i = 0; i < m_spawnPoints.Length; ++i)
+    //    {
+    //        m_spawnPoints[i].spawn();
+    //    }
 
-    }
+    //}
 }

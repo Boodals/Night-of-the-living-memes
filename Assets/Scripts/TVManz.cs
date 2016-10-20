@@ -88,11 +88,7 @@ public class TVManz : EnemyBase
         {
             setNewDestination();
         }
-        if (canHearPlayer())
-        {
-            m_SC.transition(ALERT);
-        }
-        if (m_playerInViewbox)
+        if (m_playerInViewbox || canHearPlayer())
         {
             m_SC.transition(ALERT);
         }
