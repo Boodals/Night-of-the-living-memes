@@ -36,7 +36,7 @@ public class TVManz : EnemyBase
     protected const short ALERT = 2;
     protected const short CHASING = 4;
     protected const short SUSPICIOUS = 8;
-    protected const short INCAPPED = 16;//not implemented yet!
+    protected const short INCAPPED = 16;
 
     // Use this for initialization
     void Start()
@@ -63,9 +63,10 @@ public class TVManz : EnemyBase
     // Update is called once per frame
     void Update()
     {
-        m_SC.update();
 
-        //if (player.torchToggle && torchOn)
+        m_SC.update();
+        m_timer += Time.deltaTime;
+        //if (m_player. && torchOn)
         //m_viewbox.size = m_curViewbox * m_torchOnViewboxMultiplier;
         //else if (torchtoggle && torchOff)
         //m_viewbox.size = m_curViewbox;
@@ -74,7 +75,7 @@ public class TVManz : EnemyBase
     public bool canSeePlayer()
     {
         //can do a timer here if necessary
-        bool r = !Physics.Linecast(transform.position, m_player.GetCamera().transform.position);
+        bool r = m_playerInViewbox  && !Physics.Linecast(transform.position, m_player.GetCamera().transform.position);
         return r;
     }
 
@@ -97,18 +98,17 @@ public class TVManz : EnemyBase
 
     protected void lookAround()
     {
-        //float angle = 0;
-        ////if in second half of rot...
-        //if (m_timer >= m_susiciousTime / 2)
-        //{
-        //    angle = Mathf.Sin(m_timer / (m_susiciousTime / 2)) * m_maxSusSearchAngle;
-        //}
-        //else
-        //{
-        //    angle = Mathf.Sin((m_timer  - m_susiciousTime /2)/ (m_susiciousTime / 2)) * -m_maxSusSearchAngle;
-        //}
-        //transform.rotation = m_susStartRot;
-        //transform.Rotate(new Vector3(0, angle, 0));
+        float angle = m_maxSusSearchAngle;
+        if (m_timer < m_susiciousTime / 2)
+        {
+            angle *= Mathf.Sin(m_timer * Mathf.PI / (m_susiciousTime / 2));
+        }
+        else
+        {
+            angle *= -Mathf.Sin((m_timer - (m_susiciousTime/2)) * Mathf.PI / (m_susiciousTime / 2));
+        }
+        transform.rotation = m_susStartRot;
+        transform.Rotate(new Vector3(0, angle, 0));
     }
 
     [Update(PASSIVE)]
@@ -128,19 +128,15 @@ public class TVManz : EnemyBase
     protected void alertUpdate()
     {
         m_navAgent.SetDestination(m_player.gameObject.transform.position);
-        if (m_playerInViewbox)
+
+        if (canSeePlayer())
         {
-            if (canSeePlayer())
-            {
-                m_SC.transition(CHASING);
-            }
+            m_SC.transition(CHASING);
         }
         else if (m_timer >= m_alertTime)
         {
-            //m_SC.transition(PASSIVE);
             m_SC.transition(SUSPICIOUS);
         }
-        m_timer += Time.deltaTime;
     }
 
     [Update(SUSPICIOUS)]
@@ -157,8 +153,6 @@ public class TVManz : EnemyBase
         {
             m_SC.transition(PASSIVE);
         }
-
-        m_timer += Time.deltaTime;
     }
 
     [Update(CHASING)]
@@ -180,7 +174,6 @@ public class TVManz : EnemyBase
         {
             m_SC.transition(PASSIVE);
         }
-        else m_timer += Time.deltaTime;
     }
 
     [Transition(StateContoller.ANY_STATE, INCAPPED)]
