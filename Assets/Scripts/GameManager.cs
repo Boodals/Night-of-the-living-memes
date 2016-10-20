@@ -41,4 +41,9 @@ public class GameManager : MonoBehaviour
     {
         return currentGameState;
     }
+
+    public bool IsCurrentGameState(GameStates isItThis)
+    {
+        return currentGameState == isItThis;
+    }
 }
