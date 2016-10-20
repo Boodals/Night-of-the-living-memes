@@ -11,13 +11,20 @@ public class TVManz : EnemyBase
     public float m_incappedTime;
     public float m_maxSusSearchAngle;
     public float m_torchOnViewboxMultiplier;
+    public float m_wanderRadius;
 
     public Vector3 m_curViewbox;
     public Vector3 m_viewBoxPassive;
     public Vector3 m_viewBoxAlert;
     public Vector3 m_viewBoxChase;
 
-    public float m_wanderRadius;
+    public AudioClip m_alertOneShot;
+    public AudioClip m_susOneShot;
+    public AudioClip m_chaseOneShot;
+    public AudioClip m_incappOneShot;
+    public AudioSource m_staticSource;
+    public AudioSource m_oneShotSource;
+
     protected Vector3 m_anchor;
     protected Vector3 m_target;
     protected Quaternion m_susStartRot;
@@ -58,18 +65,25 @@ public class TVManz : EnemyBase
         //
         m_SC = new StateContoller(this);
         m_SC.transition(PASSIVE);
-    }
 
+        //sounds
+        //
+        m_staticSource.Play();
+    }
+ 
     // Update is called once per frame
     void Update()
     {
 
         m_SC.update();
         m_timer += Time.deltaTime;
-        //if (m_player. && torchOn)
-        //m_viewbox.size = m_curViewbox * m_torchOnViewboxMultiplier;
-        //else if (torchtoggle && torchOff)
-        //m_viewbox.size = m_curViewbox;
+        if (m_player.flashlightToggledThisFrame)
+        {
+            if (m_player.flashlightOn)
+                m_viewbox.size = m_curViewbox * m_torchOnViewboxMultiplier;
+            else
+                m_viewbox.size = m_curViewbox;
+        }
     }
 
     public bool canSeePlayer()
@@ -182,6 +196,8 @@ public class TVManz : EnemyBase
         Debug.Log("trans to incapped");
         m_timer = 0.0f;
         m_navAgent.SetDestination(transform.position);
+
+        if (m_incappOneShot != null) m_oneShotSource.PlayOneShot(m_incappOneShot);
     }
 
     [Transition(StateContoller.ANY_STATE, SUSPICIOUS)]
@@ -190,6 +206,7 @@ public class TVManz : EnemyBase
         Debug.Log("trans to sus");
         m_curViewbox = m_viewBoxAlert;
         m_viewbox.size = m_curViewbox;
+        if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;
         m_listenRadius = m_alertListenRadius;
         m_navAgent.speed = m_defaultSpeed;
         m_timer = 0.0f;
@@ -197,6 +214,8 @@ public class TVManz : EnemyBase
         //stand still
         m_susStartRot = transform.rotation;
         m_navAgent.SetDestination(transform.position);
+
+        if (m_susOneShot != null) m_oneShotSource.PlayOneShot(m_susOneShot);
     }
 
     [Transition(StateContoller.ANY_STATE, ALERT)]
@@ -205,10 +224,12 @@ public class TVManz : EnemyBase
         Debug.Log("trans to alert");
         m_curViewbox = m_viewBoxAlert;
         m_viewbox.size = m_curViewbox;
+        if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;
         m_listenRadius = m_alertListenRadius;
         m_navAgent.speed = m_defaultSpeed;
         m_timer = 0.0f;
-   
+
+        if (m_alertOneShot != null) m_oneShotSource.PlayOneShot(m_alertOneShot);
     }
 
     [Transition(StateContoller.ANY_STATE, PASSIVE)]
@@ -219,6 +240,7 @@ public class TVManz : EnemyBase
 
         m_curViewbox = m_viewBoxPassive;
         m_viewbox.size = m_curViewbox;
+        if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;
         m_listenRadius = m_passiveListenRadius;
         m_navAgent.speed = m_defaultSpeed;
     }
@@ -229,7 +251,10 @@ public class TVManz : EnemyBase
         Debug.Log("trans to chasing");
         m_curViewbox = m_viewBoxChase;
         m_viewbox.size = m_curViewbox;
+        if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;
         m_navAgent.speed = m_chaseSpeed;
+
+        if (m_chaseOneShot != null) m_oneShotSource.PlayOneShot(m_chaseOneShot);
     }
 
     void OnTriggerEnter(Collider _other)
