@@ -24,7 +24,7 @@ public class GunScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Input.GetAxisRaw("RT"));
+        //Debug.Log(Input.GetAxisRaw("RT"));
 
         if(canFire && GameManager.gameManagerSingleton.IsCurrentGameState(GameManager.GameStates.PLAYING) && !waitingToReleaseRT && ammo>0)
         {
@@ -75,7 +75,10 @@ public class GunScript : MonoBehaviour
     public void ChangeAmmo(int amount)
     {
         ammo += amount;
-        HUDScript.HUDsingleton.UpdateAmmoTotal(ammo);
+        if (HUDScript.HUDsingleton)
+        {
+            HUDScript.HUDsingleton.UpdateAmmoTotal(ammo);
+        }
     }
 
     public void Reload()
