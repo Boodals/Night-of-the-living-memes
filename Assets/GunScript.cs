@@ -75,7 +75,10 @@ public class GunScript : MonoBehaviour
     public void ChangeAmmo(int amount)
     {
         ammo += amount;
-        HUDScript.HUDsingleton.UpdateAmmoTotal(ammo);
+        if (HUDScript.HUDsingleton)
+        {
+            HUDScript.HUDsingleton.UpdateAmmoTotal(ammo);
+        }
     }
 
     public void Reload()
