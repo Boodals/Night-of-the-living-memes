@@ -11,13 +11,13 @@ public class Terminal : Interactable
 
     public override void interact()
     {
+        Debug.Log(GameManager.gameManagerSingleton.m_exitManager);
         GameManager.gameManagerSingleton.m_exitManager.hackedATerminal();
         m_SC.transition(HACKED);
     }
     public override void init()
     {
         base.init();
-        Debug.Log("init terminal");
         m_SC = new StateContoller(this);
         m_SC.transition(OFF);
         m_canInteract = false;

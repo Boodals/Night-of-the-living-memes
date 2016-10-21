@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         {
             gameManagerSingleton = this;
             DontDestroyOnLoad(gameObject);
-
+            m_startCol = m_fader.color;
             init();
         }
         else
@@ -103,11 +103,16 @@ public class GameManager : MonoBehaviour
         m_enemyManager = GameObject.Find("Enemy stuff").GetComponent<EnemyManager>();
         m_exitManager = GameObject.Find("DoorAndTerminal").GetComponent<ExitManager>();
 
-        m_startCol = m_fader.color;
+    
         m_fadeState = FADE.IN;
         m_timer = 0.0f;
     }
+    
+    public void OnLevelWasLoaded()
+    {
+        init();
 
+    }
     public static void levelUp()
     {
         ++currentStage;
@@ -115,7 +120,6 @@ public class GameManager : MonoBehaviour
 
         SceneManager.UnloadScene("asylumEditor");
         SceneManager.LoadScene("asylumEditor");
-        gameManagerSingleton.init();
     }
 
     public void ChangeGameState(GameStates newGameState)

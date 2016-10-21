@@ -23,7 +23,6 @@ public class ExitDoor : Interactable
     public override void init()
     {
         base.init();
-        Debug.Log("init door");
         m_SC = new StateContoller(this);
         m_SC.transition(INACTIVE);
 
@@ -78,9 +77,13 @@ public class ExitDoor : Interactable
     [Transition(StateContoller.ANY_STATE, ACTIVE)]
     private void anyToActive()
     {
-        m_activeLight.enabled = true;
-        m_activeLight.color = Color.green;
-        m_canInteract = true;
+        if (m_activeLight != null)
+        {
+
+            m_activeLight.enabled = true;
+            m_activeLight.color = Color.green;
+            m_canInteract = true;
+        }
     }
     [Transition(StateContoller.ANY_STATE, HACKABLE)]
     private void anyToHackable()
