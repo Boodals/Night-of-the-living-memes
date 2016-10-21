@@ -7,4 +7,5 @@ public class Tags
     public static string Player = "Player";
     public static string Door = "Door";
     public static string Terminal = "Terminal";
+    public static string Manz = "Manz";
 }
