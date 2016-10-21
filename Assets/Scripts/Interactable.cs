@@ -6,8 +6,12 @@ public class Interactable : MonoBehaviour
     public virtual void init() { }
 
     protected bool m_canInteract;
+    public string prompt;
+
     public virtual void interact()
-    {}
+    {
+        PromptDisplayScript.singleton.HidePrompt();
+    }
 
     void OnTriggerStay(Collider _other)
     {
@@ -22,6 +26,7 @@ public class Interactable : MonoBehaviour
     {
         if (_other.tag == Tags.Player)
         {
+            PromptDisplayScript.singleton.NewPrompt(prompt);
             //display help msg
         }
     }
@@ -29,6 +34,7 @@ public class Interactable : MonoBehaviour
     {
         if (_other.tag == Tags.Player)
         {
+            PromptDisplayScript.singleton.HidePrompt();
             //hide help msg
         }
     }

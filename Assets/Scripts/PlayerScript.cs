@@ -188,6 +188,12 @@ public class PlayerScript : MonoBehaviour {
         }
     }
 
+    public void AlignWithSpawnPoint(Transform spawnPoint)
+    {
+        transform.position = spawnPoint.transform.position;
+        currentLookDirection = spawnPoint.transform.eulerAngles;
+    }
+
     void HandleCrouching()
     {
         Vector3 targetCamPos = myCamera.transform.InverseTransformDirection(cameraPositions[(int)myCrouchState]);
@@ -222,7 +228,7 @@ public class PlayerScript : MonoBehaviour {
         if(Physics.SphereCast(transform.position, 0.6f, direction, out wall, rayDistance, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
         {
             Vector3 temp = Vector3.Cross(wall.normal, direction);
-            direction = Vector3.Cross(temp, wall.normal);
+            //direction = Vector3.Cross(temp, wall.normal);
         }
 
         return direction;
@@ -242,7 +248,15 @@ public class PlayerScript : MonoBehaviour {
     void Footstep()
     {
         snd.PlayOneShot(SoundBank.singleton.GetRandomClip(SoundBank.singleton.playerFootsteps), movementIntensity * 0.5f);
-        MakeNoise(movementIntensity);
+
+        float footstepNoise = movementIntensity;
+
+        if(myCrouchState==CrouchState.Crouching)
+        {
+            footstepNoise *= 0.1f;
+        }
+
+        MakeNoise(footstepNoise);
     }
 
     void LookingAround()
