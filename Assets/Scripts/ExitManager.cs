@@ -3,9 +3,12 @@ using System.Collections;
 
 public class ExitManager : MonoBehaviour
 {
-    public ExitDoor[] m_doors;
+    private ExitDoor[] m_doors;
+    
     private static ExitManager s_instance;
     private int m_curActive;
+
+    public static int m_numTerminalsLeft;
     // Use this for initialization
     void Start()
     {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-public class ExitDoor : MonoBehaviour
+public class ExitDoor : Interactable
 {
 
     public float m_fadeDuration;
@@ -35,11 +35,14 @@ public class ExitDoor : MonoBehaviour
         m_startCol = m_fader.color;
     }
 
+    public override void interact()
+    {
+        m_SC.transition(EXIT_LEVEL);
+    }
     public void activate()
     {
         m_SC.transition(ACTIVE);
     }
-
     //just for testing, as the deactivation will probably be handled internally
     public void deactivate()
     {
@@ -83,12 +86,14 @@ public class ExitDoor : MonoBehaviour
     {
         //close doors
         m_activeLight.enabled = false;//fade out would look nicer
+        m_canInteract = false;
     }
 
     [Transition(StateContoller.ANY_STATE, ACTIVE)]
     private void anyToActive()
     {
         m_activeLight.enabled = true;
+        m_canInteract = true;
     }
 
     [Transition(StateContoller.ANY_STATE, ENTER_LEVEL)]
@@ -119,18 +124,10 @@ public class ExitDoor : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         m_SC.update();
         m_timer += Time.deltaTime;
-    }
-
-    void OnTriggerStay(Collider _other)
-    {
-        if (_other.tag == Tags.Player /*&& Input.GetButtonDown("action" )*/) 
-        {
-            m_SC.transition(EXIT_LEVEL);
-        }
     }
     
 }
