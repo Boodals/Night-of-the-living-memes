@@ -51,6 +51,25 @@ ModelImporter:
     100086: BigPillar_010
     100088: BigPillar_011
     100090: Cube_005
+    100092: Shelf
+    100094: Shelf_001
+    100096: Shelf_002
+    100098: Shelf_003
+    100100: Shelf_004
+    100102: Shelf_005
+    100104: Shelf_006
+    100106: Shelf_007
+    100108: VENT
+    100110: VENT_001
+    100112: VENT_002
+    100114: VENT_003
+    100116: Cube_006
+    100118: Cube_007
+    100120: Cube_008
+    100122: Cube_009
+    100124: Cube_010
+    100126: Cube_011
+    100128: Cube_012
     400000: ARCH
     400002: ARCH.001
     400004: ARCH.002
@@ -97,6 +116,25 @@ ModelImporter:
     400086: BigPillar_010
     400088: BigPillar_011
     400090: Cube_005
+    400092: Shelf
+    400094: Shelf_001
+    400096: Shelf_002
+    400098: Shelf_003
+    400100: Shelf_004
+    400102: Shelf_005
+    400104: Shelf_006
+    400106: Shelf_007
+    400108: VENT
+    400110: VENT_001
+    400112: VENT_002
+    400114: VENT_003
+    400116: Cube_006
+    400118: Cube_007
+    400120: Cube_008
+    400122: Cube_009
+    400124: Cube_010
+    400126: Cube_011
+    400128: Cube_012
     2300000: ARCH
     2300002: ARCH.001
     2300004: ARCH.002
@@ -140,6 +178,25 @@ ModelImporter:
     2300080: BigPillar_010
     2300082: BigPillar_011
     2300084: Cube_005
+    2300086: Shelf
+    2300088: Shelf_001
+    2300090: Shelf_002
+    2300092: Shelf_003
+    2300094: Shelf_004
+    2300096: Shelf_005
+    2300098: Shelf_006
+    2300100: Shelf_007
+    2300102: VENT
+    2300104: VENT_001
+    2300106: VENT_002
+    2300108: VENT_003
+    2300110: Cube_006
+    2300112: Cube_007
+    2300114: Cube_008
+    2300116: Cube_009
+    2300118: Cube_010
+    2300120: Cube_011
+    2300122: Cube_012
     3300000: ARCH
     3300002: ARCH.001
     3300004: ARCH.002
@@ -183,6 +240,25 @@ ModelImporter:
     3300080: BigPillar_010
     3300082: BigPillar_011
     3300084: Cube_005
+    3300086: Shelf
+    3300088: Shelf_001
+    3300090: Shelf_002
+    3300092: Shelf_003
+    3300094: Shelf_004
+    3300096: Shelf_005
+    3300098: Shelf_006
+    3300100: Shelf_007
+    3300102: VENT
+    3300104: VENT_001
+    3300106: VENT_002
+    3300108: VENT_003
+    3300110: Cube_006
+    3300112: Cube_007
+    3300114: Cube_008
+    3300116: Cube_009
+    3300118: Cube_010
+    3300120: Cube_011
+    3300122: Cube_012
     4300000: ARCH.003
     4300002: ARCH.002
     4300004: ARCH.001
@@ -226,6 +302,25 @@ ModelImporter:
     4300080: BigPillar_001
     4300082: BigPillar
     4300084: Cube_005
+    4300086: Shelf_007
+    4300088: Shelf_006
+    4300090: Shelf_005
+    4300092: Shelf_004
+    4300094: Shelf_003
+    4300096: Shelf_002
+    4300098: Shelf_001
+    4300100: Shelf
+    4300102: VENT_003
+    4300104: VENT_002
+    4300106: VENT_001
+    4300108: VENT
+    4300110: Cube_007
+    4300112: Cube_006
+    4300114: Cube_012
+    4300116: Cube_011
+    4300118: Cube_010
+    4300120: Cube_009
+    4300122: Cube_008
     6400000: ARCH
     6400002: ARCH.001
     6400004: ARCH.002
@@ -269,6 +364,25 @@ ModelImporter:
     6400080: BigPillar_010
     6400082: BigPillar_011
     6400084: Cube_005
+    6400086: Shelf
+    6400088: Shelf_001
+    6400090: Shelf_002
+    6400092: Shelf_003
+    6400094: Shelf_004
+    6400096: Shelf_005
+    6400098: Shelf_006
+    6400100: Shelf_007
+    6400102: VENT
+    6400104: VENT_001
+    6400106: VENT_002
+    6400108: VENT_003
+    6400110: Cube_006
+    6400112: Cube_007
+    6400114: Cube_008
+    6400116: Cube_009
+    6400118: Cube_010
+    6400120: Cube_011
+    6400122: Cube_012
   materials:
     importMaterials: 1
     materialName: 0

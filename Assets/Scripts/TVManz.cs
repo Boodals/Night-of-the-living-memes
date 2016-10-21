@@ -45,6 +45,9 @@ public class TVManz : EnemyBase
     protected const short SUSPICIOUS = 8;
     protected const short INCAPPED = 16;
 
+    public Animator myAnim;
+    public AudioClip[] footsteps;
+
     // Use this for initialization
     void Start()
     {
@@ -83,6 +86,8 @@ public class TVManz : EnemyBase
             else
                 m_viewbox.size = m_curViewbox;
         }
+
+        myAnim.SetFloat("MovementIntensity", m_navAgent.velocity.magnitude/3);
     }
 
     public void sleep()
@@ -198,6 +203,7 @@ public class TVManz : EnemyBase
     protected void anyToIncapped()
     {
         //Debug.Log("trans to incapped");
+        myAnim.SetBool("Frozen", true);
         m_timer = 0.0f;
         m_navAgent.SetDestination(transform.position);
 
@@ -247,6 +253,8 @@ public class TVManz : EnemyBase
         if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;
         m_listenRadius = m_passiveListenRadius;
         m_navAgent.speed = m_defaultSpeed;
+        myAnim.SetBool("Frozen", false);
+
     }
 
     [Transition(StateContoller.ANY_STATE, CHASING)]
