@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c32fb922baa42cd42a936d1d5fe51258
-timeCreated: 1477053573
+guid: 9dccca42145ecb94fa80e438d0991fb3
+timeCreated: 1477067048
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -21,24 +21,22 @@ ModelImporter:
     100026: Cylinder_001
     100028: Cylinder_002
     100030: Cylinder_003
-    100032: Empty
-    100034: Foot_l
-    100036: Foot_r
-    100038: Hand_l
-    100040: Hand_r
-    100042: Hands
-    100044: Head
-    100046: Leg_l
-    100048: Leg_r
-    100050: Legs
-    100052: SCREEN
-    100054: Shin_l
-    100056: Shin_r
-    100058: Skeleton
-    100060: Sphere
-    100062: Sphere_002
-    100064: //RootNode
-    100066: Cube
+    100032: Foot_l
+    100034: Foot_r
+    100036: Hand_l
+    100038: Hand_r
+    100040: Hands
+    100042: Head
+    100044: Leg_l
+    100046: Leg_r
+    100048: Legs
+    100050: SCREEN
+    100052: Shin_l
+    100054: Shin_r
+    100056: Skeleton
+    100058: Sphere
+    100060: Sphere_002
+    100062: //RootNode
     400000: Arm_l
     400002: Arm_l_001
     400004: Arm_r
@@ -55,26 +53,22 @@ ModelImporter:
     400026: Cylinder_001
     400028: Cylinder_002
     400030: Cylinder_003
-    400032: Empty
-    400034: Foot_l
-    400036: Foot_r
-    400038: Hand_l
-    400040: Hand_r
-    400042: Hands
-    400044: Head
-    400046: Leg_l
-    400048: Leg_r
-    400050: Legs
-    400052: SCREEN
-    400054: Shin_l
-    400056: Shin_r
-    400058: Skeleton
-    400060: Sphere
-    400062: Sphere_002
-    400064: //RootNode
-    400066: Cube
-    2300000: Cube
-    3300000: Cube
+    400032: Foot_l
+    400034: Foot_r
+    400036: Hand_l
+    400038: Hand_r
+    400040: Hands
+    400042: Head
+    400044: Leg_l
+    400046: Leg_r
+    400048: Legs
+    400050: SCREEN
+    400052: Shin_l
+    400054: Shin_r
+    400056: Skeleton
+    400058: Sphere
+    400060: Sphere_002
+    400062: //RootNode
     4300000: Chestplate
     4300002: Back
     4300004: Arms
@@ -89,7 +83,6 @@ ModelImporter:
     4300022: Cylinder_003
     4300024: SCREEN
     4300026: Head
-    4300028: Cube
     7400000: Default Take
     7400002: Frozen
     7400004: GetShot
