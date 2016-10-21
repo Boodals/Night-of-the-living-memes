@@ -219,12 +219,10 @@ public class PlayerScript : MonoBehaviour {
         float rayDistance = 0.65f;
 
         //This will be improved later probably
-        if(Physics.SphereCast(transform.position, 0.6f, direction, out wall, rayDistance))
+        if(Physics.SphereCast(transform.position, 0.6f, direction, out wall, rayDistance, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
         {
-            Vector3 temp = direction;
-            //direction = Vector3.Cross(direction, wall.normal);
-            //direction = Vector3.Cross(temp, direction);
-            direction = Vector3.Lerp(direction, wall.normal, 0.5f);
+            Vector3 temp = Vector3.Cross(wall.normal, direction);
+            direction = Vector3.Cross(temp, wall.normal);
         }
 
         return direction;
