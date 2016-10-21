@@ -4,6 +4,7 @@ using System.Collections;
 public class Interactable : MonoBehaviour
 {
     public virtual void init() { }
+
     protected bool m_canInteract;
     public virtual void interact()
     {}
