@@ -8,13 +8,12 @@ public class ExitManager : MonoBehaviour
     private  List<Terminal> m_terminals;
 
    // private  ExitManager s_instance;
-    private  ExitDoor m_curDoor;
+    private  int m_curDoor;
     private  int m_numTerminalsLeft;
     // Use this for initialization
+
     void Start()
     {
-        Debug.Log("exit manager start");
-
         GameObject[] doors = GameObject.FindGameObjectsWithTag(Tags.Door);
         m_doors = new List<ExitDoor>(doors.Length);
         for (int i = 0; i < doors.Length; ++i)
@@ -22,7 +21,7 @@ public class ExitManager : MonoBehaviour
             m_doors.Add(doors[i].GetComponent<ExitDoor>());
             m_doors[i].init();
         }
-        m_curDoor = null;
+        m_curDoor = 0;
 
         GameObject[] terminals = GameObject.FindGameObjectsWithTag(Tags.Terminal);
         m_terminals = new List<Terminal>(terminals.Length);
@@ -37,11 +36,6 @@ public class ExitManager : MonoBehaviour
 
     public void reset()
     {
-        foreach (Terminal t in m_terminals)
-        {
-            t.m_SC.transition(Terminal.OFF);
-        }
-
         if (GameManager.currentStage < m_terminalsRequiredPerLevel.Length)
         {
             m_numTerminalsLeft = m_terminalsRequiredPerLevel[GameManager.currentStage];
@@ -76,29 +70,18 @@ public class ExitManager : MonoBehaviour
 
     public void activateRandomDoor()
     {
-       
-        int index = Random.Range(0, m_doors.Count);
-        m_doors[index].m_SC.transition(ExitDoor.HACKABLE);
-        m_curDoor = m_doors[index];
-        m_doors.Remove(m_curDoor);
+        m_curDoor= Random.Range(0, m_doors.Count);
+        m_doors[m_curDoor].m_SC.transition(ExitDoor.HACKABLE);
     }
-
-    public void deactivateCurDoor(ExitDoor _door)
-    {
-        if (m_curDoor!=null)
-        {
-            _door.m_SC.transition(ExitDoor.INACTIVE);
-            m_doors.Add(_door);
-        }
-    }
+    
 
     public void hackedATerminal()
     {
         if (--m_numTerminalsLeft <= 0)
         {
-            m_curDoor.m_SC.transition(ExitDoor.ACTIVE);
+            Debug.Log(m_doors[m_curDoor]);
+            m_doors[m_curDoor].m_SC.transition(ExitDoor.ACTIVE);
         }
-
     }
 
     void Update()
