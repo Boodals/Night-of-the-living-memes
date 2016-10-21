@@ -4,22 +4,27 @@ using System.Collections;
 public class Terminal : Interactable
 {
 
-    private StateContoller m_SC;
-    private const short OFF = 1;
-    private const short ON = 2;
-    private const short HACKED = 4;
+    public StateContoller m_SC;
+    public const short OFF = 1;
+    public const short ON = 2;
+    public const short HACKED = 4;
 
     public override void interact()
     {
         --ExitManager.m_numTerminalsLeft;
         m_SC.transition(HACKED);
     }
+    public override void init()
+    {
+        base.init();
+        m_SC = new StateContoller(this);
+        m_SC.transition(OFF);
+    }
 
     // Use this for initialization
     void Start ()
     {
-        m_SC = new StateContoller(this);
-        m_SC.transition(OFF);
+  
     }
 
     [Transition(StateContoller.ANY_STATE, OFF)]
@@ -31,11 +36,13 @@ public class Terminal : Interactable
     private void anyToOn()
     {
         m_canInteract = true;
+        GetComponent<MeshRenderer>().material.color = Color.red;
     }
     [Transition(StateContoller.ANY_STATE, HACKED)]
     private void anyToHacked()
     {
-
+        GetComponent<MeshRenderer>().material.color = Color.green;
+        m_canInteract = false;
     }
     [Update(HACKED)]
     private void hacked()

@@ -12,16 +12,16 @@ public class ExitDoor : Interactable
 
     private Image m_fader;
     private Color m_startCol;
-    private StateContoller m_SC;
+    public StateContoller m_SC;
     private PlayerScript m_player;
     private float m_timer;
 
 
-    protected const short INACTIVE = 1;
-    protected const short ENTER_LEVEL = 2;
-    protected const short EXIT_LEVEL = 4;
-    protected const short ACTIVE = 8;
-
+    public const short INACTIVE = 1;
+    private const short ENTER_LEVEL = 2;
+    private const short EXIT_LEVEL = 4;
+    public const short ACTIVE = 8;
+    public const short HACKABLE = 16;
     // Use this for initialization
     void Start ()
     {
@@ -33,6 +33,7 @@ public class ExitDoor : Interactable
         m_fader = GameObject.Find("FadeCanvas").GetComponent<Canvas>().GetComponentInChildren<Image>();
 
         m_startCol = m_fader.color;
+        m_canInteract = false;
     }
 
     public override void interact()
@@ -57,6 +58,11 @@ public class ExitDoor : Interactable
 
     [Update(ACTIVE)]
     private void active()
+    {
+        //do nothin' probably?
+    }
+    [Update(HACKABLE)]
+    private void hackable()
     {
         //do nothin' probably?
     }
@@ -93,9 +99,16 @@ public class ExitDoor : Interactable
     private void anyToActive()
     {
         m_activeLight.enabled = true;
+        m_activeLight.color = Color.green;
         m_canInteract = true;
     }
-
+    [Transition(StateContoller.ANY_STATE, HACKABLE)]
+    private void anyToHackable()
+    {
+        m_activeLight.enabled = true;
+        m_activeLight.color = Color.red;
+        m_canInteract = false;
+    }
     [Transition(StateContoller.ANY_STATE, ENTER_LEVEL)]
     private void anyToEnter()
     {
