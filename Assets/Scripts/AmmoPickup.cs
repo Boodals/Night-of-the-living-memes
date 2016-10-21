@@ -4,10 +4,13 @@ using System.Collections;
 public class AmmoPickup : Interactable {
 
     public int ammoAmount = 2;
+    AudioSource snd;
+    public AudioClip pickupSound;
 
 	// Use this for initialization
 	void Start () {
         m_canInteract = true;
+        snd = GameObject.Find("Player").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -18,7 +21,7 @@ public class AmmoPickup : Interactable {
     public override void interact()
     {
         base.interact();
-
+        snd.PlayOneShot(pickupSound, 0.75f);
         GunScript.gunSingleton.ChangeAmmo(ammoAmount);
         Destroy(gameObject);
     }

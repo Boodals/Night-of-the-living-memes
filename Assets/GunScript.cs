@@ -17,12 +17,14 @@ public class GunScript : MonoBehaviour
     Animator anim;
     public ParticleSystem muzzleFlash;
     public Light muzzleLight;
+    AudioSource snd;
 
     bool waitingToReleaseRT = false;
 
     // Use this for initialization
     void Awake()
     {
+        snd = GetComponentInParent<AudioSource>();
         bulletPool = new List<GameObject>();
         for (int i = 0; i < PooledAmount; i++)
         {
@@ -39,7 +41,7 @@ public class GunScript : MonoBehaviour
     {
         //Debug.Log(Input.GetAxisRaw("RT"));
 
-        if(canFire && GameManager.gameManagerSingleton.IsCurrentGameState(GameManager.GameStates.PLAYING) && !waitingToReleaseRT && ammo>0)
+        if(canFire == true && GameManager.gameManagerSingleton.IsCurrentGameState(GameManager.GameStates.PLAYING) && !waitingToReleaseRT && ammo>0)
         {
             if(Input.GetAxisRaw("RT")>0.9f)
             {
@@ -86,6 +88,7 @@ public class GunScript : MonoBehaviour
                 break;
             }
         }
+        snd.PlayOneShot(SoundBank.singleton.GetRandomClip(SoundBank.singleton.gunShots), 1.0f);
         waitingToReleaseRT = true;
     }
 

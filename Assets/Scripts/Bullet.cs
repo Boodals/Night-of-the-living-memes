@@ -19,7 +19,6 @@ public class Bullet : MonoBehaviour {
     
     void OnCollisionEnter(Collision col)
     {
-        Debug.Log(col);
         if (col.transform.tag == Tags.Manz && sleptEnemy == false)
         {
             gameObject.transform.parent = col.gameObject.transform;
