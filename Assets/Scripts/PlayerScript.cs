@@ -59,7 +59,7 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         playerRigidbody = GetComponent<Rigidbody>();
-        currentLookDirection = transform.forward;
+        currentLookDirection.y = transform.eulerAngles.y;
 
         playerFlashlight = gameObject.GetComponentInChildren<FlashlightBehaviour>();
         myCamera = gameObject.GetComponentInChildren<Camera>();
@@ -131,6 +131,11 @@ public class PlayerScript : MonoBehaviour {
         }
     }
 
+    public void ForceLookDirection(Vector3 direction)
+    {
+        currentLookDirection = direction;
+    }
+
     void HandleHeadbob()
     {
         float targetBobAmount = movementIntensity * 0.29f;
@@ -146,7 +151,7 @@ public class PlayerScript : MonoBehaviour {
 
         if (movementIntensity > 0.1f)
         {
-            if (Mathf.Abs(sinAmount) > 0.5f && waitingForFootstep)
+            if (Mathf.Abs(sinAmount) > 0.95f && waitingForFootstep)
             {
                 waitingForFootstep = false;
                 Footstep();
@@ -252,11 +257,7 @@ public class PlayerScript : MonoBehaviour {
         currentLookDirection += input * Time.deltaTime;
 
         currentLookDirection.x = Mathf.Clamp(currentLookDirection.x, -65, 50);
-        //currentLookDirection = currentLookDirection.normalized;
-
         myCamera.transform.eulerAngles = currentLookDirection;
-        //Debug.DrawLine(transform.position, transform.position + currentLookDirection, Color.red, 10);
-        //myCamera.transform.rotation = Quaternion.Lerp(myCamera.transform.rotation, Quaternion.LookRotation(currentLookDirection), 10 * Time.deltaTime);
     }
 
     public float GetCurrentNoiseLevel()
