@@ -74,7 +74,6 @@ public class TVManz : EnemyBase
     // Update is called once per frame
     void Update()
     {
-
         m_SC.update();
         m_timer += Time.deltaTime;
         if (m_player.flashlightToggledThisFrame)
@@ -101,7 +100,7 @@ public class TVManz : EnemyBase
     public bool canHearPlayer()
     {
         bool r = m_player.GetCurrentNoiseLevel() >= 0 && (m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius;
-        if (r) Debug.Log("can hear player");
+        //if (r) Debug.Log("can hear player");
         return r;
     }
 
@@ -198,7 +197,7 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, INCAPPED)]
     protected void anyToIncapped()
     {
-        Debug.Log("trans to incapped");
+        //Debug.Log("trans to incapped");
         m_timer = 0.0f;
         m_navAgent.SetDestination(transform.position);
 
@@ -208,7 +207,7 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, SUSPICIOUS)]
     protected void anyTosus()
     {
-        Debug.Log("trans to sus");
+        //Debug.Log("trans to sus");
         m_curViewbox = m_viewBoxAlert;
         m_viewbox.size = m_curViewbox;
         if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;

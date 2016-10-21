@@ -1,28 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
 public class ExitManager : MonoBehaviour
 {
     public int[] m_terminalsRequiredPerLevel;
+   
+    private  List<ExitDoor> m_doors;
+    private  List<Terminal> m_terminals;
 
-    private static List<ExitDoor> m_doors;
-    private static List<Terminal> m_terminals;
-
-    private static ExitManager s_instance;
-    private static ExitDoor m_curDoor;
-    private static int m_numTerminalsLeft;
+   // private  ExitManager s_instance;
+    private  ExitDoor m_curDoor;
+    private  int m_numTerminalsLeft;
     // Use this for initialization
     void Start()
     {
-        Debug.Assert(s_instance == null, "Only one ExitManger allowed!");
-        DontDestroyOnLoad(this);
-        s_instance = this;
+        Debug.Log("exit manager start");
 
         GameObject[] doors = GameObject.FindGameObjectsWithTag(Tags.Door);
         m_doors = new List<ExitDoor>(doors.Length);
         for (int i = 0; i < doors.Length; ++i)
         {
             m_doors.Add(doors[i].GetComponent<ExitDoor>());
+            m_doors[i].init();
         }
         m_curDoor = null;
 
@@ -34,23 +32,19 @@ public class ExitManager : MonoBehaviour
             m_terminals[i].init();
         }
 
-        GameManager.currentStage = -1;
         reset();
     }
 
-    public static void reset()
+    public void reset()
     {
-
-        GameManager.currentStage++;
-
         foreach (Terminal t in m_terminals)
         {
             t.m_SC.transition(Terminal.OFF);
         }
 
-        if (GameManager.currentStage < s_instance.m_terminalsRequiredPerLevel.Length)
+        if (GameManager.currentStage < m_terminalsRequiredPerLevel.Length)
         {
-            m_numTerminalsLeft = s_instance.m_terminalsRequiredPerLevel[GameManager.currentStage];
+            m_numTerminalsLeft = m_terminalsRequiredPerLevel[GameManager.currentStage];
             List<Terminal> unused = new List<Terminal>();
             foreach (Terminal t in m_terminals)
             {
@@ -79,15 +73,17 @@ public class ExitManager : MonoBehaviour
         
         activateRandomDoor();
     }
-    public static void activateRandomDoor()
+
+    public void activateRandomDoor()
     {
+       
         int index = Random.Range(0, m_doors.Count);
         m_doors[index].m_SC.transition(ExitDoor.HACKABLE);
         m_curDoor = m_doors[index];
         m_doors.Remove(m_curDoor);
     }
 
-    public static void deactivateCurDoor(ExitDoor _door)
+    public void deactivateCurDoor(ExitDoor _door)
     {
         if (m_curDoor!=null)
         {
@@ -96,7 +92,7 @@ public class ExitManager : MonoBehaviour
         }
     }
 
-    public static void hackedATerminal()
+    public void hackedATerminal()
     {
         if (--m_numTerminalsLeft <= 0)
         {
@@ -104,6 +100,7 @@ public class ExitManager : MonoBehaviour
         }
 
     }
+
     void Update()
     {
    

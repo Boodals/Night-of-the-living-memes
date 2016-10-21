@@ -11,7 +11,7 @@ public class Terminal : Interactable
 
     public override void interact()
     {
-        ExitManager.hackedATerminal();
+        GameManager.gameManagerSingleton.m_exitManager.hackedATerminal();
         m_SC.transition(HACKED);
     }
     public override void init()
@@ -24,7 +24,7 @@ public class Terminal : Interactable
     // Use this for initialization
     void Start ()
     {
-  
+    
     }
 
     [Transition(StateContoller.ANY_STATE, OFF)]
@@ -63,6 +63,5 @@ public class Terminal : Interactable
     void Update ()
     {
         m_SC.update();
-
     }
 }

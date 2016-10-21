@@ -1,44 +1,40 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.UI;
 public class ExitDoor : Interactable
 {
-
-    public float m_fadeDuration;
-    public float m_fadeLinger;
-    public Color m_fadeTarget;
     public Transform m_playerStartTransform;
     public Light m_activeLight;
 
-    private Image m_fader;
-    private Color m_startCol;
     public StateContoller m_SC;
     private PlayerScript m_player;
     private float m_timer;
 
-
     public const short INACTIVE = 1;
-    private const short ENTER_LEVEL = 2;
-    private const short EXIT_LEVEL = 4;
+    public const short ENTER_LEVEL = 2;
+    public const short EXIT_LEVEL = 4;
     public const short ACTIVE = 8;
     public const short HACKABLE = 16;
     // Use this for initialization
     void Start ()
     {
+        
+    }
 
+    public override void init()
+    {
+        base.init();
         m_SC = new StateContoller(this);
         m_SC.transition(INACTIVE);
 
         m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
-        m_fader = GameObject.Find("FadeCanvas").GetComponent<Canvas>().GetComponentInChildren<Image>();
-
-        m_startCol = m_fader.color;
+        m_activeLight = GetComponentInChildren<Light>();
         m_canInteract = false;
     }
-
     public override void interact()
     {
-        m_SC.transition(EXIT_LEVEL);
+        //m_SC.transition(EXIT_LEVEL);
+        GameManager.setSpawnPoint(m_playerStartTransform);
+        GameManager.levelUp();
     }
 
     [Update(INACTIVE)]
@@ -59,21 +55,17 @@ public class ExitDoor : Interactable
     [Update(ENTER_LEVEL)]
     private void enter()
     {
-        m_fader.color = Color.Lerp(m_fadeTarget,m_startCol , m_timer / m_fadeDuration);
-        if (m_timer >= m_fadeDuration)
-        {
-            m_SC.transition(INACTIVE);
-        }
+
     }
     [Update(EXIT_LEVEL)]
     private void exit()
     {
-        m_fader.color = Color.Lerp(m_startCol, m_fadeTarget, m_timer/ m_fadeDuration);
-        if (m_timer >= m_fadeDuration + m_fadeLinger)
-        {
-            ExitManager.reset();
-            m_SC.transition(ENTER_LEVEL);
-        }
+        //m_fader.color = Color.Lerp(m_startCol, m_fadeTarget, m_timer/ m_fadeDuration);
+        //if (m_timer >= m_fadeDuration + m_fadeLinger)
+        //{
+        //    ExitManager.reset(this);
+        //    m_SC.transition(ENTER_LEVEL);
+        //}
     }
 
     [Transition(StateContoller.ANY_STATE, INACTIVE)]
@@ -109,7 +101,7 @@ public class ExitDoor : Interactable
         //m_player.transform.transform.rotation = m_playerStartTransform.rotation;//ASK TMS ABOUT THIS
         m_timer = 0.0f;
         m_canInteract = false;
-        ExitManager.deactivateCurDoor(this);
+        GameManager.gameManagerSingleton.m_exitManager.deactivateCurDoor(this);
     }
     [Transition(StateContoller.ANY_STATE, EXIT_LEVEL)]
     private void anyToExit()
