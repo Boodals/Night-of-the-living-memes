@@ -7,8 +7,6 @@ public class GameManager : MonoBehaviour
 {
 
     public static GameManager gameManagerSingleton;
-    public EnemyManager m_enemyManager;
-    public Transform m_spawn;
     private PlayerScript m_player;
 
     public float m_fadeDuration;
@@ -27,6 +25,7 @@ public class GameManager : MonoBehaviour
     public static float s_score;
     private static float m_internalScore;
     public ExitManager m_exitManager;
+    public EnemyManager m_enemyManager;
     private enum FADE
     {
         OUT,
@@ -42,23 +41,20 @@ public class GameManager : MonoBehaviour
             gameManagerSingleton = this;
             DontDestroyOnLoad(gameObject);
 
-            m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
-            m_fader = GameObject.Find("FadeCanvas").GetComponent<Canvas>().GetComponentInChildren<Image>();
-
-            m_startCol = m_fader.color;
-            m_fadeState = FADE.IN;
-            m_player.transform.position = m_spawn.position;
-            m_timer = 0.0f;
+            init();
         }
         else
         {
             Destroy(gameObject);
         }
     }
-
+    public static void transformPlayer(Transform _target)
+    {
+        gameManagerSingleton.m_player.transform.position = _target.position;
+        gameManagerSingleton.m_player.transform.rotation = _target.rotation;
+    }
     public static void fadeOut()
     {
-        Debug.Log("fading out!");
         m_fader.color = Color.Lerp(m_startCol, gameManagerSingleton.m_fadeTarget, m_timer / gameManagerSingleton.m_fadeDuration);
         if (m_timer >= gameManagerSingleton.m_fadeDuration + gameManagerSingleton.m_fadeLinger)
         {
@@ -70,19 +66,12 @@ public class GameManager : MonoBehaviour
 
     public static void fadeIn()
     {
-        Debug.Log("fading in!");
         m_fader.color = Color.Lerp(gameManagerSingleton.m_fadeTarget, m_startCol, m_timer / gameManagerSingleton.m_fadeDuration);
         if (m_timer >= gameManagerSingleton.m_fadeDuration)
         {
             m_fadeState = FADE.NONE;
             m_timer = 0.0f;
         }
-    }
-
-    public static void setSpawnPoint(Transform _spawn)
-    {
-        gameManagerSingleton.m_spawn.position = _spawn.position;
-        gameManagerSingleton.m_spawn.rotation = _spawn.rotation;
     }
 
     // Update is called once per frame
@@ -107,11 +96,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void init()
+    {
+        m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
+        m_fader = GameObject.Find("FadeCanvas").GetComponent<Canvas>().GetComponentInChildren<Image>();
+        m_enemyManager = GameObject.Find("Enemy stuff").GetComponent<EnemyManager>();
+        m_exitManager = GameObject.Find("DoorAndTerminal").GetComponent<ExitManager>();
+
+        m_startCol = m_fader.color;
+        m_fadeState = FADE.IN;
+        m_timer = 0.0f;
+    }
+
     public static void levelUp()
     {
         ++currentStage;
         m_fadeState = FADE.OUT;
+
+        SceneManager.UnloadScene("asylumEditor");
         SceneManager.LoadScene("asylumEditor");
+        gameManagerSingleton.init();
     }
 
     public void ChangeGameState(GameStates newGameState)

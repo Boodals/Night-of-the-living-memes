@@ -23,6 +23,7 @@ public class ExitDoor : Interactable
     public override void init()
     {
         base.init();
+        Debug.Log("init door");
         m_SC = new StateContoller(this);
         m_SC.transition(INACTIVE);
 
@@ -33,7 +34,6 @@ public class ExitDoor : Interactable
     public override void interact()
     {
         //m_SC.transition(EXIT_LEVEL);
-        GameManager.setSpawnPoint(m_playerStartTransform);
         GameManager.levelUp();
     }
 
@@ -92,16 +92,15 @@ public class ExitDoor : Interactable
     [Transition(StateContoller.ANY_STATE, ENTER_LEVEL)]
     private void anyToEnter()
     {
+        GameManager.transformPlayer(m_playerStartTransform);
         //open the doors?
 
         //auto pilot the player forwards a few steps?
 
         //start fade-to-white?
-        m_player.transform.position = m_playerStartTransform.position;
-        //m_player.transform.transform.rotation = m_playerStartTransform.rotation;//ASK TMS ABOUT THIS
         m_timer = 0.0f;
         m_canInteract = false;
-        GameManager.gameManagerSingleton.m_exitManager.deactivateCurDoor(this);
+       // GameManager.gameManagerSingleton.m_exitManager.deactivateCurDoor(this);
     }
     [Transition(StateContoller.ANY_STATE, EXIT_LEVEL)]
     private void anyToExit()

@@ -17,8 +17,10 @@ public class Terminal : Interactable
     public override void init()
     {
         base.init();
+        Debug.Log("init terminal");
         m_SC = new StateContoller(this);
         m_SC.transition(OFF);
+        m_canInteract = false;
     }
 
     // Use this for initialization
@@ -30,24 +32,22 @@ public class Terminal : Interactable
     [Transition(StateContoller.ANY_STATE, OFF)]
     private void anyToOff()
     {
-        //Debug.Log("trans to off");
         GetComponent<MeshRenderer>().material.color = Color.grey;//rofl unity has english spelling
         m_canInteract = false;
     }
     [Transition(StateContoller.ANY_STATE, ON)]
     private void anyToOn()
     {
-        //Debug.Log("trans to on");
         m_canInteract = true;
-        GetComponent<MeshRenderer>().material.color = Color.red;//rofl unity has english spelling
+        GetComponent<MeshRenderer>().material.color = Color.red;
     }
     [Transition(StateContoller.ANY_STATE, HACKED)]
     private void anyToHacked()
     {
-        //Debug.Log("trans to hacked");
         GetComponent<MeshRenderer>().material.color = Color.green;
         m_canInteract = false;
     }
+
     [Update(HACKED)]
     private void hacked()
     { }
