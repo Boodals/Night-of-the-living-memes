@@ -32,7 +32,7 @@ public class SpawnPoint : MonoBehaviour
         m_enemies = new EnemyBase[numEnemies];
         for (int i = 0; i < numEnemies; ++i)
         {
-            GameObject enemy = Instantiate(m_EnemyPrefab);
+            GameObject enemy = Instantiate(m_EnemyPrefab, transform.position, transform.rotation) as GameObject;
             m_enemies[i] = enemy.GetComponent<EnemyBase>();
             enemy.transform.parent = transform;
         }
