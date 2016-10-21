@@ -11,7 +11,7 @@ public class Terminal : Interactable
 
     public override void interact()
     {
-        --ExitManager.m_numTerminalsLeft;
+        ExitManager.hackedATerminal();
         m_SC.transition(HACKED);
     }
     public override void init()
@@ -30,17 +30,21 @@ public class Terminal : Interactable
     [Transition(StateContoller.ANY_STATE, OFF)]
     private void anyToOff()
     {
+        //Debug.Log("trans to off");
+        GetComponent<MeshRenderer>().material.color = Color.grey;//rofl unity has english spelling
         m_canInteract = false;
     }
     [Transition(StateContoller.ANY_STATE, ON)]
     private void anyToOn()
     {
+        //Debug.Log("trans to on");
         m_canInteract = true;
-        GetComponent<MeshRenderer>().material.color = Color.red;
+        GetComponent<MeshRenderer>().material.color = Color.red;//rofl unity has english spelling
     }
     [Transition(StateContoller.ANY_STATE, HACKED)]
     private void anyToHacked()
     {
+        //Debug.Log("trans to hacked");
         GetComponent<MeshRenderer>().material.color = Color.green;
         m_canInteract = false;
     }
@@ -49,7 +53,8 @@ public class Terminal : Interactable
     { }
     [Update(OFF)]
     private void off()
-    { }
+    {
+    }
     [Update(ON)]
     private void on()
     { }

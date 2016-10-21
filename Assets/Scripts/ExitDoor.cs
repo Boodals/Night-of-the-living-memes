@@ -40,22 +40,12 @@ public class ExitDoor : Interactable
     {
         m_SC.transition(EXIT_LEVEL);
     }
-    public void activate()
-    {
-        m_SC.transition(ACTIVE);
-    }
-    //just for testing, as the deactivation will probably be handled internally
-    public void deactivate()
-    {
-        m_SC.transition(INACTIVE);
-    }
 
     [Update(INACTIVE)]
     private void inactive()
     {
         //do nothin'
     }
-
     [Update(ACTIVE)]
     private void active()
     {
@@ -66,7 +56,6 @@ public class ExitDoor : Interactable
     {
         //do nothin' probably?
     }
-
     [Update(ENTER_LEVEL)]
     private void enter()
     {
@@ -76,13 +65,13 @@ public class ExitDoor : Interactable
             m_SC.transition(INACTIVE);
         }
     }
-
     [Update(EXIT_LEVEL)]
     private void exit()
     {
         m_fader.color = Color.Lerp(m_startCol, m_fadeTarget, m_timer/ m_fadeDuration);
         if (m_timer >= m_fadeDuration + m_fadeLinger)
         {
+            ExitManager.reset();
             m_SC.transition(ENTER_LEVEL);
         }
     }
@@ -94,7 +83,6 @@ public class ExitDoor : Interactable
         m_activeLight.enabled = false;//fade out would look nicer
         m_canInteract = false;
     }
-
     [Transition(StateContoller.ANY_STATE, ACTIVE)]
     private void anyToActive()
     {
@@ -120,6 +108,8 @@ public class ExitDoor : Interactable
         m_player.transform.position = m_playerStartTransform.position;
         //m_player.transform.transform.rotation = m_playerStartTransform.rotation;//ASK TMS ABOUT THIS
         m_timer = 0.0f;
+        m_canInteract = false;
+        ExitManager.deactivateCurDoor(this);
     }
     [Transition(StateContoller.ANY_STATE, EXIT_LEVEL)]
     private void anyToExit()
@@ -134,6 +124,7 @@ public class ExitDoor : Interactable
 
         //reset level
         //increase score multiplier
+        m_canInteract = false;
     }
 
     // Update is called once per frame

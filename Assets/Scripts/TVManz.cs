@@ -226,7 +226,7 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, ALERT)]
     protected void anyToAlert()
     {
-        Debug.Log("trans to alert");
+       // Debug.Log("trans to alert");
         m_curViewbox = m_viewBoxAlert;
         m_viewbox.size = m_curViewbox;
         if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;
@@ -240,7 +240,7 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, PASSIVE)]
     protected void anyToPassive()
     {
-        Debug.Log("trans to passive");
+        //Debug.Log("trans to passive");
         setNewDestination();
 
         m_curViewbox = m_viewBoxPassive;
@@ -253,7 +253,7 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, CHASING)]
     protected void anyToChasing()
     {
-        Debug.Log("trans to chasing");
+       // Debug.Log("trans to chasing");
         m_curViewbox = m_viewBoxChase;
         m_viewbox.size = m_curViewbox;
         if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;

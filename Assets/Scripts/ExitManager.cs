@@ -5,13 +5,12 @@ public class ExitManager : MonoBehaviour
 {
     public int[] m_terminalsRequiredPerLevel;
 
-    private ExitDoor[] m_doors;
-    private List<Terminal> m_terminals;
+    private static List<ExitDoor> m_doors;
+    private static List<Terminal> m_terminals;
 
     private static ExitManager s_instance;
-    private static int m_curActive;
-    private static bool m_doorActive;
-    public static int m_numTerminalsLeft;
+    private static ExitDoor m_curDoor;
+    private static int m_numTerminalsLeft;
     // Use this for initialization
     void Start()
     {
@@ -19,12 +18,12 @@ public class ExitManager : MonoBehaviour
         s_instance = this;
 
         GameObject[] doors = GameObject.FindGameObjectsWithTag(Tags.Door);
-        m_doors = new ExitDoor[doors.Length];
+        m_doors = new List<ExitDoor>(doors.Length);
         for (int i = 0; i < doors.Length; ++i)
         {
-            m_doors[i] = doors[i].GetComponent<ExitDoor>();
+            m_doors.Add(doors[i].GetComponent<ExitDoor>());
         }
-        m_curActive = -1;
+        m_curDoor = null;
 
         GameObject[] terminals = GameObject.FindGameObjectsWithTag(Tags.Terminal);
         m_terminals = new List<Terminal>(terminals.Length);
@@ -35,14 +34,22 @@ public class ExitManager : MonoBehaviour
         }
 
         reset();
-        m_doorActive = false;
     }
     public static void reset()
     {
+        foreach (Terminal t in m_terminals)
+        {
+            t.m_SC.transition(Terminal.OFF);
+        }
+
         if (GameManager.currentStage < s_instance.m_terminalsRequiredPerLevel.Length)
         {
             m_numTerminalsLeft = s_instance.m_terminalsRequiredPerLevel[GameManager.currentStage];
-            List<Terminal> unused = s_instance.m_terminals;
+            List<Terminal> unused = new List<Terminal>();
+            foreach (Terminal t in m_terminals)
+            {
+                unused.Add(t);
+            }
             //for each terminal we need...
             for (int i = 0; i < m_numTerminalsLeft; ++i)
             {
@@ -57,10 +64,10 @@ public class ExitManager : MonoBehaviour
         //no need to do slow list shinanigens if we're using all the terminals...
         else
         {
-            m_numTerminalsLeft = s_instance.m_terminals.Count;
+            m_numTerminalsLeft = m_terminals.Count;
             for (int i = 0; i < m_numTerminalsLeft; ++i)
             {
-                s_instance.m_terminals[i].m_SC.transition(Terminal.ON);
+                m_terminals[i].m_SC.transition(Terminal.ON);
             }
         }
 
@@ -69,20 +76,31 @@ public class ExitManager : MonoBehaviour
     }
     public static void activateRandomDoor()
     {
-        m_curActive = Random.Range(0, s_instance.m_doors.Length);
-        s_instance.m_doors[m_curActive].m_SC.transition(ExitDoor.HACKABLE);
-}
+        int index = Random.Range(0, m_doors.Count);
+        m_doors[index].m_SC.transition(ExitDoor.HACKABLE);
+        m_curDoor = m_doors[index];
+        m_doors.Remove(m_curDoor);
+    }
 
-    public static void deactivateCurDoor()
+    public static void deactivateCurDoor(ExitDoor _door)
     {
-        if (m_curActive >= 0) s_instance.m_doors[m_curActive].deactivate();
+        if (m_curDoor!=null)
+        {
+            _door.m_SC.transition(ExitDoor.INACTIVE);
+            m_doors.Add(_door);
+        }
+    }
+
+    public static void hackedATerminal()
+    {
+        if (--m_numTerminalsLeft <= 0)
+        {
+            m_curDoor.m_SC.transition(ExitDoor.ACTIVE);
+        }
+
     }
     void Update()
     {
-        if (!m_doorActive && m_numTerminalsLeft <= 0)
-        {
-            m_doorActive = true;
-            s_instance.m_doors[m_curActive].m_SC.transition(ExitDoor.ACTIVE);
-        }
+   
     }
 }
