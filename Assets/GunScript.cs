@@ -108,6 +108,7 @@ public class GunScript : MonoBehaviour
 
     public void Reload()
     {
+        
         canFire = true;
     }
 }

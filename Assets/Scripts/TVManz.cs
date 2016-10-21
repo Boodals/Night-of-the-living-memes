@@ -45,6 +45,9 @@ public class TVManz : EnemyBase
     protected const short SUSPICIOUS = 8;
     protected const short INCAPPED = 16;
 
+    public Animator myAnim;
+    public AudioClip[] footsteps;
+
     // Use this for initialization
     void Start()
     {
@@ -83,6 +86,8 @@ public class TVManz : EnemyBase
             else
                 m_viewbox.size = m_curViewbox;
         }
+
+        myAnim.SetFloat("MovementIntensity", m_navAgent.velocity.magnitude/3);
     }
 
     public void sleep()
@@ -100,18 +105,19 @@ public class TVManz : EnemyBase
     public bool canHearPlayer()
     {
         bool r = m_player.GetCurrentNoiseLevel() >= 0 && (m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius;
-        //if (r) Debug.Log("can hear player");
         return r;
     }
 
     protected void setNewDestination()
     {
         m_target = m_anchor + (Random.insideUnitSphere * m_wanderRadius);
+        m_target.y = m_anchor.y;
         NavMeshHit hit;
         NavMesh.SamplePosition(m_target, out hit, m_wanderRadius, int.MaxValue);
-
+   
         m_target = hit.position;
         m_navAgent.SetDestination(m_target);
+        Debug.DrawLine(transform.position, m_target, Color.red, 20.0f);
     }
 
     protected void lookAround()
@@ -131,8 +137,8 @@ public class TVManz : EnemyBase
 
     [Update(PASSIVE)]
     protected void passiveUpdate()
-    {
-        if ((m_target - transform.position).magnitude <= 0.5f/*radius of enemy*/)
+    { 
+        if ((m_target - transform.position).magnitude <= 2.0f/*radius of enemy*/)
         {
             setNewDestination();
         }
@@ -198,6 +204,7 @@ public class TVManz : EnemyBase
     protected void anyToIncapped()
     {
         //Debug.Log("trans to incapped");
+        myAnim.SetBool("Frozen", true);
         m_timer = 0.0f;
         m_navAgent.SetDestination(transform.position);
 
@@ -247,6 +254,8 @@ public class TVManz : EnemyBase
         if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;
         m_listenRadius = m_passiveListenRadius;
         m_navAgent.speed = m_defaultSpeed;
+        myAnim.SetBool("Frozen", false);
+
     }
 
     [Transition(StateContoller.ANY_STATE, CHASING)]

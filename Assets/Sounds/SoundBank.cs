@@ -5,6 +5,8 @@ public class SoundBank : MonoBehaviour {
     public static SoundBank singleton;
     public AudioClip[] playerFootsteps, gunShots;
 
+    public AudioClip reloadSound;
+
 	// Use this for initialization
 	void Awake () {
         singleton = this;

@@ -79,7 +79,6 @@ public class ExitDoor : Interactable
     {
         if (m_activeLight != null)
         {
-
             m_activeLight.enabled = true;
             m_activeLight.color = Color.green;
             m_canInteract = true;

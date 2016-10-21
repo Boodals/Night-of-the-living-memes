@@ -14,8 +14,7 @@ public class SpawnPoint : MonoBehaviour
 	// Use this for initialization
 
     public void spawn()
-    {
-        Debug.Log("spawning dude");
+    { 
         int numEnemies = 0;
         if (GameManager.currentStage >= m_enemiesPerLevel.Length)
         {
