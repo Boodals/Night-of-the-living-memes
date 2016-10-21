@@ -51,7 +51,7 @@ public class PatrolManz : TVManz
     [Update(PATROL)]
     protected void patrolUpdate()
     {
-        if ((m_target - transform.position).magnitude <= 0.5f/*radius of enemy*/)
+        if ((m_target - transform.position).magnitude <= 2.0f/*radius of enemy*/)
         {
             changePatrolTarget();
         }
@@ -72,6 +72,7 @@ public class PatrolManz : TVManz
         m_viewbox.size = m_viewBoxPassive;
         m_listenRadius = m_passiveListenRadius;
         m_navAgent.speed = m_defaultSpeed;
+        myAnim.SetBool("Frozen", false);
     }
 
 }
