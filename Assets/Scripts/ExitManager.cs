@@ -15,6 +15,7 @@ public class ExitManager : MonoBehaviour
     void Start()
     {
         Debug.Assert(s_instance == null, "Only one ExitManger allowed!");
+        DontDestroyOnLoad(this);
         s_instance = this;
 
         GameObject[] doors = GameObject.FindGameObjectsWithTag(Tags.Door);
@@ -33,10 +34,15 @@ public class ExitManager : MonoBehaviour
             m_terminals[i].init();
         }
 
+        GameManager.currentStage = -1;
         reset();
     }
+
     public static void reset()
     {
+
+        GameManager.currentStage++;
+
         foreach (Terminal t in m_terminals)
         {
             t.m_SC.transition(Terminal.OFF);
@@ -70,8 +76,7 @@ public class ExitManager : MonoBehaviour
                 m_terminals[i].m_SC.transition(Terminal.ON);
             }
         }
-
-        //really this should activate it but in waiting mode, needs to be hacked first
+        
         activateRandomDoor();
     }
     public static void activateRandomDoor()
