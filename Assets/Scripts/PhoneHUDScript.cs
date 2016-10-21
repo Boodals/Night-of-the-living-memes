@@ -42,6 +42,7 @@ public class PhoneHUDScript : MonoBehaviour
     {
         if(FlashlightBehaviour.flashlightSingleton.batteryCharge > 75)
         {
+            
             for(int i = 0; i < 4; i++)
             {
                 batteryBars[i].enabled = true;
@@ -50,6 +51,7 @@ public class PhoneHUDScript : MonoBehaviour
         }
        if(FlashlightBehaviour.flashlightSingleton.batteryCharge <= 75)
         {
+            Debug.Log("Battery below 75");
             batteryBars[3].enabled = false;
             barNumber = 2;
         }
