@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour {
     {
         if (col.transform.tag == Tags.Manz && sleptEnemy == false)
         {
+            Debug.Log("Hit enemy");
             gameObject.transform.parent = col.gameObject.transform;
             col.gameObject.GetComponent<TVManz>().sleep();
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
