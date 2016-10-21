@@ -12,7 +12,7 @@ public class ExitManager : MonoBehaviour
     private  int m_numTerminalsLeft;
     // Use this for initialization
 
-    void Start()
+    public void init()
     {
         GameObject[] doors = GameObject.FindGameObjectsWithTag(Tags.Door);
         m_doors = new List<ExitDoor>(doors.Length);
@@ -67,13 +67,22 @@ public class ExitManager : MonoBehaviour
         
         activateRandomDoor();
     }
-
+    
     public void activateRandomDoor()
     {
         m_curDoor= Random.Range(0, m_doors.Count);
         m_doors[m_curDoor].m_SC.transition(ExitDoor.HACKABLE);
     }
-    
+
+    public void spawnPlayerAtRandomDoor(PlayerScript _player)
+    {
+        Debug.Log(m_doors);
+        int index = Random.Range(0, m_doors.Count);
+        if (index == m_curDoor) index = ++index < m_doors.Count ? index : 0;
+
+ 
+        _player.AlignWithSpawnPoint(m_doors[m_curDoor].m_playerStartTransform);
+    }
 
     public void hackedATerminal()
     {

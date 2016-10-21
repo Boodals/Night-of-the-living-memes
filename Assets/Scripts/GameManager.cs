@@ -41,14 +41,7 @@ public class GameManager : MonoBehaviour
             gameManagerSingleton = this;
             DontDestroyOnLoad(gameObject);
 
-            m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
-            m_fader = GameObject.Find("FadeCanvas").GetComponent<Canvas>().GetComponentInChildren<Image>();
-            m_enemyManager = GameObject.Find("Enemy stuff").GetComponent<EnemyManager>();
-            m_exitManager = GameObject.Find("DoorAndTerminal").GetComponent<ExitManager>();
-
-
-            m_fadeState = FADE.IN;
-            m_timer = 0.0f;
+            init();
             m_startCol = m_fader.color;
         }
         else
@@ -110,8 +103,8 @@ public class GameManager : MonoBehaviour
         m_fader = GameObject.Find("FadeCanvas").GetComponent<Canvas>().GetComponentInChildren<Image>();
         m_enemyManager = GameObject.Find("Enemy stuff").GetComponent<EnemyManager>();
         m_exitManager = GameObject.Find("DoorAndTerminal").GetComponent<ExitManager>();
+        m_exitManager.init();
 
-    
         m_fadeState = FADE.IN;
         m_timer = 0.0f;
     }
@@ -119,7 +112,7 @@ public class GameManager : MonoBehaviour
     public void OnLevelWasLoaded()
     {
         init();
-
+        m_exitManager.spawnPlayerAtRandomDoor(m_player);
     }
     public static void levelUp()
     {

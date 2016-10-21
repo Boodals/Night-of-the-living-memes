@@ -18,6 +18,7 @@ public class SpawnPoint : MonoBehaviour
         int numEnemies = 0;
         if (GameManager.currentStage >= m_enemiesPerLevel.Length)
         {
+            Debug.Log("special spawn!");
             numEnemies = (int)((GameManager.currentStage +1) * m_multiplier);
             if (m_enemiesPerLevel.Length > 0)
             {
@@ -36,5 +37,6 @@ public class SpawnPoint : MonoBehaviour
             m_enemies[i] = enemy.GetComponent<EnemyBase>();
             enemy.transform.parent = transform;
         }
+        Debug.Log("spawning " + numEnemies);
     }
 }

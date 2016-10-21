@@ -18,6 +18,7 @@ public class Interactable : MonoBehaviour
         if (_other.tag == Tags.Player && Input.GetButtonDown("Action") && m_canInteract)
         {
             //hide help msg
+            PromptDisplayScript.singleton.HidePrompt();
             interact();
         }
     }

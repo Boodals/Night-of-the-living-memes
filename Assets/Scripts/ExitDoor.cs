@@ -32,7 +32,8 @@ public class ExitDoor : Interactable
     }
     public override void interact()
     {
-        //m_SC.transition(EXIT_LEVEL);
+        base.interact();
+        Debug.Log(this);
         GameManager.levelUp();
     }
 
