@@ -4,6 +4,7 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 
     public int bulletSpeed = 10;
+    bool sleptEnemy = false;
 
 	// Use this for initialization
 	void OnEnable () {
@@ -19,9 +20,12 @@ public class Bullet : MonoBehaviour {
     void OnCollisionEnter(Collision col)
     {
         Debug.Log(col);
-        if (col.transform.tag == Tags.Manz)
+        if (col.transform.tag == Tags.Manz && sleptEnemy == false)
         {
+            gameObject.transform.parent = col.gameObject.transform;
             col.gameObject.GetComponent<TVManz>().sleep();
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            sleptEnemy = true;
         }
         else
         {
