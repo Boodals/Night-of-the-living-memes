@@ -6,5 +6,5 @@ public class Tags
     public static string SpawnPoint = "SpawnPoint";
     public static string Player = "Player";
     public static string Door = "Door";
-    public static string Manz = "Manz";
+    public static string Terminal = "Terminal";
 }
