@@ -241,7 +241,7 @@ public class PlayerScript : MonoBehaviour {
 
     void Footstep()
     {
-        snd.PlayOneShot(SoundBank.singleton.footstep1, movementIntensity);
+        snd.PlayOneShot(SoundBank.singleton.GetRandomClip(SoundBank.singleton.playerFootsteps), movementIntensity * 0.5f);
         MakeNoise(movementIntensity);
     }
 
