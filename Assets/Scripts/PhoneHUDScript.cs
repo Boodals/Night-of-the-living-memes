@@ -4,9 +4,22 @@ using UnityEngine.UI;
 
 public class PhoneHUDScript : MonoBehaviour
 {
+    //battery charge display stuff
     public Image[] batteryBars;
     public float lerpSpeed;
     int barNumber;
+
+    //nyanometer display stuff
+    public Image arrow;
+    public float distance; //change this value when you want to change the rot of the nyanometer arrow
+    public float farAway, nearby;
+
+    public static PhoneHUDScript phoneHUDSingleton;
+
+    void Awake()
+    {
+        phoneHUDSingleton = this;
+    }
     
 
 	// Use this for initialization
@@ -19,6 +32,10 @@ public class PhoneHUDScript : MonoBehaviour
 	void Update ()
     {
         batteryBars[barNumber].color = Color.Lerp(Color.clear, Color.white, Mathf.Abs(Mathf.Sin(Time.time * lerpSpeed)));
+
+        float rotation = Mathf.Lerp(nearby, farAway, distance / 100);
+
+        arrow.transform.localEulerAngles = new Vector3(0, 360, rotation);
 	}
 
     void DisplayBatteryCharge()
