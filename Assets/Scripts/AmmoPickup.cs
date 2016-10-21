@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AmmoPickup : MonoBehaviour {
+public class AmmoPickup : Interactable {
 
     public int ammoAmount = 2;
 
 	// Use this for initialization
 	void Start () {
-	
+        m_canInteract = true;
 	}
 	
 	// Update is called once per frame
@@ -15,12 +15,20 @@ public class AmmoPickup : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter(Collider col)
+    public override void interact()
     {
-        if (col.tag == "Player")
-        {
-            GunScript.gunSingleton.ChangeAmmo(ammoAmount);
-            Destroy(gameObject);
-        }
+        base.interact();
+
+        GunScript.gunSingleton.ChangeAmmo(ammoAmount);
+        Destroy(gameObject);
     }
+
+    //void OnTriggerEnter(Collider col)
+    //{
+    //    if (col.tag == "Player")
+    //    {
+    //        GunScript.gunSingleton.ChangeAmmo(ammoAmount);
+    //        Destroy(gameObject);
+    //    }
+    //}
 }
