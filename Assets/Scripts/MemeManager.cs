@@ -18,7 +18,7 @@ public class MemeManager : MonoBehaviour {
         Material matToChange = plane.GetComponent<Renderer>().material;
 
         //matToChange.SetTexture("_MainTexture", memeImage);
-        matToChange.mainTexture = memeImage;
+        matToChange.SetTexture("_EmissionMap", memeImage);
     }
 
     void Update()
