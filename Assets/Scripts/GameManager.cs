@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour
         NONE
     }
     private static FADE m_fadeState;
+
+
+    float secondTimer;
+    int seconds = 0, minutes = 0;
+
     // Use this for initialization
     void Awake()
     {
@@ -97,6 +102,8 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
+
+        HandleTimer();
     }
 
     private void init()
@@ -139,5 +146,24 @@ public class GameManager : MonoBehaviour
     public bool IsCurrentGameState(GameStates isItThis)
     {
         return currentGameState == isItThis;
+    }
+
+    void HandleTimer()
+    {
+        secondTimer += Time.deltaTime;
+
+        while(secondTimer>1)
+        {
+            secondTimer -= 1;
+            seconds += 1;
+        }
+
+        while(seconds>59)
+        {
+            seconds -= 60;
+            minutes += 1;
+        }
+
+        PhoneHUDScript.phoneHUDSingleton.UpdateTimer(minutes, seconds);
     }
 }
