@@ -188,7 +188,7 @@ public class PlayerScript : MonoBehaviour
         if(deathTimer>3f)
         {
             GameManager.gameManagerSingleton.ChangeGameState(GameManager.GameStates.GAMEOVER);
-
+            Destroy(GameManager.gameManagerSingleton.gameObject);
             //CUT TO BLACK
             UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         }
