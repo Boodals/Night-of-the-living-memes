@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour {
     public int bulletSpeed = 10;
     bool sleptEnemy = false;
 
+    public GameObject zapEffect;
+
 	// Use this for initialization
 	void OnEnable () {
         gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.forward * bulletSpeed;
@@ -26,6 +28,8 @@ public class Bullet : MonoBehaviour {
             col.gameObject.GetComponent<TVManz>().sleep();
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             sleptEnemy = true;
+
+            Instantiate(zapEffect, col.collider.gameObject.transform.position, transform.rotation);
         }
         else
         {
