@@ -52,6 +52,9 @@ public class PlayerScript : MonoBehaviour
 
     public Transform forceLookAtThis;
 
+
+    float deathTimer = 0;
+
     void Awake()
     {
         playerSingleton = this;
@@ -105,25 +108,34 @@ public class PlayerScript : MonoBehaviour
         sprintValue = Input.GetAxis(sprint);
 
         //Performs movement based on player input
-        Vector3 movement = new Vector3(horizontalValue, 0, verticalValue);
-        movement = myCamera.transform.TransformDirection(movement);
-        movement.y = 0;
 
-        if (movement.magnitude > 1)
+        if (myState != State.Dead)
         {
-            movement = movement.normalized;
+            Vector3 movement = new Vector3(horizontalValue, 0, verticalValue);
+            movement = myCamera.transform.TransformDirection(movement);
+            movement.y = 0;
+
+            if (movement.magnitude > 1)
+            {
+                movement = movement.normalized;
+            }
+
+            movement = LookForWalls(movement);
+
+            playerRigidbody.AddForce(movement, ForceMode.VelocityChange);
+            movementIntensity = movement.magnitude;
         }
-
-        movement = LookForWalls(movement);
-
-        playerRigidbody.AddForce(movement, ForceMode.VelocityChange);
-        movementIntensity = movement.magnitude;
 
         HandleHeadbob();
         HandleCrouching();
         HandleSprinting();
         HandleNoise();
         LookingAround();
+
+        if(myState==State.Dead)
+        {
+            HandleDying();
+        }
 
         if (HUDScript.HUDsingleton)
         {
@@ -167,6 +179,31 @@ public class PlayerScript : MonoBehaviour
         curBobAmount = Mathf.Lerp(curBobAmount, sinAmount * targetBobAmount, 4 * Time.deltaTime);
 
         //Final position is applied in the crouch bit
+    }
+
+    void HandleDying()
+    {
+        deathTimer += Time.deltaTime;
+
+        if(deathTimer>3f)
+        {
+            myCamera.GetComponent<AudioListener>().enabled = false;
+            GameManager.gameManagerSingleton.ChangeGameState(GameManager.GameStates.GAMEOVER);
+            
+            //CUT TO BLACK
+
+            //AFTER A FEW SECONDS GO TO ANOTHER SCENE
+        }
+    }
+
+    public void StartDying()
+    {
+        if (myState != State.Dead)
+        {
+            snd.PlayOneShot(SoundBank.singleton.deathSound);
+            deathTimer = 0;
+            myState = State.Dead;
+        }
     }
 
     public void LookAtThis(Transform lookHere)

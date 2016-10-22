@@ -41,7 +41,7 @@ public class GunScript : MonoBehaviour
     {
         //Debug.Log(Input.GetAxisRaw("RT"));
 
-        if(canFire == true && GameManager.gameManagerSingleton.IsCurrentGameState(GameManager.GameStates.PLAYING) && !waitingToReleaseRT && ammo>0)
+        if(canFire && GameManager.gameManagerSingleton.IsCurrentGameState(GameManager.GameStates.PLAYING) && !waitingToReleaseRT && ammo>0)
         {
             if(Input.GetAxisRaw("RT")>0.9f)
             {
@@ -110,5 +110,10 @@ public class GunScript : MonoBehaviour
     {
         
         canFire = true;
+    }
+
+    public void ReloadSound()
+    {
+        snd.PlayOneShot(SoundBank.singleton.reloadSound);
     }
 }
