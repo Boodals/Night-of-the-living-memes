@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
                 m_internalScore += Time.deltaTime * ((currentStage + 1) * gameManagerSingleton.m_scoreStageModifier);
                 s_score = (int)m_internalScore;
                 HUDScript.HUDsingleton.UpdateScore(s_score);
+                PersistentScript.s_score = s_score;
                 break;
             default:
                 break;
