@@ -1,20 +1,24 @@
 fileFormatVersion: 2
-guid: 2f0bad5e43e52f848b68f7d8af8c654b
-timeCreated: 1477137332
+guid: 04c0d7f45774db54e845c1edc82560c2
+timeCreated: 1477146035
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: BigWheels
-    100002: Frame
-    100004: Seat
-    100006: SmallWheels
-    100008: //RootNode
+    100002: Camera
+    100004: Frame
+    100006: Lamp
+    100008: Seat
+    100010: SmallWheels
+    100012: //RootNode
     400000: BigWheels
-    400002: Frame
-    400004: Seat
-    400006: SmallWheels
-    400008: //RootNode
+    400002: Camera
+    400004: Frame
+    400006: Lamp
+    400008: Seat
+    400010: SmallWheels
+    400012: //RootNode
     2300000: BigWheels
     2300002: Frame
     2300004: Seat

@@ -1,32 +1,21 @@
 fileFormatVersion: 2
-guid: 2f0bad5e43e52f848b68f7d8af8c654b
-timeCreated: 1477137332
+guid: f6f5cfbb17f8af14082e5528965ece5b
+timeCreated: 1477146037
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: BigWheels
-    100002: Frame
-    100004: Seat
-    100006: SmallWheels
-    100008: //RootNode
-    400000: BigWheels
-    400002: Frame
-    400004: Seat
-    400006: SmallWheels
-    400008: //RootNode
-    2300000: BigWheels
-    2300002: Frame
-    2300004: Seat
-    2300006: SmallWheels
-    3300000: BigWheels
-    3300002: Frame
-    3300004: Seat
-    3300006: SmallWheels
-    4300000: SmallWheels
-    4300002: Frame
-    4300004: BigWheels
-    4300006: Seat
+    100000: Camera
+    100002: Cube
+    100004: Lamp
+    100006: //RootNode
+    400000: Camera
+    400002: Cube
+    400004: Lamp
+    400006: //RootNode
+    2300000: Cube
+    3300000: Cube
+    4300000: Cube
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -53,8 +42,8 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.2
-    meshCompression: 3
+    globalScale: 1
+    meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
