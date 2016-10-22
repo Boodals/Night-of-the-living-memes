@@ -182,7 +182,7 @@ public class PlayerScript : MonoBehaviour {
             }
         }
 
-        if((myState==State.Sprinting && movementIntensity<0.75f) || myCrouchState==CrouchState.Crouching)
+        if((myState==State.Sprinting && movementIntensity<0.9f) || myCrouchState==CrouchState.Crouching)
         {
             myState = State.Standard;
         }
