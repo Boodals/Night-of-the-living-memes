@@ -23,6 +23,7 @@ public class TVManz : EnemyBase
     public AudioClip m_susOneShot;
     public AudioClip m_chaseOneShot;
     public AudioClip m_incappOneShot;
+    public AudioClip m_attackingOneShot;
     public AudioSource m_staticSource;
     public AudioSource m_oneShotSource;
 
@@ -47,6 +48,7 @@ public class TVManz : EnemyBase
     protected const short CHASING = 4;
     protected const short SUSPICIOUS = 8;
     protected const short INCAPPED = 16;
+    protected const short ATTACKING = 32;
 
     public Animator myAnim;
     public AudioClip[] footsteps;
@@ -197,9 +199,8 @@ public class TVManz : EnemyBase
         {
             if ((transform.position - m_player.GetCamera().transform.position).magnitude <= m_killRange)
             {
-                Debug.Log("Die!");
-                m_player.LookAtThis(m_headTransform);
-                //transition to killing player state? play kill player anim?
+
+                m_SC.transition(ATTACKING);
             }
         }
     }
@@ -214,6 +215,23 @@ public class TVManz : EnemyBase
             Debug.Log("trying to trans to passive");
             m_SC.transition(PASSIVE);
         }
+    }
+    [Update(ATTACKING)]
+    protected void attackingUpdate()
+    {
+        m_player.LookAtThis(m_headTransform);
+    }
+
+    [Transition(StateContoller.ANY_STATE, ATTACKING)]
+    protected void anyToAttack()
+    {
+        //stand still
+        Debug.Log("Die");
+      
+        m_navAgent.SetDestination(transform.position);
+        m_player.StartDying();
+
+        if (m_attackingOneShot != null) m_oneShotSource.PlayOneShot(m_attackingOneShot);
     }
 
     [Transition(StateContoller.ANY_STATE, INCAPPED)]
@@ -269,7 +287,7 @@ public class TVManz : EnemyBase
         myAnim.SetBool("Frozen", false);
 
     }
-    
+
     [Transition(StateContoller.ANY_STATE, CHASING)]
     protected void anyToChasing()
     {
