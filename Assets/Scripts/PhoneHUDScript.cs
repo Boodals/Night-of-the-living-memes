@@ -37,7 +37,10 @@ public class PhoneHUDScript : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        batteryBars[barNumber].color = Color.Lerp(Color.clear, Color.white, Mathf.Abs(Mathf.Sin(Time.time * lerpSpeed)));
+        if (FlashlightBehaviour.flashlightSingleton.myState == FlashlightBehaviour.flashlightState.On)
+        {
+            batteryBars[barNumber].color = Color.Lerp(Color.clear, Color.white, Mathf.Abs(Mathf.Sin(Time.time * lerpSpeed)));
+        }
 
         float rotation = Mathf.Lerp(nearby, farAway, distance / 100);
 
