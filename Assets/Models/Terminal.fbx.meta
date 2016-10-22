@@ -1,22 +1,26 @@
 fileFormatVersion: 2
-guid: 7d8ac6d78fb2ff549b0eb6ba66d8b3a5
-timeCreated: 1477163537
+guid: ef1170b6976f8db4e80b9f9fd4bab6c8
+timeCreated: 1477175072
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Keys
-    100002: Lead
-    100004: Mouse
-    100006: //RootNode
-    100008: Terminal
-    100010: Terminal_001
-    400000: Keys
-    400002: Lead
-    400004: Mouse
-    400006: //RootNode
-    400008: Terminal
-    400010: Terminal_001
+    100000: Camera
+    100002: Keys
+    100004: Lamp
+    100006: Lead
+    100008: Mouse
+    100010: //RootNode
+    100012: Terminal
+    100014: Terminal_001
+    400000: Camera
+    400002: Keys
+    400004: Lamp
+    400006: Lead
+    400008: Mouse
+    400010: //RootNode
+    400012: Terminal
+    400014: Terminal_001
     2300000: Keys
     2300002: Lead
     2300004: Mouse
@@ -27,11 +31,11 @@ ModelImporter:
     3300004: Mouse
     3300006: Terminal
     3300008: Terminal_001
-    4300000: Lead
-    4300002: Mouse
-    4300004: Keys
-    4300006: Terminal
-    4300008: Terminal_001
+    4300000: Terminal_001
+    4300002: Lead
+    4300004: Mouse
+    4300006: Keys
+    4300008: Terminal
     7400000: Default Take
     9500000: //RootNode
   materials:
