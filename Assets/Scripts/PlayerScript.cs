@@ -187,12 +187,10 @@ public class PlayerScript : MonoBehaviour
 
         if(deathTimer>3f)
         {
-            myCamera.GetComponent<AudioListener>().enabled = false;
             GameManager.gameManagerSingleton.ChangeGameState(GameManager.GameStates.GAMEOVER);
-            
-            //CUT TO BLACK
 
-            //AFTER A FEW SECONDS GO TO ANOTHER SCENE
+            //CUT TO BLACK
+            UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         }
     }
 

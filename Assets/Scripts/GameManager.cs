@@ -108,14 +108,17 @@ public class GameManager : MonoBehaviour
 
     private void init()
     {
-        m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
-        m_fader = GameObject.Find("FadeCanvas").GetComponent<Canvas>().GetComponentInChildren<Image>();
-        m_enemyManager = GameObject.Find("Enemy stuff").GetComponent<EnemyManager>();
-        m_exitManager = GameObject.Find("DoorAndTerminal").GetComponent<ExitManager>();
-        m_exitManager.init();
+        if (!IsCurrentGameState(GameStates.GAMEOVER))
+        {
+            m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
+            m_fader = GameObject.Find("FadeCanvas").GetComponent<Canvas>().GetComponentInChildren<Image>();
+            m_enemyManager = GameObject.Find("Enemy stuff").GetComponent<EnemyManager>();
+            m_exitManager = GameObject.Find("DoorAndTerminal").GetComponent<ExitManager>();
+            m_exitManager.init();
 
-        m_fadeState = FADE.IN;
-        m_timer = 0.0f;
+            m_fadeState = FADE.IN;
+            m_timer = 0.0f;
+        }
     }
     
     public void OnLevelWasLoaded()
