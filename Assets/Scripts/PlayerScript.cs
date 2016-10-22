@@ -290,7 +290,7 @@ public class PlayerScript : MonoBehaviour
         }
         else
         {
-            Vector3 towardsTarget = Quaternion.LookRotation(myCamera.transform.position - forceLookAtThis.position).eulerAngles;
+            Vector3 towardsTarget = Quaternion.Lerp(myCamera.transform.rotation, Quaternion.LookRotation(forceLookAtThis.position - myCamera.transform.position), 4 * Time.deltaTime).eulerAngles;
             currentLookDirection = towardsTarget;
         }
 
