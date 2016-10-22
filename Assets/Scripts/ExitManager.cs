@@ -10,8 +10,21 @@ public class ExitManager : MonoBehaviour
    // private  ExitManager s_instance;
     private  int m_curDoor;
     private  int m_numTerminalsLeft;
+
     // Use this for initialization
 
+    public int numTerminals()
+    {
+        int terminals = 0;
+        if (GameManager.currentStage < m_terminalsRequiredPerLevel.Length)
+            terminals = m_terminalsRequiredPerLevel[GameManager.currentStage];
+        else
+            terminals = m_terminalsRequiredPerLevel.Length;
+        
+        return terminals;
+    }
+
+   
     public void init()
     {
         GameObject[] doors = GameObject.FindGameObjectsWithTag(Tags.Door);
@@ -89,6 +102,7 @@ public class ExitManager : MonoBehaviour
         {
             m_doors[m_curDoor].m_SC.transition(ExitDoor.ACTIVE);
         }
+        PhoneHUDScript.phoneHUDSingleton.UpdateTerminalCount(m_numTerminalsLeft);
     }
 
     void Update()

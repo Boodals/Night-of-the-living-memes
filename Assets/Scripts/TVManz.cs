@@ -214,7 +214,6 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, SUSPICIOUS)]
     protected void anyTosus()
     {
-        //Debug.Log("trans to sus");
         m_curViewbox = m_viewBoxAlert;
         m_viewbox.size = m_curViewbox;
         if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;

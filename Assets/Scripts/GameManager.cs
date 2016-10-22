@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
 
     public static int currentStage = 0;
 
-    public static float s_scoreStageModifier;
-    public static float s_score;
+    public float m_scoreStageModifier;
+    public static int s_score;
     private static float m_internalScore;
     public ExitManager m_exitManager;
     public EnemyManager m_enemyManager;
@@ -89,8 +89,9 @@ public class GameManager : MonoBehaviour
                 fadeIn();
                 break;
             case FADE.NONE:
-                m_internalScore += Time.deltaTime * ((currentStage + 1) * s_scoreStageModifier);
+                m_internalScore += Time.deltaTime * ((currentStage + 1) * gameManagerSingleton.m_scoreStageModifier);
                 s_score = (int)m_internalScore;
+                HUDScript.HUDsingleton.UpdateScore(s_score);
                 break;
             default:
                 break;

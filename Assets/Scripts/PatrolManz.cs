@@ -4,9 +4,9 @@ using System.Collections;
 public class PatrolManz : TVManz
 {
     public Transform m_patrolPoint;
-
     private bool m_targetingAnchor;
     private const short PATROL = 1; //overwrite passive
+  
     // Use this for initialization
     void Start()
     {
@@ -55,11 +55,8 @@ public class PatrolManz : TVManz
         {
             changePatrolTarget();
         }
-        if (canHearPlayer())
-        {
-            m_SC.transition(ALERT);
-        }
-        if (m_playerInViewbox)
+
+        if (m_playerInViewbox || canHearPlayer())
         {
             m_SC.transition(ALERT);
         }
@@ -72,8 +69,8 @@ public class PatrolManz : TVManz
         m_viewbox.size = m_viewBoxPassive;
         m_listenRadius = m_passiveListenRadius;
         m_navAgent.speed = m_defaultSpeed;
+        m_timer = 0.0f;
         myAnim.SetBool("Frozen", false);
     }
-
 }
 
