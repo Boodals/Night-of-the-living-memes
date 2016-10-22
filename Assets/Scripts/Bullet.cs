@@ -11,7 +11,6 @@ public class Bullet : MonoBehaviour {
 	// Use this for initialization
 	void OnEnable () {
         gameObject.GetComponent<Rigidbody>().velocity = gameObject.transform.forward * bulletSpeed;
-        gameObject.transform.Rotate(Vector3.right * 90);
 	}
 	
 	// Update is called once per frame
