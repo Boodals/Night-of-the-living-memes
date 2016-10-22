@@ -80,7 +80,7 @@ public class PhoneHUDScript : MonoBehaviour
 
     public void UpdateTerminalCount(int terminalsLeft)
     {
-        terminalCount.text = "" + terminalsLeft;
+        terminalCount.text = "" + terminalsLeft + "/" + GameManager.gameManagerSingleton.m_exitManager.numTerminals();
     }
 
     public void UpdateTimer(int mins, int seconds)
