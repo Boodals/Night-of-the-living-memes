@@ -51,11 +51,11 @@ public class HUDScript : MonoBehaviour
     public void SetCrosshairScale(bool isCrouched, float scalingValue)
     {
         //call this to trigger the crosshairs' movement
-        scale = -70 - (scalingValue * 10);
+        scale = -20 - (scalingValue * 30);
 
         if(isCrouched)
         {
-            scale = scale * 0.7f;
+            scale = scale * 0.4f;
         }
     }
 
