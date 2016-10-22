@@ -33,12 +33,13 @@ public class TVManz : EnemyBase
     protected PlayerScript m_player;
     protected NavMeshAgent m_navAgent;
     protected BoxCollider m_viewbox;
-    protected Transform m_headTransform;
+    public Transform m_headTransform;
 
     protected float m_defaultSpeed;
     protected float m_listenRadius;
     protected bool m_playerInViewbox;
     protected float m_timer;
+
     //state stuff
     protected StateContoller m_SC;
     protected const short PASSIVE = 1;
@@ -56,7 +57,6 @@ public class TVManz : EnemyBase
         //references
         //
         m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
-        m_headTransform = transform.FindChild("SCREEN");
 
         //nav agent
         //
@@ -211,6 +211,7 @@ public class TVManz : EnemyBase
         //when timer is up, go back to passive
         if (m_timer >= m_incappedTime)
         {
+            Debug.Log("trying to trans to passive");
             m_SC.transition(PASSIVE);
         }
     }
@@ -218,7 +219,6 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, INCAPPED)]
     protected void anyToIncapped()
     {
-        //Debug.Log("trans to incapped");
         myAnim.SetBool("Frozen", true);
         m_timer = 0.0f;
         m_navAgent.SetDestination(transform.position);
@@ -246,7 +246,6 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, ALERT)]
     protected void anyToAlert()
     {
-       // Debug.Log("trans to alert");
         m_curViewbox = m_viewBoxAlert;
         m_viewbox.size = m_curViewbox;
         if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;
@@ -260,7 +259,6 @@ public class TVManz : EnemyBase
     [Transition(StateContoller.ANY_STATE, PASSIVE)]
     protected void anyToPassive()
     {
-        //Debug.Log("trans to passive");
         setNewDestination();
 
         m_curViewbox = m_viewBoxPassive;
@@ -271,11 +269,10 @@ public class TVManz : EnemyBase
         myAnim.SetBool("Frozen", false);
 
     }
-
+    
     [Transition(StateContoller.ANY_STATE, CHASING)]
     protected void anyToChasing()
     {
-       // Debug.Log("trans to chasing");
         m_curViewbox = m_viewBoxChase;
         m_viewbox.size = m_curViewbox;
         if (m_player.flashlightOn) m_viewbox.size *= m_torchOnViewboxMultiplier;

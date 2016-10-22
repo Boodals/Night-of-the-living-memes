@@ -7,6 +7,8 @@ public class PatrolManz : TVManz
     private bool m_targetingAnchor;
     private const short PATROL = 1; //overwrite passive
     private bool m_prevTargetingAnchor;
+
+
     // Use this for initialization
     void Start()
     {
@@ -31,6 +33,7 @@ public class PatrolManz : TVManz
         //
         m_SC = new StateContoller(this);
         m_SC.transition(PATROL);
+        changePatrolTarget();
     }
 
     public void changePatrolTarget()
@@ -67,14 +70,14 @@ public class PatrolManz : TVManz
     [Transition(SUSPICIOUS, PATROL)]
     private void susToPatrol()
     {
+
         changePatrolTarget();
         anyToPatrol();
     }
 
-    [Transition(StateContoller.ANY_STATE, PATROL)]
+    [TransitionOverride(StateContoller.ANY_STATE, PATROL)]
     private void anyToPatrol()
     {
-        //changePatrolTarget();
         m_viewbox.size = m_viewBoxPassive;
         m_listenRadius = m_passiveListenRadius;
         m_navAgent.speed = m_defaultSpeed;
