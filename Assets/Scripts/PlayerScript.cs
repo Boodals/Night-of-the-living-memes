@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerScript : MonoBehaviour {
+public class PlayerScript : MonoBehaviour
+{
 
     public static PlayerScript playerSingleton;
 
@@ -27,11 +28,11 @@ public class PlayerScript : MonoBehaviour {
     Vector3 oppositeForce;
     Rigidbody playerRigidbody;
 
-    public enum CrouchState { Standing, Crouching, Hiding}
+    public enum CrouchState { Standing, Crouching, Hiding }
     public CrouchState myCrouchState;
     Vector3[] cameraPositions;
 
-    public enum State { Standard, Sprinting, Reloading, Dead}
+    public enum State { Standard, Sprinting, Reloading, Dead }
     public State myState;
 
     public Vector3 currentLookDirection;
@@ -56,10 +57,11 @@ public class PlayerScript : MonoBehaviour {
         snd = GetComponent<AudioSource>();
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         playerRigidbody = GetComponent<Rigidbody>();
-        currentLookDirection = transform.forward;
+        currentLookDirection = transform.eulerAngles;
 
         playerFlashlight = gameObject.GetComponentInChildren<FlashlightBehaviour>();
         myCamera = gameObject.GetComponentInChildren<Camera>();
@@ -68,14 +70,15 @@ public class PlayerScript : MonoBehaviour {
         cameraPositions[0] = new Vector3(0, 1.1f, 0);
         cameraPositions[1] = new Vector3(0, 0.3f, 0.0f);
         cameraPositions[2] = new Vector3(0, -0.65f, 0.35f);
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
 
         flashlightOn = playerFlashlight.isFlashlightOn();
         flashlightToggledThisFrame = playerFlashlight.toggledThisFrame;
-        float currentMaxSpeedMultiplier = 1 / ((int)myCrouchState+1);
+        float currentMaxSpeedMultiplier = 1 / ((int)myCrouchState + 1);
 
         if (myState == State.Sprinting)
             currentMaxSpeedMultiplier *= 2;
@@ -125,7 +128,7 @@ public class PlayerScript : MonoBehaviour {
             HUDScript.HUDsingleton.SetCrosshairScale(myCrouchState == CrouchState.Crouching, movementIntensity);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             MakeNoise(100);
         }
@@ -157,7 +160,7 @@ public class PlayerScript : MonoBehaviour {
                 waitingForFootstep = true;
             }
         }
-        
+
 
         curBobAmount = Mathf.Lerp(curBobAmount, sinAmount * targetBobAmount, 4 * Time.deltaTime);
 
@@ -182,7 +185,7 @@ public class PlayerScript : MonoBehaviour {
             }
         }
 
-        if((myState==State.Sprinting && movementIntensity<0.9f) || myCrouchState==CrouchState.Crouching)
+        if ((myState == State.Sprinting && movementIntensity < 0.9f) || myCrouchState == CrouchState.Crouching)
         {
             myState = State.Standard;
         }
@@ -200,7 +203,7 @@ public class PlayerScript : MonoBehaviour {
 
         if (Input.GetButtonDown("Crouch"))
         {
-            if(myCrouchState == CrouchState.Standing)
+            if (myCrouchState == CrouchState.Standing)
             {
                 myCrouchState = CrouchState.Crouching;
                 playerSpeed = 255;
@@ -225,7 +228,7 @@ public class PlayerScript : MonoBehaviour {
         float rayDistance = 0.65f;
 
         //This will be improved later probably
-        if(Physics.SphereCast(transform.position, 0.6f, direction, out wall, rayDistance, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
+        if (Physics.SphereCast(transform.position, 0.6f, direction, out wall, rayDistance, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
         {
             Vector3 temp = Vector3.Cross(wall.normal, direction);
             //direction = Vector3.Cross(temp, wall.normal);
@@ -251,7 +254,7 @@ public class PlayerScript : MonoBehaviour {
 
         float footstepNoise = movementIntensity;
 
-        if(myCrouchState==CrouchState.Crouching)
+        if (myCrouchState == CrouchState.Crouching)
         {
             footstepNoise *= 0.1f;
         }
