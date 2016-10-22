@@ -1,29 +1,10 @@
 fileFormatVersion: 2
-guid: 1901411a415b8ea41aab87b09df25a00
-timeCreated: 1477145065
+guid: 3fe231ff67428c24397a1c753c5e801b
+timeCreated: 1477143314
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName:
-    100000: Frame
-    100002: //RootNode
-    100004: Shelves
-    100006: Support
-    400000: Frame
-    400002: //RootNode
-    400004: Shelves
-    400006: Support
-    2300000: Frame
-    2300002: Shelves
-    2300004: Support
-    3300000: Frame
-    3300002: Shelves
-    3300004: Support
-    4300000: Support
-    4300002: Frame
-    4300004: Shelves
-    7400000: Default Take
-    9500000: //RootNode
+  fileIDToRecycleName: {}
   materials:
     importMaterials: 1
     materialName: 0

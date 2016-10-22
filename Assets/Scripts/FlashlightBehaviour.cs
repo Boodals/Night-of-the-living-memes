@@ -20,6 +20,21 @@ public class FlashlightBehaviour : MonoBehaviour {
     {
         playerPhone = GameObject.Find("Phone").GetComponent<PhoneScript>();
         flashlightSingleton = this;
+        switch (GameManager.currentStage)
+        {
+            case 0:
+                batteryDeclineRate = 0.5f;
+                break;
+            case 1:
+                batteryDeclineRate = 0.75f;
+                break;
+            case 2:
+                batteryDeclineRate = 1.0f;
+                break;
+            default:
+                batteryDeclineRate = 1.25f;
+                break;
+        }
     }
 
 	// Use this for initialization
