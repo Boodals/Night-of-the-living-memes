@@ -12,6 +12,7 @@ public class TVManz : EnemyBase
     public float m_maxSusSearchAngle;
     public float m_torchOnViewboxMultiplier;
     public float m_wanderRadius;
+    public float m_killRange;
 
     public Vector3 m_curViewbox;
     public Vector3 m_viewBoxPassive;
@@ -32,6 +33,7 @@ public class TVManz : EnemyBase
     protected PlayerScript m_player;
     protected NavMeshAgent m_navAgent;
     protected BoxCollider m_viewbox;
+    protected Transform m_headTransform;
 
     protected float m_defaultSpeed;
     protected float m_listenRadius;
@@ -51,7 +53,10 @@ public class TVManz : EnemyBase
     // Use this for initialization
     void Start()
     {
+        //references
+        //
         m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
+        m_headTransform = transform.FindChild("SCREEN");
 
         //nav agent
         //
@@ -187,6 +192,15 @@ public class TVManz : EnemyBase
         if (!canSeePlayer())
         {
             m_SC.transition(ALERT);
+        }
+        else
+        {
+            if ((transform.position - m_player.GetCamera().transform.position).magnitude <= m_killRange)
+            {
+                Debug.Log("Die!");
+                m_player.LookAtThis(m_headTransform);
+                //transition to killing player state? play kill player anim?
+            }
         }
     }
 
