@@ -14,6 +14,12 @@ public class PhoneHUDScript : MonoBehaviour
     public float distance; //change this value when you want to change the rot of the nyanometer arrow
     public float farAway, nearby;
 
+    //terminal count stuff
+    public Text terminalCount;
+
+    //timer display
+    public Text time;
+
     public static PhoneHUDScript phoneHUDSingleton;
 
     void Awake()
@@ -69,6 +75,31 @@ public class PhoneHUDScript : MonoBehaviour
         {
             batteryBars[0].enabled = false;
             barNumber = 0;
+        }
+    }
+
+    public void UpdateTerminalCount(int terminalsLeft)
+    {
+        terminalCount.text = "" + terminalsLeft;
+    }
+
+    public void UpdateTimer(int mins, int seconds)
+    {
+        if (mins == 0 && seconds > 9)
+        {
+            time.text = "0:" + seconds;
+        }
+        if (mins == 0 && seconds < 10)
+        {
+            time.text = "0:0" + seconds;
+        }
+        if (seconds > 9)
+        {
+            time.text = "" + mins + ":" + seconds;
+        }
+        if (seconds < 10)
+        {
+            time.text = "" + mins + ":0" + seconds;
         }
     }
 }
