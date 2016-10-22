@@ -7,7 +7,7 @@ public class MemeManager : MonoBehaviour {
     Texture memeImage;
     public Texture[] memeImages;
     int randomArrayIndex;
-    int memeAmount = 19;
+    int memeAmount = 20;
 
     void Start()
     {

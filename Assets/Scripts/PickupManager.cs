@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 public class PickupManager : MonoBehaviour {
 
+    GameObject[] pickupObjects;
     public Transform[] pickupLocations;
 
     public GameObject ammoBoxPrefab;
 
     public List<int> usedValues;
 
-    int amountOfPickupsToSpawn;
+    public int amountOfPickupsToSpawn;
     public int pickupsSpawned;
     int randomIndex;
 
@@ -18,9 +19,31 @@ public class PickupManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        pickupObjects = new GameObject[20];
+        pickupLocations = new Transform[20];
         usedValues = new List<int>();
-        pickupsSpawned = 0;
-        amountOfPickupsToSpawn = 5;
+
+        pickupObjects = GameObject.FindGameObjectsWithTag("AmmoSpawn");
+
+        for (int i = 0; i < pickupObjects.Length; i++)
+        {
+            pickupLocations[i] = pickupObjects[i].transform;
+        }
+
+        switch(GameManager.currentStage)
+        {
+            case 0:
+                amountOfPickupsToSpawn = 5;
+                break;
+            case 1:
+                amountOfPickupsToSpawn = 3;
+                break;
+            default:
+                amountOfPickupsToSpawn = 2;
+                break;
+        }
+       
+        pickupsSpawned = 0;    
         spawnObject = true;
     }
 	
