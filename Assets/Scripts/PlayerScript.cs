@@ -171,9 +171,17 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetButtonDown("Sprint"))
         {
-            if (myState == State.Standard && myCrouchState != CrouchState.Crouching)
+            if (myState == State.Standard || myCrouchState == CrouchState.Crouching)
             {
+                if (myCrouchState == CrouchState.Crouching)
+                {
+                    myCrouchState = CrouchState.Standing;
+                    playerSpeed = 455;
+                    maxSpeed = 3;
+                }
+                
                 myState = State.Sprinting;
+               
                 //playerSpeed = 655;
                 //maxSpeed = 6;
             }
@@ -203,13 +211,13 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetButtonDown("Crouch"))
         {
-            if (myCrouchState == CrouchState.Standing)
+            if (myCrouchState == CrouchState.Standing || myState == State.Sprinting)
             {
                 myCrouchState = CrouchState.Crouching;
                 playerSpeed = 255;
                 maxSpeed = 1.5f;
             }
-            else
+            else if (myCrouchState == CrouchState.Crouching)
             {
                 myCrouchState = CrouchState.Standing;
                 playerSpeed = 455;
