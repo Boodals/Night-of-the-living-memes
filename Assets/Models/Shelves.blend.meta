@@ -4,7 +4,26 @@ timeCreated: 1477143314
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: Frame
+    100002: //RootNode
+    100004: Shelves
+    100006: Support
+    400000: Frame
+    400002: //RootNode
+    400004: Shelves
+    400006: Support
+    2300000: Frame
+    2300002: Shelves
+    2300004: Support
+    3300000: Frame
+    3300002: Shelves
+    3300004: Support
+    4300000: Support
+    4300002: Frame
+    4300004: Shelves
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0

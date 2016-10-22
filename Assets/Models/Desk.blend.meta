@@ -4,7 +4,26 @@ timeCreated: 1477143314
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: DeskBody
+    100004: DeskFrame
+    100006: DrawerHandle
+    400000: //RootNode
+    400002: DeskBody
+    400004: DeskFrame
+    400006: DrawerHandle
+    2300000: DeskBody
+    2300002: DeskFrame
+    2300004: DrawerHandle
+    3300000: DeskBody
+    3300002: DeskFrame
+    3300004: DrawerHandle
+    4300000: DrawerHandle
+    4300002: DeskFrame
+    4300004: DeskBody
+    7400000: Default Take
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
