@@ -1,32 +1,26 @@
 fileFormatVersion: 2
-guid: 4ceaf2f7a1c3a4a43be44e921ed3407c
-timeCreated: 1477143314
+guid: c8e423a2214c41e4bbc75cb75e5a85dc
+timeCreated: 1477147905
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Cabinet
-    100002: ClosedDoor
-    100004: //RootNode
-    100006: GlassDoors
-    100008: OpenDoor
-    400000: Cabinet
-    400002: ClosedDoor
-    400004: //RootNode
-    400006: GlassDoors
-    400008: OpenDoor
-    2300000: Cabinet
-    2300002: ClosedDoor
-    2300004: GlassDoors
-    2300006: OpenDoor
-    3300000: Cabinet
-    3300002: ClosedDoor
-    3300004: GlassDoors
-    3300006: OpenDoor
-    4300000: OpenDoor
-    4300002: ClosedDoor
-    4300004: GlassDoors
-    4300006: Cabinet
+    100000: Camera
+    100002: //RootNode
+    100004: Frame
+    100006: Lamp
+    100008: Seat
+    400000: Camera
+    400002: //RootNode
+    400004: Frame
+    400006: Lamp
+    400008: Seat
+    2300000: Frame
+    2300002: Seat
+    3300000: Frame
+    3300002: Seat
+    4300000: Frame
+    4300002: Seat
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -53,7 +47,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.1
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

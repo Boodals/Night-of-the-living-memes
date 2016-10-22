@@ -50,6 +50,8 @@ public class PlayerScript : MonoBehaviour
     public bool flashlightOn;
     public bool flashlightToggledThisFrame;
 
+    public Transform forceLookAtThis;
+
     void Awake()
     {
         playerSingleton = this;
@@ -167,6 +169,11 @@ public class PlayerScript : MonoBehaviour
         //Final position is applied in the crouch bit
     }
 
+    public void LookAtThis(Transform lookHere)
+    {
+        forceLookAtThis = lookHere;
+    }
+
     void HandleSprinting()
     {
         if (Input.GetButtonDown("Sprint"))
@@ -272,16 +279,23 @@ public class PlayerScript : MonoBehaviour
 
     void LookingAround()
     {
-        Vector3 input = new Vector3(Input.GetAxisRaw("Vertical2"), Input.GetAxisRaw("Horizontal2"), 0) * sensitivity;
 
-        currentLookDirection += input * Time.deltaTime;
+        if (!forceLookAtThis)
+        {
+            Vector3 input = new Vector3(Input.GetAxisRaw("Vertical2"), Input.GetAxisRaw("Horizontal2"), 0) * sensitivity;
 
-        currentLookDirection.x = Mathf.Clamp(currentLookDirection.x, -65, 50);
-        //currentLookDirection = currentLookDirection.normalized;
+            currentLookDirection += input * Time.deltaTime;
+
+            currentLookDirection.x = Mathf.Clamp(currentLookDirection.x, -65, 50);
+        }
+        else
+        {
+            Vector3 towardsTarget = Quaternion.LookRotation(myCamera.transform.position - forceLookAtThis.position).eulerAngles;
+            currentLookDirection = towardsTarget;
+        }
+
 
         myCamera.transform.eulerAngles = currentLookDirection;
-        //Debug.DrawLine(transform.position, transform.position + currentLookDirection, Color.red, 10);
-        //myCamera.transform.rotation = Quaternion.Lerp(myCamera.transform.rotation, Quaternion.LookRotation(currentLookDirection), 10 * Time.deltaTime);
     }
 
     public float GetCurrentNoiseLevel()
