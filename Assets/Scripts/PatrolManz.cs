@@ -6,11 +6,12 @@ public class PatrolManz : TVManz
     public Transform m_patrolPoint;
     private bool m_targetingAnchor;
     private const short PATROL = 1; //overwrite passive
-  
+    private bool m_prevTargetingAnchor;
     // Use this for initialization
     void Start()
     {
         m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
+        m_prevTargetingAnchor = true;
 
         //nav agent
         //
@@ -53,19 +54,27 @@ public class PatrolManz : TVManz
     {
         if ((m_target - transform.position).magnitude <= 2.0f/*radius of enemy*/)
         {
-            changePatrolTarget();
+            m_SC.transition(SUSPICIOUS);
         }
 
-        if (m_playerInViewbox || canHearPlayer())
+        if (canSeePlayer() || canHearPlayer())
         {
             m_SC.transition(ALERT);
         }
     }
 
+
+    [Transition(SUSPICIOUS, PATROL)]
+    private void susToPatrol()
+    {
+        changePatrolTarget();
+        anyToPatrol();
+    }
+
     [Transition(StateContoller.ANY_STATE, PATROL)]
     private void anyToPatrol()
     {
-        changePatrolTarget();
+        //changePatrolTarget();
         m_viewbox.size = m_viewBoxPassive;
         m_listenRadius = m_passiveListenRadius;
         m_navAgent.speed = m_defaultSpeed;

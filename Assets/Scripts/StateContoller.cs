@@ -111,25 +111,49 @@ public class StateContoller
         m_curState = _to;
     }
 
+
     private bool tryGetValue(int _key, out BasicFnct _fnct)
     {
         bool result = false;
         _fnct = null;
+        int bestMatch = int.MaxValue;
 
         for (int i = 0; i < m_transitions.Count; ++i)
         {
             TransPair p = m_transitions[i];
             if ((getTo(p.m_key) & getTo(_key)) > 0 && (getFrom(p.m_key) & getFrom(_key)) > 0)
             {
-                _fnct = p.m_fnct;
-                result = true;
-                break;
+                if (p.m_key <= bestMatch)
+                {
+                    bestMatch = p.m_key;
+                    _fnct = p.m_fnct;
+                    result = true;
+                }
             }
         }
-    
 
         return result;
     }
+
+    //private bool tryGetValue(int _key, out BasicFnct _fnct)
+    //{
+    //    bool result = false;
+    //    _fnct = null;
+
+    //    for (int i = 0; i < m_transitions.Count; ++i)
+    //    {
+    //        TransPair p = m_transitions[i];
+    //        if ((getTo(p.m_key) & getTo(_key)) > 0 && (getFrom(p.m_key) & getFrom(_key)) > 0)
+    //        {
+    //            _fnct = p.m_fnct;
+    //            result = true;
+    //            break;
+    //        }
+    //    }
+
+
+    //    return result;
+    //}
 
     private bool tryGetValue(int _key, out BasicFnct _fnct, out int _index)
     {

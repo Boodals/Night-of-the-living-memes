@@ -104,7 +104,8 @@ public class TVManz : EnemyBase
 
     public bool canHearPlayer()
     {
-        bool r = m_player.GetCurrentNoiseLevel() >= 0 && (m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius;
+        bool r = m_player.GetCurrentNoiseLevel() > 0 && (m_player.gameObject.transform.position - transform.position).magnitude <= m_player.GetCurrentNoiseLevel() + m_listenRadius;
+        if (r) Debug.Log("Heard player!");
         return r;
     }
 
@@ -142,7 +143,7 @@ public class TVManz : EnemyBase
         {
             setNewDestination();
         }
-        if (m_playerInViewbox || canHearPlayer())
+        if (canSeePlayer() || canHearPlayer())
         {
             m_SC.transition(ALERT);
         }
@@ -169,7 +170,7 @@ public class TVManz : EnemyBase
         //rotate around, from side to side
         lookAround();
 
-        if (m_playerInViewbox || canHearPlayer())
+        if (canSeePlayer() || canHearPlayer())
         {
             m_SC.transition(ALERT);
         }
@@ -183,7 +184,7 @@ public class TVManz : EnemyBase
     protected void chasingUpdate()
     {
         m_navAgent.SetDestination(m_player.gameObject.transform.position);
-        if (!m_playerInViewbox && !canSeePlayer())
+        if (!canSeePlayer())
         {
             m_SC.transition(ALERT);
         }
