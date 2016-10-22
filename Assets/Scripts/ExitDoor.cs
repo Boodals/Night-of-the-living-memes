@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-public class ExitDoor : Interactable
+public class ExitDoor : InteractiveMono
 {
     public Transform m_playerStartTransform;
     public Light m_activeLight;
@@ -33,7 +33,6 @@ public class ExitDoor : Interactable
     public override void interact()
     {
         base.interact();
-        Debug.Log(this);
         GameManager.levelUp();
     }
 

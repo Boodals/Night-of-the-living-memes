@@ -76,7 +76,6 @@ public class ExitManager : MonoBehaviour
 
     public void spawnPlayerAtRandomDoor(PlayerScript _player)
     {
-        Debug.Log(m_doors);
         int index = Random.Range(0, m_doors.Count);
         if (index == m_curDoor) index = ++index < m_doors.Count ? index : 0;
 
@@ -88,7 +87,6 @@ public class ExitManager : MonoBehaviour
     {
         if (--m_numTerminalsLeft <= 0)
         {
-            Debug.Log(m_doors[m_curDoor]);
             m_doors[m_curDoor].m_SC.transition(ExitDoor.ACTIVE);
         }
     }

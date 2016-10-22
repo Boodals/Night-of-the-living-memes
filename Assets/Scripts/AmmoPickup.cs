@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AmmoPickup : Interactable {
+public class AmmoPickup : InteractiveMono {
 
     public int ammoAmount = 2;
     AudioSource snd;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Terminal : Interactable
+public class Terminal : InteractiveMono
 {
 
     public StateContoller m_SC;
@@ -11,7 +11,6 @@ public class Terminal : Interactable
 
     public override void interact()
     {
-        Debug.Log(GameManager.gameManagerSingleton.m_exitManager);
         GameManager.gameManagerSingleton.m_exitManager.hackedATerminal();
         m_SC.transition(HACKED);
     }
