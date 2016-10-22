@@ -50,6 +50,8 @@ public class PlayerScript : MonoBehaviour
     public bool flashlightOn;
     public bool flashlightToggledThisFrame;
 
+    public Transform forceLookAtThis;
+
     void Awake()
     {
         playerSingleton = this;
@@ -167,13 +169,26 @@ public class PlayerScript : MonoBehaviour
         //Final position is applied in the crouch bit
     }
 
+    public void LookAtThis(Transform lookHere)
+    {
+        forceLookAtThis = lookHere;
+    }
+
     void HandleSprinting()
     {
         if (Input.GetButtonDown("Sprint"))
         {
-            if (myState == State.Standard && myCrouchState != CrouchState.Crouching)
+            if (myState == State.Standard || myCrouchState == CrouchState.Crouching)
             {
+                if (myCrouchState == CrouchState.Crouching)
+                {
+                    myCrouchState = CrouchState.Standing;
+                    playerSpeed = 455;
+                    maxSpeed = 3;
+                }
+                
                 myState = State.Sprinting;
+               
                 //playerSpeed = 655;
                 //maxSpeed = 6;
             }
@@ -203,13 +218,13 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetButtonDown("Crouch"))
         {
-            if (myCrouchState == CrouchState.Standing)
+            if (myCrouchState == CrouchState.Standing || myState == State.Sprinting)
             {
                 myCrouchState = CrouchState.Crouching;
                 playerSpeed = 255;
                 maxSpeed = 1.5f;
             }
-            else
+            else if (myCrouchState == CrouchState.Crouching)
             {
                 myCrouchState = CrouchState.Standing;
                 playerSpeed = 455;
@@ -264,16 +279,23 @@ public class PlayerScript : MonoBehaviour
 
     void LookingAround()
     {
-        Vector3 input = new Vector3(Input.GetAxisRaw("Vertical2"), Input.GetAxisRaw("Horizontal2"), 0) * sensitivity;
 
-        currentLookDirection += input * Time.deltaTime;
+        if (!forceLookAtThis)
+        {
+            Vector3 input = new Vector3(Input.GetAxisRaw("Vertical2"), Input.GetAxisRaw("Horizontal2"), 0) * sensitivity;
 
-        currentLookDirection.x = Mathf.Clamp(currentLookDirection.x, -65, 50);
-        //currentLookDirection = currentLookDirection.normalized;
+            currentLookDirection += input * Time.deltaTime;
+
+            currentLookDirection.x = Mathf.Clamp(currentLookDirection.x, -65, 50);
+        }
+        else
+        {
+            Vector3 towardsTarget = Quaternion.LookRotation(myCamera.transform.position - forceLookAtThis.position).eulerAngles;
+            currentLookDirection = towardsTarget;
+        }
+
 
         myCamera.transform.eulerAngles = currentLookDirection;
-        //Debug.DrawLine(transform.position, transform.position + currentLookDirection, Color.red, 10);
-        //myCamera.transform.rotation = Quaternion.Lerp(myCamera.transform.rotation, Quaternion.LookRotation(currentLookDirection), 10 * Time.deltaTime);
     }
 
     public float GetCurrentNoiseLevel()
