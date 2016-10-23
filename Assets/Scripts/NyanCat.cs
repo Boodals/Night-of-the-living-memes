@@ -9,7 +9,8 @@ public class NyanCat : MonoBehaviour
 	public PhoneHUDScript phone;
 
 	public float m_baseSpeed = 0.7f;
-    public float m_accIncreasePerLevel = 0.0021f; //ruoghly 25 seconds faster to get player speed
+    public float m_maxSpeed = 3.0f;
+    public float m_accIncreasePerLevel = 0.0021f; //roughly 25 seconds faster to get player speed
     private float m_acc = 0.01278f; //(playerspeed - m_baseSpeed) / timeUntillNyanspeedIsPlayerSpeed (180)
     private float navigationUpdateInterval = 0.2f;
     
@@ -60,8 +61,17 @@ public class NyanCat : MonoBehaviour
             m_navAgent.destination = targetTrans.position;
             m_timer=0.0f;
         }
+
         //accelerate
-        m_navAgent.speed += m_acc * Time.deltaTime;
+        if (m_navAgent.speed >= m_maxSpeed)
+        {
+            m_navAgent.speed = m_maxSpeed;
+        }
+        else
+        {
+            m_navAgent.speed += m_acc * Time.deltaTime;
+        }
+        
 
         glowMat.SetColor("_EmissionColor", Color.Lerp(glowColours[0], glowColours[1], Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 8))));
 		phone.distance = Vector3.Distance(targetTrans.position, transform.position);
