@@ -25,14 +25,26 @@ public class CameraFX : MonoBehaviour
 
     private void LateUpdate()
 	{
-		float distSqr = (nyanCat.position - transform.position).sqrMagnitude;
+		GetComponent<ScreenSpaceAmbientOcclusion>().m_Radius = Mathf.Lerp(ambOccPulseMin, ambOccPulseMax, Mathf.InverseLerp(-1f, 1f, Mathf.Sin(Time.time * ambOccPulseSpeed)));
 
-        GetComponent<ScreenSpaceAmbientOcclusion>().m_Radius = Mathf.Lerp(ambOccPulseMin, ambOccPulseMax, Mathf.InverseLerp(-1f, 1f, Mathf.Sin(Time.time * ambOccPulseSpeed)));
 
-        GetComponentInChildren<VignetteAndChromaticAberration>().intensity = Mathf.Lerp(vignetteLerpMin, vignetteLerpMax, (vignetteMinDist - distSqr) / vignetteMult);
+		if(nyanCat.gameObject.activeInHierarchy)
+		{
 
-        GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = Mathf.Lerp(grainLerpMin, grainLerpMax, (grainMinDist - distSqr) / grainMult);
-		GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
+			float distSqr = (nyanCat.position - transform.position).sqrMagnitude;
+
+			GetComponentInChildren<VignetteAndChromaticAberration>().intensity = Mathf.Lerp(vignetteLerpMin, vignetteLerpMax, (vignetteMinDist - distSqr) / vignetteMult);
+
+			GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = Mathf.Lerp(grainLerpMin, grainLerpMax, (grainMinDist - distSqr) / grainMult);
+			GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
+		}
+		else
+		{
+			GetComponentInChildren<VignetteAndChromaticAberration>().intensity = vignetteLerpMin;
+
+			GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = grainLerpMin;
+			GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
+		}
 	}
 
 }
