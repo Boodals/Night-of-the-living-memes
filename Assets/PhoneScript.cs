@@ -19,7 +19,10 @@ public class PhoneScript : MonoBehaviour {
 
         onScreen = (Input.GetAxisRaw("LT") > 0.6f);
 
-
+        if(PlayerScript.playerSingleton.myState==PlayerScript.State.Dead)
+        {
+            onScreen = false;
+        }
 
 
 
