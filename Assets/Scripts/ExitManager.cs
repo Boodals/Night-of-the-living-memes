@@ -12,7 +12,7 @@ public class ExitManager : MonoBehaviour
     private  int m_numTerminalsLeft;
 
     // Use this for initialization
-
+    private bool m_firstTick;
     public int numTerminals()
     {
         int terminals = 0;
@@ -27,6 +27,7 @@ public class ExitManager : MonoBehaviour
    
     public void init()
     {
+        m_firstTick = true;
         GameObject[] doors = GameObject.FindGameObjectsWithTag(Tags.Door);
         m_doors = new List<ExitDoor>(doors.Length);
         for (int i = 0; i < doors.Length; ++i)
@@ -77,7 +78,6 @@ public class ExitManager : MonoBehaviour
                 m_terminals[i].m_SC.transition(Terminal.ON);
             }
         }
-        PhoneHUDScript.phoneHUDSingleton.UpdateTerminalCount(numTerminals() - m_numTerminalsLeft);
         activateRandomDoor();
     }
     
@@ -107,6 +107,10 @@ public class ExitManager : MonoBehaviour
 
     void Update()
     {
-   
+        if (m_firstTick)
+        {
+            PhoneHUDScript.phoneHUDSingleton.UpdateTerminalCount(numTerminals() - m_numTerminalsLeft);
+            m_firstTick = false;
+        }
     }
 }
