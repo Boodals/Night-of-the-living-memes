@@ -11,7 +11,7 @@ public class NyanCat : MonoBehaviour
 	{
 		NavMeshAgent agent = GetComponent<NavMeshAgent>();
 		
-		agent.SetDestination(targetTrans.position);
+		agent.destination = targetTrans.position;
 	}
 
 }

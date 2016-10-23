@@ -8,32 +8,33 @@ public class CameraFX : MonoBehaviour
 	public Transform nyanCat;
 	public float distanceToNearestEnemy;
 
-	public float noiseOffset = 100f;
-	public float noiseDist = 25f;
+    public float ambOccPulseMin = 0.7f;
+    public float ambOccPulseMax = 1f;
+    public float ambOccPulseSpeed = 1.4f;
+    
+    public float vignetteMinDist = 100f;
+    public float vignetteMult = 75f;
+    public float vignetteLerpMin = 0.2f;
+    public float vignetteLerpMax = 0.4f;
 
-	public float vignetteOffset = 20f;
-	public float vignetteDist = 15f;
-	public float vignetteLerpMin = 0.2f;
-	public float vignetteLerpMax = 0.4f;
 
-	public float motBlurOffset = 50f;
-	public float motBlurDist = 50f;
-	public float motBlurLerpMin = 0f;
-	public float motBlurLerpMax = 0.8f;
+    public float grainMinDist = 40f;
+    public float grainMult = 30f;
+    public float grainLerpMin = 0f;
+    public float grainLerpMax = 0.4f;
 
-	private void LateUpdate()
+    private void LateUpdate()
 	{
 		float distSqr = (nyanCat.position - transform.position).sqrMagnitude;
 
-		GetComponent<NoiseAndGrain>().intensityMultiplier = Mathf.Max((noiseOffset - distSqr) / noiseDist, 0f);
+        GetComponent<ScreenSpaceAmbientOcclusion>().m_Radius = Mathf.Lerp(ambOccPulseMin, ambOccPulseMax, Mathf.InverseLerp(-1f, 1f, Mathf.Sin(Time.time * ambOccPulseSpeed)));
 
-		GetComponent<VignetteAndChromaticAberration>().intensity = Mathf.Lerp(vignetteLerpMin, vignetteLerpMax, (vignetteOffset - distSqr) / vignetteDist);
-		
-		GetComponent<MotionBlur>().blurAmount = Mathf.Lerp(motBlurLerpMin, motBlurLerpMax, (motBlurOffset - distSqr) / motBlurDist);
+        GetComponentInChildren<VignetteAndChromaticAberration>().intensity = Mathf.Lerp(vignetteLerpMin, vignetteLerpMax, (vignetteMinDist - distSqr) / vignetteMult);
 
+        GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = Mathf.Lerp(grainLerpMin, grainLerpMax, (grainMinDist - distSqr) / grainMult);
+		GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
 
-		Vector3 euler = transform.rotation.eulerAngles + new Vector3(0f, Time.deltaTime * 30f, 0f);
-		transform.rotation = Quaternion.Euler(euler);
+		Debug.Log(GetComponentInChildren<NoiseAndScratches>().grainIntensityMax);
 	}
 
 }
