@@ -40,6 +40,8 @@ public class PlayerScript : MonoBehaviour
 
     public static float sensitivity = 170;
 
+	private bool isMouseLocked = false;
+
     float currentNoise = 0;
     public float movementIntensity = 0;
 
@@ -76,6 +78,28 @@ public class PlayerScript : MonoBehaviour
         cameraPositions[1] = new Vector3(0, 0.3f, 0.0f);
         cameraPositions[2] = new Vector3(0, -0.65f, 0.35f);
     }
+
+	void Update()
+	{
+		if(!isMouseLocked)
+		{
+			if(Input.GetMouseButtonDown(0))
+			{
+				isMouseLocked = true;
+				Cursor.lockState = CursorLockMode.Locked;
+				Cursor.visible = false;
+			}
+		}
+		else
+		{
+			if(Input.GetKeyDown(KeyCode.Escape))
+			{
+				isMouseLocked = false;
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+			}
+		}
+	}
 
     // Update is called once per frame
     void FixedUpdate()
