@@ -20,11 +20,18 @@ public class AmmoPickup : InteractiveMono {
 
     public override void interact()
     {
-        if (GunScript.ammo < 10)
+        if (GunScript.ammo != 10 && GunScript.ammo != 9)
         {
             base.interact();
             snd.PlayOneShot(pickupSound, 0.75f);
             GunScript.gunSingleton.ChangeAmmo(ammoAmount);
+            Destroy(gameObject);
+        }
+        else if (GunScript.ammo == 9)
+        {
+            base.interact();
+            snd.PlayOneShot(pickupSound, 0.75f);
+            GunScript.gunSingleton.ChangeAmmo(1);
             Destroy(gameObject);
         }
         else

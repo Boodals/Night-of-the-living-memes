@@ -26,8 +26,9 @@ public class HUDScript : MonoBehaviour
 
     //nyan cat notifcation stuff
     public Text nyanNotif;
-    float nyanTimer;
-    bool displayNotif;
+    float nyanTimer = 6.0f;
+    float fadeTime = 4.0f;
+    public bool displayNotif;
     
 
     void Awake()
@@ -38,7 +39,7 @@ public class HUDScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-	    
+        ToggleExitNotif(false);
 	}
 	
 	// Update is called once per frame
@@ -55,6 +56,12 @@ public class HUDScript : MonoBehaviour
         if(displayNotif)
         {
             nyanTimer -= Time.deltaTime * 0.5f;
+
+            if (nyanTimer <= fadeTime)
+            {
+                nyanNotif.color = Color.Lerp(nyanNotif.color, Color.clear, Time.deltaTime * 0.4f);
+            }
+
             if(nyanTimer <= 0)
             {
                 displayNotif = false;
@@ -111,8 +118,9 @@ public class HUDScript : MonoBehaviour
 
     public void DisplayNyanNotif()
     {
-        nyanTimer = 4.0f;
+        nyanTimer = 6.0f;    
         displayNotif = true;
         nyanNotif.enabled = true;
+        nyanNotif.color = Color.white;
     }
 }

@@ -8,7 +8,7 @@ public class LoadLevel : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        m_fader.fadeIn(4.0f, Color.black, null);
+        m_fader.fadeIn(4.0f, Color.black, null, 0.5f);
     }
 	
 	// Update is called once per frame

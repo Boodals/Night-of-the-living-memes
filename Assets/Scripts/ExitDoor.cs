@@ -94,6 +94,8 @@ public class ExitDoor : InteractiveMono
             m_activeLight.color = Color.green;
             m_canInteract = true;
         }
+
+        HUDScript.HUDsingleton.ToggleExitNotif(true);
     }
     [Transition(StateContoller.ANY_STATE, HACKABLE)]
     private void anyToHackable()
@@ -113,6 +115,8 @@ public class ExitDoor : InteractiveMono
         //start fade-to-white?
         m_timer = 0.0f;
         m_canInteract = false;
+
+        opening = true;
        // GameManager.gameManagerSingleton.m_exitManager.deactivateCurDoor(this);
     }
     [Transition(StateContoller.ANY_STATE, EXIT_LEVEL)]
