@@ -8,6 +8,7 @@ public class Leaderboard : MonoBehaviour
     public Text[] m_names;
     public Text[] m_scores;
 	// Use this for initialization
+
 	void Start () {
         HighScoreManager.Pair[] scores = HighScoreManager.g_instance.copyLeaderBoard();
         for (int i = 0; i < scores.Length; ++i)

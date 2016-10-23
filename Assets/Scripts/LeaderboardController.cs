@@ -10,7 +10,7 @@ public class LeaderboardController : MonoBehaviour {
 	void Start () {
         nameInput.SetActive( false);
         leaderboard.SetActive(false);
-
+        Debug.Log(PersistentScript.s_score);
         if  (HighScoreManager.g_instance.scoreIsHighScore(PersistentScript.s_score))
         {
             nameInput.SetActive(true);

@@ -53,6 +53,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        m_internalScore += Time.deltaTime * m_scoreStageModifier * (currentStage + 1);
+        s_score = (int)m_internalScore;
+        HUDScript.HUDsingleton.UpdateScore(s_score);
+        PersistentScript.s_score = s_score;
+
         HandleTimer();
     }
 

@@ -35,7 +35,6 @@ public class NameController : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        Debug.Log(m_canMove);
         if (Mathf.Abs(horizontalInput) >= 0.4f && m_canMove)
         {
             int dir = horizontalInput < 0 ? -1 : 1;
@@ -63,7 +62,7 @@ public class NameController : MonoBehaviour
                 m_nameField.text += m_currentSelection.ToString();
             }
             //down to finish
-            else if (verticalInput >= minDetect)
+            else if (verticalInput >= minDetect && m_nameField.text != "")
             {
                 HighScoreManager.g_instance.addPlayerScore(m_nameField.text, PersistentScript.s_score);
                 gameObject.SetActive(false);
