@@ -14,6 +14,7 @@ public class Terminal : InteractiveMono
         GameManager.gameManagerSingleton.m_exitManager.hackedATerminal();
         m_SC.transition(HACKED);
     }
+
     public override void init()
     {
         base.init();
@@ -31,19 +32,22 @@ public class Terminal : InteractiveMono
     [Transition(StateContoller.ANY_STATE, OFF)]
     private void anyToOff()
     {
-        GetComponent<MeshRenderer>().material.color = Color.grey;//rofl unity has english spelling
+        //TURN OFF MEME
+
         m_canInteract = false;
     }
     [Transition(StateContoller.ANY_STATE, ON)]
     private void anyToOn()
     {
+        //TURN ON MEME
+
         m_canInteract = true;
-        GetComponent<MeshRenderer>().material.color = Color.red;
     }
     [Transition(StateContoller.ANY_STATE, HACKED)]
     private void anyToHacked()
     {
-        GetComponent<MeshRenderer>().material.color = Color.green;
+        //SHOCKED EFFECT ON TERMINAL?
+
         m_canInteract = false;
     }
 
@@ -56,7 +60,8 @@ public class Terminal : InteractiveMono
     }
     [Update(ON)]
     private void on()
-    { }
+    {
+    }
 
     // Update is called once per frame
     void Update ()

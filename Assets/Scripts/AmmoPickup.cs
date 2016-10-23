@@ -20,10 +20,17 @@ public class AmmoPickup : InteractiveMono {
 
     public override void interact()
     {
-        base.interact();
-        snd.PlayOneShot(pickupSound, 0.75f);
-        GunScript.gunSingleton.ChangeAmmo(ammoAmount);
-        Destroy(gameObject);
+        if (GunScript.ammo < 10)
+        {
+            base.interact();
+            snd.PlayOneShot(pickupSound, 0.75f);
+            GunScript.gunSingleton.ChangeAmmo(ammoAmount);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("Ammo full!");
+        }
     }
 
     //void OnTriggerEnter(Collider col)
