@@ -40,6 +40,7 @@ public class PhoneHUDScript : MonoBehaviour
         if (FlashlightBehaviour.flashlightSingleton.myState == FlashlightBehaviour.flashlightState.On)
         {
             batteryBars[barNumber].color = Color.Lerp(Color.clear, Color.white, Mathf.Abs(Mathf.Sin(Time.time * lerpSpeed)));
+            DisplayBatteryCharge();
         }
 
         float rotation = Mathf.Lerp(nearby, farAway, distance / 100);
