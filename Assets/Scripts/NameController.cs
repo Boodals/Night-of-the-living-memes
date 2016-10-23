@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 public class NameController : MonoBehaviour
 {
+    public LeaderboardController m_controller;
     private char m_inputMin = 'A';
     private char m_inputMax = 'Z';
     private char m_currentSelection = 'A';
@@ -65,10 +66,8 @@ public class NameController : MonoBehaviour
             else if (verticalInput >= minDetect)
             {
                 HighScoreManager.g_instance.addPlayerScore(m_nameField.text, PersistentScript.s_score);
-                //move to high score table
-                //@@
-                //@@
-                this.enabled = false;
+                gameObject.SetActive(false);
+                m_controller.showLeaderboard();
             }
         }
 
