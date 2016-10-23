@@ -6,7 +6,7 @@
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 
 			_Seed1("Seed1 (RGB)", 2D) = "white" {}
-		_Seed2("Seed2 (RGB)", 2D) = "white" {}
+		_Seed2("Noise texture (RGB)", 2D) = "white" {}
 
 		_EffectAmount("Effect Amount", Range(0,2)) = 0.0
 	}
@@ -53,6 +53,18 @@
 			flashMultiplier = clamp(flashMultiplier, 0.72f, 1.25f);
 
 			o.Emission.rgb *= flashMultiplier;
+
+			sampler2D overlay = _Seed2;
+
+			if (flashMultiplier > 0.5f)
+			{
+				overlay = _Seed1;
+			}
+
+			if (_EffectAmount >= 1)
+			{
+				o.Emission.rgb *= tex2D(_Seed2, IN.uv_MainTex) * (_EffectAmount*0.8f);
+			}
 		}
 		ENDCG
 	}

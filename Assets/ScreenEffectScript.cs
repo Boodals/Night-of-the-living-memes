@@ -28,7 +28,7 @@ public class ScreenEffectScript : MonoBehaviour {
                 if (Random.Range(0, 7) > 2)
                 {
                     changeTimer = Random.Range(0.1f, 0.7f);
-                    eA = Random.Range(-0.4f, 1.9f);
+                    eA = Random.Range(-0.4f, 2.9f);
                     eA += changeTimer;
 
                     waitTimer = changeTimer * 2;
