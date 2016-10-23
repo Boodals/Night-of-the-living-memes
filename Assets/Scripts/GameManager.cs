@@ -76,9 +76,9 @@ public class GameManager : MonoBehaviour
     
     public void OnLevelWasLoaded()
     {
-        m_exitManager.spawnPlayerAtRandomDoor(m_player);
         if (currentStage > 0)
         {
+            m_exitManager.spawnPlayerAtRandomDoor(m_player);
             gameManagerSingleton.m_fader.setStartColour(Color.white, true);
             gameManagerSingleton.m_fader.fade(1.25f, Color.clear, 0.0f, 0.5f, null);
         }
