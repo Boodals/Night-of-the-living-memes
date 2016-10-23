@@ -103,7 +103,7 @@ public class GunScript : MonoBehaviour
                 Debug.DrawLine(playerCam.transform.position, bulletLine.point, Color.red, 10);
                 Debug.Log(bulletLine.collider.gameObject.name);
                 firedBullet.transform.rotation = Quaternion.LookRotation(bulletLine.point - firedBullet.transform.position);
-                Debug.Break();
+                //Debug.Break();
             }
 
             firedBullet.SetActive(true);
