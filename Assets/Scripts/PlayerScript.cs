@@ -170,7 +170,14 @@ public class PlayerScript : MonoBehaviour
 
         if (HUDScript.HUDsingleton)
         {
-            HUDScript.HUDsingleton.SetCrosshairScale(myCrouchState == CrouchState.Crouching, movementIntensity);
+            float intensityToSend = movementIntensity;
+
+            if(myState==State.Sprinting)
+            {
+                intensityToSend *= 2;
+            }
+
+            HUDScript.HUDsingleton.SetCrosshairScale(myCrouchState == CrouchState.Crouching, intensityToSend);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
