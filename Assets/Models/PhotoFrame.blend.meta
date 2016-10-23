@@ -1,46 +1,10 @@
 fileFormatVersion: 2
-guid: ba2874e7e9e11f94196d9449b3d0b1f3
-timeCreated: 1477226463
+guid: cfbefa877a78b1249b32c39919ff88ef
+timeCreated: 1477230409
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
-  fileIDToRecycleName:
-    100000: ButtonPanel
-    100002: Camera
-    100004: DoorFrame
-    100006: DoorL
-    100008: DoorR
-    100010: //RootNode
-    100012: Lamp
-    100014: LightSign
-    100016: Darkness
-    400000: ButtonPanel
-    400002: Camera
-    400004: DoorFrame
-    400006: DoorL
-    400008: DoorR
-    400010: //RootNode
-    400012: Lamp
-    400014: LightSign
-    400016: Darkness
-    2300000: ButtonPanel
-    2300002: DoorFrame
-    2300004: DoorL
-    2300006: DoorR
-    2300008: LightSign
-    2300010: Darkness
-    3300000: ButtonPanel
-    3300002: DoorFrame
-    3300004: DoorL
-    3300006: DoorR
-    3300008: LightSign
-    3300010: Darkness
-    4300000: ButtonPanel
-    4300002: LightSign
-    4300004: DoorFrame
-    4300006: DoorR
-    4300008: DoorL
-    4300010: Darkness
+  fileIDToRecycleName: {}
   materials:
     importMaterials: 1
     materialName: 0
@@ -65,7 +29,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.3
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -82,7 +46,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
@@ -99,7 +63,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
