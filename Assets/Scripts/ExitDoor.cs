@@ -14,6 +14,15 @@ public class ExitDoor : InteractiveMono
     public const short EXIT_LEVEL = 4;
     public const short ACTIVE = 8;
     public const short HACKABLE = 16;
+
+    public GameObject lightModel;
+    public Material lightMaterial;
+
+    public GameObject[] doors;
+    public Vector3[] offsets;
+
+    public bool opening = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -29,6 +38,8 @@ public class ExitDoor : InteractiveMono
         m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
         m_activeLight = GetComponentInChildren<Light>();
         m_canInteract = false;
+
+        lightMaterial = lightModel.GetComponent<MeshRenderer>().materials[1];
     }
     public override void interact()
     {
@@ -125,6 +136,20 @@ public class ExitDoor : InteractiveMono
     {
         m_SC.update();
         m_timer += Time.deltaTime;
+
+        if(opening)
+        {
+            for(int i=0; i<doors.Length; i++)
+            {
+                doors[i].transform.localPosition = Vector3.Lerp(doors[i].transform.localPosition, offsets[i], 0.1f * Time.deltaTime);
+            }
+        }
+
+        UpdateLightMaterial();
     }
-    
+
+    void UpdateLightMaterial()
+    {
+        lightMaterial.SetColor("_EmissionColor", m_activeLight.color);
+    }
 }

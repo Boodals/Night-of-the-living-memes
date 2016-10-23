@@ -20,12 +20,12 @@ public class CameraFX : MonoBehaviour
 
     public float grainMinDist = 40f;
     public float grainMult = 30f;
-    public float grainLerpMin = 0f;
-    public float grainLerpMax = 0.4f;
+    public float grainLerpMin = 0.3f;
+    public float grainLerpMax = 0.7f;
 
     private void LateUpdate()
 	{
-		GetComponent<ScreenSpaceAmbientOcclusion>().m_Radius = Mathf.Lerp(ambOccPulseMin, ambOccPulseMax, Mathf.InverseLerp(-1f, 1f, Mathf.Sin(Time.time * ambOccPulseSpeed)));
+		//GetComponent<ScreenSpaceAmbientOcclusion>().m_Radius = Mathf.Lerp(ambOccPulseMin, ambOccPulseMax, Mathf.InverseLerp(-1f, 1f, Mathf.Sin(Time.time * ambOccPulseSpeed)));
 
 
 		if(nyanCat.gameObject.activeInHierarchy)
