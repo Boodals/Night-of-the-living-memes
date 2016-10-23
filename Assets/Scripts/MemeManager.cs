@@ -23,7 +23,7 @@ public class MemeManager : MonoBehaviour {
         matToChange = plane.GetComponent<Renderer>().material;
 
         //matToChange.SetTexture("_MainTexture", memeImage);
-        matToChange.SetTexture("_EmissionMap", memeImage);
+        matToChange.SetTexture("_MainTex", memeImage);
 
         randomDuration = Random.Range(2, 8);
     }

@@ -38,7 +38,7 @@ public class HUDScript : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-	    
+        ToggleExitNotif(false);
 	}
 	
 	// Update is called once per frame
