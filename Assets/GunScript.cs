@@ -78,16 +78,36 @@ public class GunScript : MonoBehaviour
         anim.SetTrigger("Fire");
         muzzleLight.intensity = 8;
         ChangeAmmo(-1);
+
+        GameObject firedBullet = null;
+
         for (int i = 0; i < bulletPool.Count; i++)
         {
             if(!bulletPool[i].activeInHierarchy)
             {
-                bulletPool[i].transform.position = gameObject.transform.position;
+                bulletPool[i].transform.position = muzzleFlash.transform.position;
                 bulletPool[i].transform.rotation = gameObject.transform.rotation;
-                bulletPool[i].SetActive(true);
+                firedBullet = bulletPool[i];
                 break;
             }
         }
+
+        if(firedBullet)
+        {
+            RaycastHit bulletLine;
+            Camera playerCam = PlayerScript.playerSingleton.GetCamera();
+            Ray shotRay = playerCam.ScreenPointToRay(new Vector3(playerCam.pixelWidth/2, playerCam.pixelHeight/2));
+
+            if (Physics.Raycast(shotRay, out bulletLine, 1000))
+            {
+                Debug.DrawLine(playerCam.transform.position, bulletLine.point, Color.red, 10);
+                firedBullet.transform.rotation = Quaternion.LookRotation(bulletLine.point - firedBullet.transform.position);
+                //Debug.Break();
+            }
+
+            firedBullet.SetActive(true);
+        }
+
         snd.PlayOneShot(SoundBank.singleton.GetRandomClip(SoundBank.singleton.gunShots), 1.0f);
         waitingToReleaseRT = true;
     }
