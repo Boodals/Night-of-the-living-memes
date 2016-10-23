@@ -7,11 +7,21 @@ public class NyanCat : MonoBehaviour
 
 	public Transform targetTrans;
 
+	public PhoneHUDScript phone;
+
+	private void Awake()
+	{
+		phone.distance = Mathf.Infinity;
+	}
+
 	private void Update()
 	{
 		NavMeshAgent agent = GetComponent<NavMeshAgent>();
 
 		agent.destination = targetTrans.position;
+
+
+		phone.distance = Vector3.Distance(targetTrans.position, transform.position);
 	}
 
 	public void OnTriggerEnter(Collider other)
