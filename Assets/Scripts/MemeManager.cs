@@ -11,7 +11,7 @@ public class MemeManager : MonoBehaviour {
     Texture memeImage;
     public Texture[] memeImages;
     int randomArrayIndex;
-    int memeAmount = 20;
+    int memeAmount = 21;
     Material matToChange;
 
     void Start()
@@ -38,7 +38,7 @@ public class MemeManager : MonoBehaviour {
                 randomDuration = Random.Range(2, 8);
                 randomArrayIndex = Random.Range(0, memeAmount);
                 randomImage = memeImages[randomArrayIndex];
-                matToChange.SetTexture("_EmissionMap", randomImage);
+                matToChange.SetTexture("_MainTex", randomImage);
                 timeTaken = 0.0f;
             }
            
