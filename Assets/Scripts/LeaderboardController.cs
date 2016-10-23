@@ -5,7 +5,7 @@ public class LeaderboardController : MonoBehaviour {
 
     public GameObject nameInput;
     public GameObject leaderboard;
-
+    public Fader m_fader;
 	// Use this for initialization
 	void Start () {
         nameInput.SetActive( false);
@@ -19,7 +19,9 @@ public class LeaderboardController : MonoBehaviour {
         {
             leaderboard.SetActive(true);
         }
-	}
+
+        m_fader.fadeIn(4.0f,Color.black, null,0.5f);
+    }
     public void showLeaderboard()
     {
         leaderboard.SetActive(true);

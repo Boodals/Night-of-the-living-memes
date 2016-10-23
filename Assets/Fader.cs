@@ -15,10 +15,12 @@ public class Fader : MonoBehaviour
     private float m_timer;
     private FADE m_fadeState;
     FadeCallback m_callback;
+    float m_lingerTimer;
     private enum FADE
     {
         OUT,
         IN,
+        SOLID,
         NONE
     }
     // Use this for initialization
@@ -27,20 +29,20 @@ public class Fader : MonoBehaviour
         m_timer = 0.0f;
         m_fadeState = FADE.NONE;
         m_startCol = Color.clear;
+
     }
 
-    public void fadeIn(float _duration, Color _col, FadeCallback _callback=null)
+    public void fadeIn(float _duration, Color _col, FadeCallback _callback=null, float _linger = 0.0f)
     {
+        m_fadeLinger = _linger;
         m_fadeDuration = _duration;
         m_fadeTarget = _col;
         m_callback = _callback;
-        m_fadeState = FADE.IN;
-
+        m_fadeState = FADE.SOLID;
         m_timer = 0.0f;
-
-       
+        m_lingerTimer = 0.0f;
+        m_fader.color = m_fadeTarget;
         m_startCol = Color.clear;
-        Debug.Log(m_startCol + " to " + m_fadeTarget);
     }
 
     public void fadeOut(float _duration, Color _col, FadeCallback _callback = null, float _linger =0.0f)
@@ -51,7 +53,7 @@ public class Fader : MonoBehaviour
         m_callback = _callback;
         m_fadeState = FADE.OUT;
         m_timer = 0.0f;
-
+        m_lingerTimer = 0.0f;
         if (m_fadeState != FADE.NONE)
         {
             m_startCol = m_fader.color;
@@ -60,12 +62,12 @@ public class Fader : MonoBehaviour
         {
             m_startCol = Color.clear;
         }
-        Debug.Log(m_fadeTarget + " to " + m_startCol);
     }
 	// Update is called once per frame
 	void Update ()
     {
         m_timer += Time.deltaTime;
+        m_lingerTimer += Time.deltaTime;
         switch (m_fadeState)
         {
             case FADE.OUT:
@@ -82,6 +84,14 @@ public class Fader : MonoBehaviour
                 {
                     m_fadeState = FADE.NONE;
                     if (m_callback != null) m_callback();
+                }
+                
+                break;  
+            case FADE.SOLID:
+                if (m_timer >= m_fadeLinger)
+                {
+                    m_fadeState = FADE.IN;
+                    m_timer = 0.0f;
                 }
                 break;
             case FADE.NONE:
