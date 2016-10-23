@@ -11,6 +11,12 @@ public class NyanCat : MonoBehaviour
 
 	public float speedPerLevel = 0.5f;
 
+
+	public AudioClip spawnOneShot;
+
+	public AudioSource oneShotSource;
+
+
 	private void Awake()
 	{
 		phone.distance = Mathf.Infinity;
@@ -19,6 +25,11 @@ public class NyanCat : MonoBehaviour
 	private void Start()
 	{
 		GetComponent<NavMeshAgent>().speed += speedPerLevel * GameManager.currentStage;
+
+		if (spawnOneShot != null)
+		{
+			oneShotSource.PlayOneShot(spawnOneShot);
+		}
     }
 
 	private void Update()
