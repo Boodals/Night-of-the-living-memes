@@ -23,6 +23,11 @@ public class HUDScript : MonoBehaviour
 
     //score display
     public Text scoreTxt;
+
+    //nyan cat notifcation stuff
+    public Text nyanNotif;
+    float nyanTimer;
+    bool displayNotif;
     
 
     void Awake()
@@ -46,6 +51,20 @@ public class HUDScript : MonoBehaviour
         PositionCrosshairs(crosshair_BR, -Vector3.up + Vector3.right);
 
         exitNotif.transform.localPosition += (Vector3.up * Mathf.Sin(Time.time * 1.3f)) * 0.1f;
+
+        if(displayNotif)
+        {
+            nyanTimer -= Time.deltaTime * 0.5f;
+            if(nyanTimer <= 0)
+            {
+                displayNotif = false;
+            }
+        }
+        else
+        {
+            nyanNotif.enabled = false;
+        }
+
 	}
 
     public void SetCrosshairScale(bool isCrouched, float scalingValue)
@@ -88,5 +107,12 @@ public class HUDScript : MonoBehaviour
     public void UpdateScore(int score)
     {
         scoreTxt.text = "" + score;
+    }
+
+    public void DisplayNyanNotif()
+    {
+        nyanTimer = 4.0f;
+        displayNotif = true;
+        nyanNotif.enabled = true;
     }
 }

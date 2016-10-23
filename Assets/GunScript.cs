@@ -98,11 +98,12 @@ public class GunScript : MonoBehaviour
             Camera playerCam = PlayerScript.playerSingleton.GetCamera();
             Ray shotRay = playerCam.ScreenPointToRay(new Vector3(playerCam.pixelWidth/2, playerCam.pixelHeight/2));
 
-            if (Physics.Raycast(shotRay, out bulletLine, 1000))
+            if (Physics.Raycast(shotRay, out bulletLine, 1000, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
             {
                 Debug.DrawLine(playerCam.transform.position, bulletLine.point, Color.red, 10);
+                Debug.Log(bulletLine.collider.gameObject.name);
                 firedBullet.transform.rotation = Quaternion.LookRotation(bulletLine.point - firedBullet.transform.position);
-                //Debug.Break();
+                Debug.Break();
             }
 
             firedBullet.SetActive(true);
