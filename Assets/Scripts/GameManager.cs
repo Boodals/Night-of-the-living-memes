@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     private static float m_internalScore;
     public ExitManager m_exitManager;
     public EnemyManager m_enemyManager;
-
+   
 
     float secondTimer;
     int seconds = 0, minutes = 0;
@@ -35,7 +35,8 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             init();
-            m_fader.fadeIn(6.0f, Color.black, null);
+            m_fader.setStartColour(Color.black);
+            m_fader.fade(3.0f, Color.clear, 0,0,null);
         }
         else
         {
@@ -71,19 +72,23 @@ public class GameManager : MonoBehaviour
     public void OnLevelWasLoaded()
     {
         m_exitManager.spawnPlayerAtRandomDoor(m_player);
+        if (currentStage > 0)
+        {
+            gameManagerSingleton.m_fader.setStartColour(Color.white, true);
+            gameManagerSingleton.m_fader.fade(1.25f, Color.clear, 0.0f, 0.5f, null);
+        }
     }
     public static void levelUp()
     {
         ++currentStage;
         //stop enemies?
-        gameManagerSingleton.m_fader.fadeOut(2.0f, Color.white, changeLevel, 0.3f);
-
+        gameManagerSingleton.m_fader.setStartColour(Color.clear);
+        gameManagerSingleton.m_fader.fade(1.25f, Color.white, 0.0f, 0.0f, changeLevel);
     }
     private static void changeLevel()
     {
         SceneManager.UnloadScene("asylumEditor");
         SceneManager.LoadScene("asylumEditor");
-        gameManagerSingleton.m_fader.fadeIn(3.0f, Color.white, null);
     }
     public void ChangeGameState(GameStates newGameState)
     {

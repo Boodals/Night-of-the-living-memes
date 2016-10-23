@@ -8,7 +8,8 @@ public class LoadLevel : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        m_fader.fadeIn(4.0f, Color.black, null, 0.5f);
+        m_fader.setStartColour(Color.black);
+        m_fader.fade(2.5f, Color.clear, 0.5f, 0.0f, null);
     }
 	
 	// Update is called once per frame
@@ -17,7 +18,8 @@ public class LoadLevel : MonoBehaviour
      
         if (Input.GetButtonDown(start))
         {
-            m_fader.fadeOut(2.0f, Color.black, loadGame);
+            m_fader.setStartColour(Color.clear);
+            m_fader.fade(1.5f, Color.black, 0.0f, 0.0f, loadGame);
         }
     }
 

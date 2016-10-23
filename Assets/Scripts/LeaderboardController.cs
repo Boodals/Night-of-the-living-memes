@@ -20,7 +20,6 @@ public class LeaderboardController : MonoBehaviour {
             leaderboard.SetActive(true);
         }
 
-        m_fader.fadeIn(4.0f,Color.black, null,0.5f);
     }
     public void showLeaderboard()
     {
