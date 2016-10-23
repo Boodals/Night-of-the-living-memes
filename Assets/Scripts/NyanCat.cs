@@ -13,6 +13,7 @@ public class NyanCat : MonoBehaviour
 
 
 	public AudioClip spawnOneShot;
+	public AudioClip killedPlayerOneShot;
 
 	public AudioSource oneShotSource;
 
@@ -51,6 +52,11 @@ public class NyanCat : MonoBehaviour
 			if(ps != null)
 			{
 				ps.StartDying();
+
+				if (killedPlayerOneShot != null)
+				{
+					oneShotSource.PlayOneShot(killedPlayerOneShot);
+				}
 			}
 		}
 	}
