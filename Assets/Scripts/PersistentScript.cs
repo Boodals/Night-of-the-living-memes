@@ -5,11 +5,16 @@ public class PersistentScript : MonoBehaviour
 {
 
     public static int s_score;
+    private static PersistentScript m_inst;
 
 	// Use this for initialization
 	void Start ()
     {
-        DontDestroyOnLoad(gameObject);
+        if (m_inst == null)
+        {
+            m_inst = this;
+            DontDestroyOnLoad(gameObject);
+        }
 	}
 
 }
