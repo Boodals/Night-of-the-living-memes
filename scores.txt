@@ -1,4 +1,6 @@
 0
+DD
+0
 C
 0
 C
@@ -6,5 +8,3 @@ C
 BBB
 0
 AAA
-0
-AAAA
