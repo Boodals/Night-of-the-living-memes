@@ -33,8 +33,6 @@ public class CameraFX : MonoBehaviour
 
         GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = Mathf.Lerp(grainLerpMin, grainLerpMax, (grainMinDist - distSqr) / grainMult);
 		GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
-
-		Debug.Log(GetComponentInChildren<NoiseAndScratches>().grainIntensityMax);
 	}
 
 }

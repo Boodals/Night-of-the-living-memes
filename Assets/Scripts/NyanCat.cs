@@ -10,8 +10,20 @@ public class NyanCat : MonoBehaviour
 	private void Update()
 	{
 		NavMeshAgent agent = GetComponent<NavMeshAgent>();
-		
+
 		agent.destination = targetTrans.position;
 	}
 
+	public void OnTriggerEnter(Collider other)
+	{
+		if(other.tag == "Player")
+		{
+			PlayerScript ps = other.GetComponent<PlayerScript>();
+
+			if(ps != null)
+			{
+				ps.StartDying();
+			}
+		}
+	}
 }
