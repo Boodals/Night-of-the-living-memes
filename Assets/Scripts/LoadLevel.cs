@@ -1,22 +1,28 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class LoadLevel : MonoBehaviour {
-
+public class LoadLevel : MonoBehaviour
+{
     public string start = "Start";
-
-	// Use this for initialization
-	void Start () {
-	
-	}
+    public Fader m_fader;
+    // Use this for initialization
+    void Start ()
+    {
+        m_fader.fadeIn(4.0f, Color.black, null);
+    }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+     
         if (Input.GetButtonDown(start))
         {
-            SceneManager.LoadScene("asylumEditor");
+            m_fader.fadeOut(2.0f, Color.black, loadGame);
         }
-	
-	}
+    }
+
+    private void loadGame()
+    {
+        SceneManager.LoadScene("asylumEditor");
+    }
 }

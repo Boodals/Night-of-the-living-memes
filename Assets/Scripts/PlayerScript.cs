@@ -79,6 +79,13 @@ public class PlayerScript : MonoBehaviour
         cameraPositions[2] = new Vector3(0, -0.65f, 0.35f);
     }
 
+	void OnDestroy()
+	{
+		isMouseLocked = false;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+	}
+
 	void Update()
 	{
 		if(!isMouseLocked)
