@@ -38,18 +38,14 @@ public class Fader : MonoBehaviour
 
         m_timer = 0.0f;
 
-        if (m_fadeState != FADE.NONE)
-        {
-            m_startCol = m_fader.color;
-        }
-        else
-        {
-            m_startCol = Color.clear;
-        }
+       
+        m_startCol = Color.clear;
+        Debug.Log(m_startCol + " to " + m_fadeTarget);
     }
 
-    public void fadeOut(float _duration, Color _col, FadeCallback _callback = null)
+    public void fadeOut(float _duration, Color _col, FadeCallback _callback = null, float _linger =0.0f)
     {
+        m_fadeLinger = _linger;
         m_fadeDuration = _duration;
         m_fadeTarget = _col;
         m_callback = _callback;
@@ -64,6 +60,7 @@ public class Fader : MonoBehaviour
         {
             m_startCol = Color.clear;
         }
+        Debug.Log(m_fadeTarget + " to " + m_startCol);
     }
 	// Update is called once per frame
 	void Update ()
