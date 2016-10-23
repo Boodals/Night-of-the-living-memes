@@ -41,7 +41,7 @@ public class GunScript : MonoBehaviour
     {
         //Debug.Log(Input.GetAxisRaw("RT"));
 
-        if(canFire && GameManager.gameManagerSingleton.IsCurrentGameState(GameManager.GameStates.PLAYING) && !waitingToReleaseRT && ammo>0)
+        if(canFire && GameManager.gameManagerSingleton.IsCurrentGameState(GameManager.GameStates.PLAYING) && !waitingToReleaseRT && ammo>0 && PlayerScript.playerSingleton.myState==PlayerScript.State.Standard)
         {
             if(Input.GetAxisRaw("RT")>0.9f)
             {
