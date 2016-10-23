@@ -22,6 +22,9 @@ public class NyanCat : MonoBehaviour
 
 	private float navigationUpdateTimer;
 
+    public Material glowMat;
+    public Color[] glowColours;
+
 	private void Awake()
 	{
 		phone.distance = Mathf.Infinity;
@@ -51,7 +54,7 @@ public class NyanCat : MonoBehaviour
 			navigationUpdateTimer = Time.time;
 		}
 
-
+        glowMat.SetColor("_EmissionColor", Color.Lerp(glowColours[0], glowColours[1], Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 8))));
 		phone.distance = Vector3.Distance(targetTrans.position, transform.position);
 	}
 
