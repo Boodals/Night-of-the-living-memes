@@ -4,9 +4,11 @@ using UnityEngine.SceneManagement;
 public class LoadLevel : MonoBehaviour
 {
     public string start = "Start";
- 
+    public Fader m_fader;
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        m_fader.fadeIn(4.0f, Color.black, null);
     }
 	
 	// Update is called once per frame
@@ -15,7 +17,12 @@ public class LoadLevel : MonoBehaviour
      
         if (Input.GetButtonDown(start))
         {
-            SceneManager.LoadScene("asylumEditor");
+            m_fader.fadeOut(2.0f, Color.black, loadGame);
         }
+    }
+
+    private void loadGame()
+    {
+        SceneManager.LoadScene("asylumEditor");
     }
 }
