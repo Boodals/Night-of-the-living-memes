@@ -1,0 +1,645 @@
+fileFormatVersion: 2
+guid: 9dccca42145ecb94fa80e438d0991fb3
+timeCreated: 1477067048
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Arm_l
+    100002: Arm_l_001
+    100004: Arm_r
+    100006: Arm_r_001
+    100008: Arms
+    100010: Back
+    100012: Bone
+    100014: Bone_001
+    100016: Bone_002
+    100018: Bone_003
+    100020: Chestplate
+    100022: Chestplate_001
+    100024: Cylinder
+    100026: Cylinder_001
+    100028: Cylinder_002
+    100030: Cylinder_003
+    100032: Foot_l
+    100034: Foot_r
+    100036: Hand_l
+    100038: Hand_r
+    100040: Hands
+    100042: Head
+    100044: Leg_l
+    100046: Leg_r
+    100048: Legs
+    100050: SCREEN
+    100052: Shin_l
+    100054: Shin_r
+    100056: Skeleton
+    100058: Sphere
+    100060: Sphere_002
+    100062: //RootNode
+    400000: Arm_l
+    400002: Arm_l_001
+    400004: Arm_r
+    400006: Arm_r_001
+    400008: Arms
+    400010: Back
+    400012: Bone
+    400014: Bone_001
+    400016: Bone_002
+    400018: Bone_003
+    400020: Chestplate
+    400022: Chestplate_001
+    400024: Cylinder
+    400026: Cylinder_001
+    400028: Cylinder_002
+    400030: Cylinder_003
+    400032: Foot_l
+    400034: Foot_r
+    400036: Hand_l
+    400038: Hand_r
+    400040: Hands
+    400042: Head
+    400044: Leg_l
+    400046: Leg_r
+    400048: Legs
+    400050: SCREEN
+    400052: Shin_l
+    400054: Shin_r
+    400056: Skeleton
+    400058: Sphere
+    400060: Sphere_002
+    400062: //RootNode
+    4300000: Chestplate
+    4300002: Back
+    4300004: Arms
+    4300006: Hands
+    4300008: Legs
+    4300010: Chestplate_001
+    4300012: Sphere_002
+    4300014: Sphere
+    4300016: Cylinder_001
+    4300018: Cylinder_002
+    4300020: Cylinder
+    4300022: Cylinder_003
+    4300024: SCREEN
+    4300026: Head
+    7400000: Default Take
+    7400002: Frozen
+    7400004: GetShot
+    7400006: Idle
+    7400008: Wander
+    9500000: //RootNode
+    13700000: Arms
+    13700002: Back
+    13700004: Chestplate
+    13700006: Chestplate_001
+    13700008: Cylinder
+    13700010: Cylinder_001
+    13700012: Cylinder_002
+    13700014: Cylinder_003
+    13700016: Hands
+    13700018: Head
+    13700020: Legs
+    13700022: SCREEN
+    13700024: Sphere
+    13700026: Sphere_002
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 249
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arms
+        weight: 1
+      - path: Back
+        weight: 1
+      - path: Chestplate
+        weight: 1
+      - path: Chestplate_001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Cylinder_001
+        weight: 1
+      - path: Cylinder_002
+        weight: 1
+      - path: Cylinder_003
+        weight: 1
+      - path: Hands
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Legs
+        weight: 1
+      - path: SCREEN
+        weight: 1
+      - path: Skeleton
+        weight: 1
+      - path: Skeleton/Bone
+        weight: 1
+      - path: Skeleton/Bone/Bone_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001/Hand_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001/Hand_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Bone_003
+        weight: 1
+      - path: Skeleton/Leg_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l/Foot_l
+        weight: 1
+      - path: Skeleton/Leg_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r/Foot_r
+        weight: 1
+      - path: Sphere
+        weight: 1
+      - path: Sphere_002
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Frozen
+      takeName: Frozen
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arms
+        weight: 1
+      - path: Back
+        weight: 1
+      - path: Chestplate
+        weight: 1
+      - path: Chestplate_001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Cylinder_001
+        weight: 1
+      - path: Cylinder_002
+        weight: 1
+      - path: Cylinder_003
+        weight: 1
+      - path: Hands
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Legs
+        weight: 1
+      - path: SCREEN
+        weight: 1
+      - path: Skeleton
+        weight: 1
+      - path: Skeleton/Bone
+        weight: 1
+      - path: Skeleton/Bone/Bone_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001/Hand_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001/Hand_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Bone_003
+        weight: 1
+      - path: Skeleton/Leg_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l/Foot_l
+        weight: 1
+      - path: Skeleton/Leg_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r/Foot_r
+        weight: 1
+      - path: Sphere
+        weight: 1
+      - path: Sphere_002
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: GetShot
+      takeName: GetShot
+      firstFrame: 0
+      lastFrame: 74
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arms
+        weight: 1
+      - path: Back
+        weight: 1
+      - path: Chestplate
+        weight: 1
+      - path: Chestplate_001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Cylinder_001
+        weight: 1
+      - path: Cylinder_002
+        weight: 1
+      - path: Cylinder_003
+        weight: 1
+      - path: Hands
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Legs
+        weight: 1
+      - path: SCREEN
+        weight: 1
+      - path: Skeleton
+        weight: 1
+      - path: Skeleton/Bone
+        weight: 1
+      - path: Skeleton/Bone/Bone_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001/Hand_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001/Hand_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Bone_003
+        weight: 1
+      - path: Skeleton/Leg_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l/Foot_l
+        weight: 1
+      - path: Skeleton/Leg_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r/Foot_r
+        weight: 1
+      - path: Sphere
+        weight: 1
+      - path: Sphere_002
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Idle
+      takeName: Idle
+      firstFrame: 0
+      lastFrame: 99
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arms
+        weight: 1
+      - path: Back
+        weight: 1
+      - path: Chestplate
+        weight: 1
+      - path: Chestplate_001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Cylinder_001
+        weight: 1
+      - path: Cylinder_002
+        weight: 1
+      - path: Cylinder_003
+        weight: 1
+      - path: Hands
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Legs
+        weight: 1
+      - path: SCREEN
+        weight: 1
+      - path: Skeleton
+        weight: 1
+      - path: Skeleton/Bone
+        weight: 1
+      - path: Skeleton/Bone/Bone_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001/Hand_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001/Hand_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Bone_003
+        weight: 1
+      - path: Skeleton/Leg_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l/Foot_l
+        weight: 1
+      - path: Skeleton/Leg_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r/Foot_r
+        weight: 1
+      - path: Sphere
+        weight: 1
+      - path: Sphere_002
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Wander
+      takeName: Wander
+      firstFrame: 0
+      lastFrame: 99
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0
+        functionName: Footstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e13a0f147879a4943b5aba2db0d1f182,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.49514562
+        functionName: Footstep
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: e13a0f147879a4943b5aba2db0d1f182,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Arms
+        weight: 1
+      - path: Back
+        weight: 1
+      - path: Chestplate
+        weight: 1
+      - path: Chestplate_001
+        weight: 1
+      - path: Cylinder
+        weight: 1
+      - path: Cylinder_001
+        weight: 1
+      - path: Cylinder_002
+        weight: 1
+      - path: Cylinder_003
+        weight: 1
+      - path: Hands
+        weight: 1
+      - path: Head
+        weight: 1
+      - path: Legs
+        weight: 1
+      - path: SCREEN
+        weight: 1
+      - path: Skeleton
+        weight: 1
+      - path: Skeleton/Bone
+        weight: 1
+      - path: Skeleton/Bone/Bone_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_l/Arm_l_001/Hand_l
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Arm_r/Arm_r_001/Hand_r
+        weight: 1
+      - path: Skeleton/Bone/Bone_001/Bone_002/Bone_003
+        weight: 1
+      - path: Skeleton/Leg_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l
+        weight: 1
+      - path: Skeleton/Leg_l/Shin_l/Foot_l
+        weight: 1
+      - path: Skeleton/Leg_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r
+        weight: 1
+      - path: Skeleton/Leg_r/Shin_r/Foot_r
+        weight: 1
+      - path: Sphere
+        weight: 1
+      - path: Sphere_002
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 25
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

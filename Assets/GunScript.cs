@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GunScript : MonoBehaviour
 {
     public static GunScript gunSingleton;
+    public GameObject bulletPrefab;
+
+    int PooledAmount = 20;
+
+    List<GameObject> bulletPool;
 
     public static int ammo = 3;
     bool canFire = true;
@@ -11,12 +17,21 @@ public class GunScript : MonoBehaviour
     Animator anim;
     public ParticleSystem muzzleFlash;
     public Light muzzleLight;
+    AudioSource snd;
 
     bool waitingToReleaseRT = false;
 
     // Use this for initialization
     void Awake()
     {
+        snd = GetComponentInParent<AudioSource>();
+        bulletPool = new List<GameObject>();
+        for (int i = 0; i < PooledAmount; i++)
+        {
+            GameObject obj = (GameObject)Instantiate(bulletPrefab);
+            obj.SetActive(false);
+            bulletPool.Add(obj);
+        }
         anim = GetComponent<Animator>();
         gunSingleton = this;
     }
@@ -63,7 +78,17 @@ public class GunScript : MonoBehaviour
         anim.SetTrigger("Fire");
         muzzleLight.intensity = 8;
         ChangeAmmo(-1);
-
+        for (int i = 0; i < bulletPool.Count; i++)
+        {
+            if(!bulletPool[i].activeInHierarchy)
+            {
+                bulletPool[i].transform.position = gameObject.transform.position;
+                bulletPool[i].transform.rotation = gameObject.transform.rotation;
+                bulletPool[i].SetActive(true);
+                break;
+            }
+        }
+        snd.PlayOneShot(SoundBank.singleton.GetRandomClip(SoundBank.singleton.gunShots), 1.0f);
         waitingToReleaseRT = true;
     }
 
@@ -75,11 +100,20 @@ public class GunScript : MonoBehaviour
     public void ChangeAmmo(int amount)
     {
         ammo += amount;
-        HUDScript.HUDsingleton.UpdateAmmoTotal(ammo);
+        if (HUDScript.HUDsingleton)
+        {
+            HUDScript.HUDsingleton.UpdateAmmoTotal(ammo);
+        }
     }
 
     public void Reload()
     {
+        
         canFire = true;
+    }
+
+    public void ReloadSound()
+    {
+        snd.PlayOneShot(SoundBank.singleton.reloadSound);
     }
 }

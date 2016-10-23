@@ -21,8 +21,8 @@ public class HUDScript : MonoBehaviour
     public Text ammoTxt;
     public Image ammoImage;
 
-    //timer display
-    public Text time;
+    //score display
+    public Text scoreTxt;
     
 
     void Awake()
@@ -51,11 +51,11 @@ public class HUDScript : MonoBehaviour
     public void SetCrosshairScale(bool isCrouched, float scalingValue)
     {
         //call this to trigger the crosshairs' movement
-        scale = -70 - (scalingValue * 10);
+        scale = -20 - (scalingValue * 30);
 
         if(isCrouched)
         {
-            scale = scale * 0.7f;
+            scale = scale * 0.4f;
         }
     }
 
@@ -85,24 +85,8 @@ public class HUDScript : MonoBehaviour
         ammoTxt.text = "" + curAmmoAmount + "/10";
     }
 
-    public void UpdateTimer(int mins, int seconds)
+    public void UpdateScore(int score)
     {
-        if(mins == 0 && seconds > 9)
-        {
-            time.text = "0:" + seconds; 
-        }
-        if(mins == 0 && seconds < 10)
-        {
-            time.text = "0:0" + seconds; 
-        }
-        if(seconds > 9)
-        {
-            time.text = "" + mins + ":" + seconds;
-        }
-        if(seconds < 10)
-        {
-            time.text = "" + mins + ":0" + seconds; 
-        }
-
+        scoreTxt.text = "" + score;
     }
 }

@@ -14,8 +14,17 @@ public class TransitionAttribute : Attribute
         m_from = _from;
     }
 }
-
-
+[AttributeUsage(AttributeTargets.Method)]
+public class TransitionOverrideAttribute : Attribute
+{
+    public short m_to;
+    public short m_from;
+    public TransitionOverrideAttribute(short _from, short _to)
+    {
+        m_to = _to;
+        m_from = _from;
+    }
+}
 [AttributeUsage(AttributeTargets.Method)]
 public class UpdateAttribute : Attribute
 {

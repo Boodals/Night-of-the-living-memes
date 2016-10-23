@@ -11,6 +11,9 @@ public class FlickerScript : MonoBehaviour
 
     float timer = 4, initialIntensity;
 
+    float curTarget;
+    float changeTargetTimer = 0.1f;
+
     // Use this for initialization
     void Start()
     {
@@ -34,15 +37,25 @@ public class FlickerScript : MonoBehaviour
         switch (currentState)
         {
             case states.flickering:
-                myLight.intensity = Random.Range(0, initialIntensity*1.2f);
+                if (changeTargetTimer <= 0)
+                {
+                    changeTargetTimer = 0.1f;
+                    curTarget = Random.Range(0, initialIntensity * 1.2f);
+                }
+                else
+                {
+                    changeTargetTimer -= Time.deltaTime;
+                }
                 break;
             case states.normal:
-                myLight.intensity = initialIntensity;
+                curTarget = initialIntensity;
                 break;
             case states.off:
-                myLight.intensity -= Time.deltaTime * 2;
+                curTarget = 0;
                 break;
         }
+
+        myLight.intensity = Mathf.Lerp(myLight.intensity, curTarget, 3 * Time.deltaTime);
     }
 
     void SwitchState()

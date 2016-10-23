@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerScript : MonoBehaviour {
+public class PlayerScript : MonoBehaviour
+{
 
     public static PlayerScript playerSingleton;
 
@@ -27,11 +28,11 @@ public class PlayerScript : MonoBehaviour {
     Vector3 oppositeForce;
     Rigidbody playerRigidbody;
 
-    public enum CrouchState { Standing, Crouching, Hiding}
+    public enum CrouchState { Standing, Crouching, Hiding }
     public CrouchState myCrouchState;
     Vector3[] cameraPositions;
 
-    public enum State { Standard, Sprinting, Reloading, Dead}
+    public enum State { Standard, Sprinting, Reloading, Dead }
     public State myState;
 
     public Vector3 currentLookDirection;
@@ -49,6 +50,11 @@ public class PlayerScript : MonoBehaviour {
     public bool flashlightOn;
     public bool flashlightToggledThisFrame;
 
+    public Transform forceLookAtThis;
+
+
+    float deathTimer = 0;
+
     void Awake()
     {
         playerSingleton = this;
@@ -56,10 +62,11 @@ public class PlayerScript : MonoBehaviour {
         snd = GetComponent<AudioSource>();
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         playerRigidbody = GetComponent<Rigidbody>();
-        currentLookDirection = transform.forward;
+        currentLookDirection = transform.eulerAngles;
 
         playerFlashlight = gameObject.GetComponentInChildren<FlashlightBehaviour>();
         myCamera = gameObject.GetComponentInChildren<Camera>();
@@ -68,14 +75,15 @@ public class PlayerScript : MonoBehaviour {
         cameraPositions[0] = new Vector3(0, 1.1f, 0);
         cameraPositions[1] = new Vector3(0, 0.3f, 0.0f);
         cameraPositions[2] = new Vector3(0, -0.65f, 0.35f);
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
 
         flashlightOn = playerFlashlight.isFlashlightOn();
         flashlightToggledThisFrame = playerFlashlight.toggledThisFrame;
-        float currentMaxSpeedMultiplier = 1 / ((int)myCrouchState+1);
+        float currentMaxSpeedMultiplier = 1 / ((int)myCrouchState + 1);
 
         if (myState == State.Sprinting)
             currentMaxSpeedMultiplier *= 2;
@@ -100,19 +108,23 @@ public class PlayerScript : MonoBehaviour {
         sprintValue = Input.GetAxis(sprint);
 
         //Performs movement based on player input
-        Vector3 movement = new Vector3(horizontalValue, 0, verticalValue);
-        movement = myCamera.transform.TransformDirection(movement);
-        movement.y = 0;
 
-        if (movement.magnitude > 1)
+        if (myState != State.Dead)
         {
-            movement = movement.normalized;
+            Vector3 movement = new Vector3(horizontalValue, 0, verticalValue);
+            movement = myCamera.transform.TransformDirection(movement);
+            movement.y = 0;
+
+            if (movement.magnitude > 1)
+            {
+                movement = movement.normalized;
+            }
+
+            movement = LookForWalls(movement);
+
+            playerRigidbody.AddForce(movement, ForceMode.VelocityChange);
+            movementIntensity = movement.magnitude;
         }
-
-        movement = LookForWalls(movement);
-
-        playerRigidbody.AddForce(movement, ForceMode.VelocityChange);
-        movementIntensity = movement.magnitude;
 
         HandleHeadbob();
         HandleCrouching();
@@ -120,12 +132,17 @@ public class PlayerScript : MonoBehaviour {
         HandleNoise();
         LookingAround();
 
+        if(myState==State.Dead)
+        {
+            HandleDying();
+        }
+
         if (HUDScript.HUDsingleton)
         {
             HUDScript.HUDsingleton.SetCrosshairScale(myCrouchState == CrouchState.Crouching, movementIntensity);
         }
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             MakeNoise(100);
         }
@@ -157,20 +174,56 @@ public class PlayerScript : MonoBehaviour {
                 waitingForFootstep = true;
             }
         }
-        
+
 
         curBobAmount = Mathf.Lerp(curBobAmount, sinAmount * targetBobAmount, 4 * Time.deltaTime);
 
         //Final position is applied in the crouch bit
     }
 
+    void HandleDying()
+    {
+        deathTimer += Time.deltaTime;
+
+        if(deathTimer>3f)
+        {
+            GameManager.gameManagerSingleton.ChangeGameState(GameManager.GameStates.GAMEOVER);
+            Destroy(GameManager.gameManagerSingleton.gameObject);
+            //CUT TO BLACK
+            UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+        }
+    }
+
+    public void StartDying()
+    {
+        if (myState != State.Dead)
+        {
+            snd.PlayOneShot(SoundBank.singleton.deathSound);
+            deathTimer = 0;
+            myState = State.Dead;
+        }
+    }
+
+    public void LookAtThis(Transform lookHere)
+    {
+        forceLookAtThis = lookHere;
+    }
+
     void HandleSprinting()
     {
         if (Input.GetButtonDown("Sprint"))
         {
-            if (myState == State.Standard && myCrouchState != CrouchState.Crouching)
+            if (myState == State.Standard || myCrouchState == CrouchState.Crouching)
             {
+                if (myCrouchState == CrouchState.Crouching)
+                {
+                    myCrouchState = CrouchState.Standing;
+                    playerSpeed = 455;
+                    maxSpeed = 3;
+                }
+                
                 myState = State.Sprinting;
+               
                 //playerSpeed = 655;
                 //maxSpeed = 6;
             }
@@ -182,10 +235,16 @@ public class PlayerScript : MonoBehaviour {
             }
         }
 
-        if((myState==State.Sprinting && movementIntensity<0.75f) || myCrouchState==CrouchState.Crouching)
+        if ((myState == State.Sprinting && movementIntensity < 0.9f) || myCrouchState == CrouchState.Crouching)
         {
             myState = State.Standard;
         }
+    }
+
+    public void AlignWithSpawnPoint(Transform spawnPoint)
+    {
+        transform.position = spawnPoint.transform.position;
+        currentLookDirection = spawnPoint.transform.eulerAngles;
     }
 
     void HandleCrouching()
@@ -194,13 +253,13 @@ public class PlayerScript : MonoBehaviour {
 
         if (Input.GetButtonDown("Crouch"))
         {
-            if(myCrouchState == CrouchState.Standing)
+            if (myCrouchState == CrouchState.Standing || myState == State.Sprinting)
             {
                 myCrouchState = CrouchState.Crouching;
                 playerSpeed = 255;
                 maxSpeed = 1.5f;
             }
-            else
+            else if (myCrouchState == CrouchState.Crouching)
             {
                 myCrouchState = CrouchState.Standing;
                 playerSpeed = 455;
@@ -219,12 +278,10 @@ public class PlayerScript : MonoBehaviour {
         float rayDistance = 0.65f;
 
         //This will be improved later probably
-        if(Physics.SphereCast(transform.position, 0.6f, direction, out wall, rayDistance))
+        if (Physics.SphereCast(transform.position, 0.6f, direction, out wall, rayDistance, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
         {
-            Vector3 temp = direction;
-            //direction = Vector3.Cross(direction, wall.normal);
-            //direction = Vector3.Cross(temp, direction);
-            direction = Vector3.Lerp(direction, wall.normal, 0.5f);
+            Vector3 temp = Vector3.Cross(wall.normal, direction);
+            //direction = Vector3.Cross(temp, wall.normal);
         }
 
         return direction;
@@ -243,22 +300,37 @@ public class PlayerScript : MonoBehaviour {
 
     void Footstep()
     {
-        snd.PlayOneShot(SoundBank.singleton.footstep1, movementIntensity);
-        MakeNoise(movementIntensity);
+        snd.PlayOneShot(SoundBank.singleton.GetRandomClip(SoundBank.singleton.playerFootsteps), movementIntensity * 0.5f);
+
+        float footstepNoise = movementIntensity;
+
+        if (myCrouchState == CrouchState.Crouching)
+        {
+            footstepNoise *= 0.1f;
+        }
+
+        MakeNoise(footstepNoise);
     }
 
     void LookingAround()
     {
-        Vector3 input = new Vector3(Input.GetAxisRaw("Vertical2"), Input.GetAxisRaw("Horizontal2"), 0) * sensitivity;
 
-        currentLookDirection += input * Time.deltaTime;
+        if (!forceLookAtThis)
+        {
+            Vector3 input = new Vector3(Input.GetAxisRaw("Vertical2"), Input.GetAxisRaw("Horizontal2"), 0) * sensitivity;
 
-        currentLookDirection.x = Mathf.Clamp(currentLookDirection.x, -65, 50);
-        //currentLookDirection = currentLookDirection.normalized;
+            currentLookDirection += input * Time.deltaTime;
+
+            currentLookDirection.x = Mathf.Clamp(currentLookDirection.x, -65, 50);
+        }
+        else
+        {
+            Vector3 towardsTarget = Quaternion.Lerp(myCamera.transform.rotation, Quaternion.LookRotation(forceLookAtThis.position - myCamera.transform.position), 4 * Time.deltaTime).eulerAngles;
+            currentLookDirection = towardsTarget;
+        }
+
 
         myCamera.transform.eulerAngles = currentLookDirection;
-        //Debug.DrawLine(transform.position, transform.position + currentLookDirection, Color.red, 10);
-        //myCamera.transform.rotation = Quaternion.Lerp(myCamera.transform.rotation, Quaternion.LookRotation(currentLookDirection), 10 * Time.deltaTime);
     }
 
     public float GetCurrentNoiseLevel()

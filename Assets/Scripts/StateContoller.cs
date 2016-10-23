@@ -51,6 +51,9 @@ public class StateContoller
         for (int i = 0; i < mthds.Length; i++)
         {
             TransitionAttribute attribute = Attribute.GetCustomAttribute(mthds[i], typeof(TransitionAttribute)) as TransitionAttribute;
+            TransitionOverrideAttribute ovrride = Attribute.GetCustomAttribute(mthds[i], typeof(TransitionOverrideAttribute)) as TransitionOverrideAttribute;
+            UpdateAttribute updateAttribute = Attribute.GetCustomAttribute(mthds[i], typeof(UpdateAttribute)) as UpdateAttribute;
+
             // if we detect a RememberMe attribute, generate field for dynamic class
             if (attribute != null)
             {
@@ -61,9 +64,9 @@ public class StateContoller
                 int index;
                 if (tryGetValue(p.m_key, out p.m_fnct, out index))
                 {
-                    //DO NO OVERWRITE
-                    ////if so, overwrite it
-                    ////m_transitions[index] = p;
+                    //Debug.Log("Trying to define " + mthds[i].Name + " as a transition function.");
+                    //Debug.Log("transition already defined from: " + attribute.m_from  + " to " + attribute.m_to + " on " + _obj);
+                    //Debug.Log("Ignore this if you've overriden a transition function with TransitionOverrideAttribute");
                 }
                 else
                 {
@@ -73,9 +76,28 @@ public class StateContoller
                 }
                 
             }
-            else //otherwise check for state update fnct
+            // if we detect a RememberMe attribute, generate field for dynamic class
+            else if (ovrride != null)
             {
-                UpdateAttribute updateAttribute = Attribute.GetCustomAttribute(mthds[i], typeof(UpdateAttribute)) as UpdateAttribute;
+                TransPair p;
+                p.m_key = getKey(ovrride.m_from, ovrride.m_to);
+
+                //IF it already exists DO overrwrite!
+                int index;
+                if (tryGetValue(p.m_key, out p.m_fnct, out index))
+                {
+                    m_transitions[index] = p;
+                }
+                else
+                {
+                    p.m_fnct = Delegate.CreateDelegate(typeof(BasicFnct), _obj, mthds[i]) as BasicFnct;
+                    m_transitions.Add(p);
+                }
+
+            }
+            else if (updateAttribute !=null) //otherwise check for state update fnct
+            {
+               
                 if (updateAttribute != null)
                 {
                     //seems like derrived class gets looked at first so we want first thing to not get overwritten...
@@ -111,41 +133,69 @@ public class StateContoller
         m_curState = _to;
     }
 
+
     private bool tryGetValue(int _key, out BasicFnct _fnct)
     {
         bool result = false;
         _fnct = null;
-
+        int bestMatch = int.MaxValue;
+        //Debug.Log("searching for: from " + getFrom(_key) + " to " + getTo(_key));
         for (int i = 0; i < m_transitions.Count; ++i)
         {
             TransPair p = m_transitions[i];
             if ((getTo(p.m_key) & getTo(_key)) > 0 && (getFrom(p.m_key) & getFrom(_key)) > 0)
             {
-                _fnct = p.m_fnct;
-                result = true;
-                break;
+                if (p.m_key <= bestMatch)
+                {
+                    bestMatch = p.m_key;
+                    _fnct = p.m_fnct;
+                    result = true;
+                }
             }
         }
-    
-
+        //Debug.Log(result);
         return result;
     }
+
+    //private bool tryGetValue(int _key, out BasicFnct _fnct)
+    //{
+    //    bool result = false;
+    //    _fnct = null;
+
+    //    for (int i = 0; i < m_transitions.Count; ++i)
+    //    {
+    //        TransPair p = m_transitions[i];
+    //        if ((getTo(p.m_key) & getTo(_key)) > 0 && (getFrom(p.m_key) & getFrom(_key)) > 0)
+    //        {
+    //            _fnct = p.m_fnct;
+    //            result = true;
+    //            break;
+    //        }
+    //    }
+
+
+    //    return result;
+    //}
 
     private bool tryGetValue(int _key, out BasicFnct _fnct, out int _index)
     {
         bool result = false;
         _fnct = null;
         _index = -1;
-
+        int bestMatch = int.MaxValue;
+        //Debug.Log("searching for: from " + getFrom(_key) + " to " + getTo(_key));
         for (int i = 0; i < m_transitions.Count; ++i)
         {
             TransPair p = m_transitions[i];
             if ((getTo(p.m_key) & getTo(_key)) > 0 && (getFrom(p.m_key) & getFrom(_key)) > 0)
             {
-                _fnct = p.m_fnct;
-                result = true;
-                _index = i;
-                break;
+                if (p.m_key <= bestMatch)
+                {
+                    _index = i;
+                    bestMatch = p.m_key;
+                    _fnct = p.m_fnct;
+                    result = true;
+                }
             }
         }
 

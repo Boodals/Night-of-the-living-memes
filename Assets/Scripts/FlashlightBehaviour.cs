@@ -11,9 +11,31 @@ public class FlashlightBehaviour : MonoBehaviour {
     //Used enum incase we want to add more functionality for the flashlight later on
     public enum flashlightState {On, Off}
     public flashlightState myState;
+    PhoneScript playerPhone;
 
     public Light flashlight;
+    public static FlashlightBehaviour flashlightSingleton;
 
+    void Awake()
+    {
+        playerPhone = GameObject.Find("Phone").GetComponent<PhoneScript>();
+        flashlightSingleton = this;
+        switch (GameManager.currentStage)
+        {
+            case 0:
+                batteryDeclineRate = 0.5f;
+                break;
+            case 1:
+                batteryDeclineRate = 0.75f;
+                break;
+            case 2:
+                batteryDeclineRate = 1.0f;
+                break;
+            default:
+                batteryDeclineRate = 1.25f;
+                break;
+        }
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -26,23 +48,16 @@ public class FlashlightBehaviour : MonoBehaviour {
         {
             batteryCharge -= Time.deltaTime * batteryDeclineRate;
         }
-        if (Input.GetButtonDown(flashlightButton))
+        if (playerPhone.onScreen == true)
         {
             toggledThisFrame = true;
-            if (myState == flashlightState.On)
-            {
-                myState = flashlightState.Off;
-                flashlight.enabled = false;
-            }
-            else if (myState == flashlightState.Off)
-            {
-                myState = flashlightState.On;
-                flashlight.enabled = true;
-            }
+            myState = flashlightState.On;
+            flashlight.enabled = true;
         }
         else
         {
-            toggledThisFrame = false;
+            myState = flashlightState.Off;
+            flashlight.enabled = false;
         }
 
 
