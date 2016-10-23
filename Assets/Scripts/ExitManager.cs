@@ -77,7 +77,7 @@ public class ExitManager : MonoBehaviour
                 m_terminals[i].m_SC.transition(Terminal.ON);
             }
         }
-        
+        PhoneHUDScript.phoneHUDSingleton.UpdateTerminalCount(numTerminals() - m_numTerminalsLeft);
         activateRandomDoor();
     }
     
@@ -102,7 +102,7 @@ public class ExitManager : MonoBehaviour
         {
             m_doors[m_curDoor].m_SC.transition(ExitDoor.ACTIVE);
         }
-        PhoneHUDScript.phoneHUDSingleton.UpdateTerminalCount(m_numTerminalsLeft);
+        PhoneHUDScript.phoneHUDSingleton.UpdateTerminalCount(numTerminals() - m_numTerminalsLeft);
     }
 
     void Update()
