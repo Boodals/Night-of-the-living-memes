@@ -9,7 +9,7 @@ public class LoadLevel : MonoBehaviour
     void Start ()
     {
         m_fader.setStartColour(Color.black);
-        m_fader.fade(2.5f, Color.clear, 0.5f, 0.0f, null);
+        m_fader.fade(2.5f, Color.clear, 2.1f, 0.0f, null);
     }
 	
 	// Update is called once per frame
