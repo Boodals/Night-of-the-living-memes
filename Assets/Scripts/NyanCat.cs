@@ -9,10 +9,17 @@ public class NyanCat : MonoBehaviour
 
 	public PhoneHUDScript phone;
 
+	public float speedPerLevel = 0.5f;
+
 	private void Awake()
 	{
 		phone.distance = Mathf.Infinity;
 	}
+
+	private void Start()
+	{
+		GetComponent<NavMeshAgent>().speed += speedPerLevel * GameManager.currentStage;
+    }
 
 	private void Update()
 	{
