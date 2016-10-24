@@ -39,7 +39,7 @@ public class NyanCat : MonoBehaviour
         m_attacking = false;
 
         phone.distance = Mathf.Infinity;
-       
+        targetTrans = GameObject.Find("Player").transform;
     }
 
 	private void Start()

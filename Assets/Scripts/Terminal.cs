@@ -30,6 +30,9 @@ public class Terminal : InteractiveMono
         m_SC = new StateContoller(this);
         m_SC.transition(OFF);
         m_canInteract = false;       
+
+
+
     }
 
     // Use this for initialization

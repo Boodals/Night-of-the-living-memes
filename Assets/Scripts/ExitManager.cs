@@ -27,6 +27,7 @@ public class ExitManager : MonoBehaviour
    
     public void init()
     {
+        Debug.Log("exit manager init");
         m_firstTick = true;
         GameObject[] doors = GameObject.FindGameObjectsWithTag(Tags.Door);
         m_doors = new List<ExitDoor>(doors.Length);
