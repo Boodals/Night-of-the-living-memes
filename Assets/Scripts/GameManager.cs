@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
     }
     private static void changeLevel()
     {
-        SceneManager.UnloadScene("asylumEditor");
+        //SceneManager.UnloadScene("asylumEditor");
         SceneManager.LoadScene("asylumEditor");
     }
     public void ChangeGameState(GameStates newGameState)

@@ -63,7 +63,8 @@ public class Terminal : InteractiveMono
     {
         //SHOCKED EFFECT ON TERMINAL?
         myScreen.SetTexture("_MainTex", textureHacked);
-        //GetComponent<AudioSource>().PlayOneShot(hackSound);
+
+        GetComponent<AudioSource>().PlayOneShot(hackSound);
         m_canInteract = false;
         myLight.color = Color.green;
     }
