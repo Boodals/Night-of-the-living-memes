@@ -48,7 +48,7 @@ public class FlashlightBehaviour : MonoBehaviour {
         {
             batteryCharge -= Time.deltaTime * batteryDeclineRate;
         }
-        if (playerPhone.onScreen == true)
+        if (playerPhone.onScreen == true && batteryCharge > 0)
         {
             toggledThisFrame = true;
             myState = flashlightState.On;
@@ -59,9 +59,7 @@ public class FlashlightBehaviour : MonoBehaviour {
             myState = flashlightState.Off;
             flashlight.enabled = false;
         }
-
-       
-	}
+    }
 
     public bool isFlashlightOn()
     {
