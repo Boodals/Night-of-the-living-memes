@@ -50,6 +50,8 @@ public class NyanCat : MonoBehaviour
 			oneShotSource.PlayOneShot(spawnOneShot);
 		}
 
+        HUDScript.HUDsingleton.DisplayNyanNotif();
+
         m_timer = 0.0f;
 	}
 

@@ -56,6 +56,7 @@ public class HUDScript : MonoBehaviour
 
         if(displayNotif)
         {
+            nyanNotif.transform.localScale = Vector3.Lerp(nyanNotif.transform.localScale, Vector3.one, 10 * Time.deltaTime);
             nyanTimer -= Time.deltaTime * 0.5f;
 
             if (nyanTimer <= fadeTime)
@@ -120,9 +121,11 @@ public class HUDScript : MonoBehaviour
 
     public void DisplayNyanNotif()
     {
-        nyanTimer = 6.0f;    
+        nyanTimer = 3.0f;    
         displayNotif = true;
         nyanNotif.enabled = true;
         nyanNotif.color = Color.white;
+
+        nyanNotif.transform.localScale = Vector3.one * 2;
     }
 }
