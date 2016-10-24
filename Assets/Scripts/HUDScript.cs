@@ -16,6 +16,7 @@ public class HUDScript : MonoBehaviour
 
     //exit notif stuff
     public Image exitNotif;
+    public Text exitText;
 
     //ammo display
     public Text ammoTxt;
@@ -98,11 +99,12 @@ public class HUDScript : MonoBehaviour
         if(exitAvailable)
         {
             exitNotif.enabled = true;
-            
+            exitText.enabled = true;
         }
         else
         {
             exitNotif.enabled = false;
+            exitText.enabled = false;
         }
     }
 

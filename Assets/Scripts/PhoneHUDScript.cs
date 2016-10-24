@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PhoneHUDScript : MonoBehaviour
 {
+    public Canvas phoneCanvas;
+
     //battery charge display stuff
     public Image[] batteryBars;
     public float lerpSpeed;
@@ -40,10 +42,10 @@ public class PhoneHUDScript : MonoBehaviour
         if (FlashlightBehaviour.flashlightSingleton.myState == FlashlightBehaviour.flashlightState.On)
         {
             batteryBars[barNumber].color = Color.Lerp(Color.clear, Color.white, Mathf.Abs(Mathf.Sin(Time.time * lerpSpeed)));
-            DisplayBatteryCharge();
         }
+        DisplayBatteryCharge();
 
-        float rotation = Mathf.Lerp(nearby, farAway, distance / 100);
+        float rotation = Mathf.Lerp(farAway, nearby, distance / 100);
 
         arrow.transform.localEulerAngles = new Vector3(0, 360, rotation);
 	}
@@ -52,8 +54,8 @@ public class PhoneHUDScript : MonoBehaviour
     {
         if(FlashlightBehaviour.flashlightSingleton.batteryCharge > 75)
         {
-            
-            for(int i = 0; i < 4; i++)
+            phoneCanvas.enabled = true;
+            for (int i = 0; i < 4; i++)
             {
                 batteryBars[i].enabled = true;
             }
@@ -61,22 +63,26 @@ public class PhoneHUDScript : MonoBehaviour
         }
        if(FlashlightBehaviour.flashlightSingleton.batteryCharge <= 75)
         {
+            phoneCanvas.enabled = true;
             Debug.Log("Battery below 75");
             batteryBars[3].enabled = false;
             barNumber = 2;
         }
        if(FlashlightBehaviour.flashlightSingleton.batteryCharge <= 50)
         {
+            phoneCanvas.enabled = true;
             batteryBars[2].enabled = false;
             barNumber = 1;
         }
         if (FlashlightBehaviour.flashlightSingleton.batteryCharge <= 25)
         {
+            phoneCanvas.enabled = true;
             batteryBars[1].enabled = false;
             barNumber = 0;
         }
         if(FlashlightBehaviour.flashlightSingleton.batteryCharge <= 0)
         {
+            phoneCanvas.enabled = false;
             batteryBars[0].enabled = false;
             barNumber = 0;
         }
