@@ -33,14 +33,14 @@ public class CameraFX : MonoBehaviour
 
 			float distSqr = (nyanCat.position - transform.position).sqrMagnitude;
 
-			GetComponentInChildren<VignetteAndChromaticAberration>().intensity = Mathf.Lerp(vignetteLerpMin, vignetteLerpMax, (vignetteMinDist - distSqr) / vignetteMult);
+			//GetComponentInChildren<VignetteAndChromaticAberration>().intensity = Mathf.Lerp(vignetteLerpMin, vignetteLerpMax, (vignetteMinDist - distSqr) / vignetteMult);
 
 			//GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = Mathf.Lerp(grainLerpMin, grainLerpMax, (grainMinDist - distSqr) / grainMult);
 			//GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
 		}
 		else
 		{
-			GetComponentInChildren<VignetteAndChromaticAberration>().intensity = vignetteLerpMin;
+			//GetComponentInChildren<VignetteAndChromaticAberration>().intensity = vignetteLerpMin;
 
 			//GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = grainLerpMin;
 			//GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;

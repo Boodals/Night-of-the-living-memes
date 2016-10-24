@@ -107,9 +107,11 @@ public class PlayerScript : MonoBehaviour
 			}
 		}
 
-
-        HandleCrouching();
-        HandleSprinting();
+        if (myState != State.Dead)
+        {
+            HandleCrouching();
+            HandleSprinting();
+        }
     }
 
     // Update is called once per frame
