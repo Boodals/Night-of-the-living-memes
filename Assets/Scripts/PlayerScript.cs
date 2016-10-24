@@ -106,7 +106,11 @@ public class PlayerScript : MonoBehaviour
 				Cursor.visible = true;
 			}
 		}
-	}
+
+
+        HandleCrouching();
+        HandleSprinting();
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -158,8 +162,6 @@ public class PlayerScript : MonoBehaviour
         }
 
         HandleHeadbob();
-        HandleCrouching();
-        HandleSprinting();
         HandleNoise();
         LookingAround();
 
