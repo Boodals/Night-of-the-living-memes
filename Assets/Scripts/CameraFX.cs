@@ -35,15 +35,15 @@ public class CameraFX : MonoBehaviour
 
 			GetComponentInChildren<VignetteAndChromaticAberration>().intensity = Mathf.Lerp(vignetteLerpMin, vignetteLerpMax, (vignetteMinDist - distSqr) / vignetteMult);
 
-			GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = Mathf.Lerp(grainLerpMin, grainLerpMax, (grainMinDist - distSqr) / grainMult);
-			GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
+			//GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = Mathf.Lerp(grainLerpMin, grainLerpMax, (grainMinDist - distSqr) / grainMult);
+			//GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
 		}
 		else
 		{
 			GetComponentInChildren<VignetteAndChromaticAberration>().intensity = vignetteLerpMin;
 
-			GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = grainLerpMin;
-			GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
+			//GetComponentInChildren<NoiseAndScratches>().grainIntensityMax = grainLerpMin;
+			//GetComponentInChildren<NoiseAndScratches>().grainIntensityMin = GetComponentInChildren<NoiseAndScratches>().grainIntensityMax / 2f;
 		}
 	}
 

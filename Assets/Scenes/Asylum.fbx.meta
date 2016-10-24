@@ -144,6 +144,18 @@ ModelImporter:
     100272: Cube_066
     100274: VENT_009
     100276: VENT_010
+    100278: Cube_067
+    100280: Cube_068
+    100282: Cube_069
+    100284: Cube_070
+    100286: Cube_071
+    100288: Cube_072
+    100290: Cube_073
+    100292: Cylinder_003
+    100294: Cylinder_004
+    100296: Cylinder_005
+    100298: Cylinder_006
+    100300: Cylinder_007
     400000: ARCH
     400002: ARCH.001
     400004: ARCH.002
@@ -283,6 +295,18 @@ ModelImporter:
     400272: Cube_066
     400274: VENT_009
     400276: VENT_010
+    400278: Cube_067
+    400280: Cube_068
+    400282: Cube_069
+    400284: Cube_070
+    400286: Cube_071
+    400288: Cube_072
+    400290: Cube_073
+    400292: Cylinder_003
+    400294: Cylinder_004
+    400296: Cylinder_005
+    400298: Cylinder_006
+    400300: Cylinder_007
     2300000: ARCH
     2300002: ARCH.001
     2300004: ARCH.002
@@ -419,6 +443,18 @@ ModelImporter:
     2300266: Cube_066
     2300268: VENT_009
     2300270: VENT_010
+    2300272: Cube_067
+    2300274: Cube_068
+    2300276: Cube_069
+    2300278: Cube_070
+    2300280: Cube_071
+    2300282: Cube_072
+    2300284: Cube_073
+    2300286: Cylinder_003
+    2300288: Cylinder_004
+    2300290: Cylinder_005
+    2300292: Cylinder_006
+    2300294: Cylinder_007
     3300000: ARCH
     3300002: ARCH.001
     3300004: ARCH.002
@@ -555,6 +591,18 @@ ModelImporter:
     3300266: Cube_066
     3300268: VENT_009
     3300270: VENT_010
+    3300272: Cube_067
+    3300274: Cube_068
+    3300276: Cube_069
+    3300278: Cube_070
+    3300280: Cube_071
+    3300282: Cube_072
+    3300284: Cube_073
+    3300286: Cylinder_003
+    3300288: Cylinder_004
+    3300290: Cylinder_005
+    3300292: Cylinder_006
+    3300294: Cylinder_007
     4300000: ARCH.003
     4300002: ARCH.002
     4300004: ARCH.001
@@ -691,6 +739,18 @@ ModelImporter:
     4300266: Cube_065
     4300268: Cube_064
     4300270: ARCH_007
+    4300272: Cube_073
+    4300274: Cube_072
+    4300276: Cube_071
+    4300278: Cube_070
+    4300280: Cube_069
+    4300282: Cube_068
+    4300284: Cylinder_007
+    4300286: Cylinder_006
+    4300288: Cylinder_005
+    4300290: Cylinder_004
+    4300292: Cylinder_003
+    4300294: Cube_067
     6400000: ARCH
     6400002: ARCH.001
     6400004: ARCH.002
@@ -827,6 +887,18 @@ ModelImporter:
     6400266: Cube_066
     6400268: VENT_009
     6400270: VENT_010
+    6400272: Cube_067
+    6400274: Cube_068
+    6400276: Cube_069
+    6400278: Cube_070
+    6400280: Cube_071
+    6400282: Cube_072
+    6400284: Cube_073
+    6400286: Cylinder_003
+    6400288: Cylinder_004
+    6400290: Cylinder_005
+    6400292: Cylinder_006
+    6400294: Cylinder_007
   materials:
     importMaterials: 1
     materialName: 0

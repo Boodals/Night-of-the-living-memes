@@ -131,6 +131,18 @@ ModelImporter:
     100246: Cube_066
     100248: VENT_009
     100250: VENT_010
+    100252: Cube_067
+    100254: Cube_068
+    100256: Cube_069
+    100258: Cube_070
+    100260: Cube_071
+    100262: Cube_072
+    100264: Cube_073
+    100266: Cylinder_003
+    100268: Cylinder_004
+    100270: Cylinder_005
+    100272: Cylinder_006
+    100274: Cylinder_007
     400000: ARCH
     400002: ARCH_001
     400004: ARCH_002
@@ -257,6 +269,18 @@ ModelImporter:
     400246: Cube_066
     400248: VENT_009
     400250: VENT_010
+    400252: Cube_067
+    400254: Cube_068
+    400256: Cube_069
+    400258: Cube_070
+    400260: Cube_071
+    400262: Cube_072
+    400264: Cube_073
+    400266: Cylinder_003
+    400268: Cylinder_004
+    400270: Cylinder_005
+    400272: Cylinder_006
+    400274: Cylinder_007
     2300000: ARCH
     2300002: ARCH_001
     2300004: ARCH_002
@@ -382,6 +406,18 @@ ModelImporter:
     2300244: Cube_066
     2300246: VENT_009
     2300248: VENT_010
+    2300250: Cube_067
+    2300252: Cube_068
+    2300254: Cube_069
+    2300256: Cube_070
+    2300258: Cube_071
+    2300260: Cube_072
+    2300262: Cube_073
+    2300264: Cylinder_003
+    2300266: Cylinder_004
+    2300268: Cylinder_005
+    2300270: Cylinder_006
+    2300272: Cylinder_007
     3300000: ARCH
     3300002: ARCH_001
     3300004: ARCH_002
@@ -507,6 +543,18 @@ ModelImporter:
     3300244: Cube_066
     3300246: VENT_009
     3300248: VENT_010
+    3300250: Cube_067
+    3300252: Cube_068
+    3300254: Cube_069
+    3300256: Cube_070
+    3300258: Cube_071
+    3300260: Cube_072
+    3300262: Cube_073
+    3300264: Cylinder_003
+    3300266: Cylinder_004
+    3300268: Cylinder_005
+    3300270: Cylinder_006
+    3300272: Cylinder_007
     4300000: DoubleDoors_Door1_001
     4300002: DoubleDoors_Door1
     4300004: ARCH_004
@@ -632,6 +680,18 @@ ModelImporter:
     4300244: Cube_065
     4300246: Cube_064
     4300248: ARCH_007
+    4300250: Cube_073
+    4300252: Cube_072
+    4300254: Cube_071
+    4300256: Cube_070
+    4300258: Cube_069
+    4300260: Cube_068
+    4300262: Cylinder_007
+    4300264: Cylinder_006
+    4300266: Cylinder_005
+    4300268: Cylinder_004
+    4300270: Cylinder_003
+    4300272: Cube_067
     7400000: Default Take
     9500000: //RootNode
   materials:
