@@ -64,6 +64,7 @@ public class NameController : MonoBehaviour
             //down to finish
             else if (verticalInput >= minDetect && m_nameField.text != "")
             {
+                //m_controller.name = m_nameField.text;
                 HighScoreManager.g_instance.addPlayerScore(m_nameField.text, PersistentScript.s_score);
                 gameObject.SetActive(false);
                 m_controller.showLeaderboard();
