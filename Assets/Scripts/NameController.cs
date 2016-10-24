@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class NameController : MonoBehaviour
 {
     public LeaderboardController m_controller;
+    public Leaderboard m_leaderboard;
     private char m_inputMin = 'A';
     private char m_inputMax = 'Z';
     private char m_currentSelection = 'A';
@@ -64,10 +65,11 @@ public class NameController : MonoBehaviour
             //down to finish
             else if (verticalInput >= minDetect && m_nameField.text != "")
             {
-                //m_controller.name = m_nameField.text;
-                HighScoreManager.g_instance.addPlayerScore(m_nameField.text, PersistentScript.s_score);
+                int index=-1;
+                HighScoreManager.g_instance.addPlayerScore(m_nameField.text, PersistentScript.s_score, out index);
+                m_leaderboard.gameObject.SetActive(true);
+                m_leaderboard.m_index = index;
                 gameObject.SetActive(false);
-                m_controller.showLeaderboard();
             }
         }
 

@@ -94,14 +94,15 @@ public class HighScoreManager : MonoBehaviour
     }
 
 	//returns true if the player placed on the scoreboard
-    public bool addPlayerScore(string _name, float _score)
+    public bool addPlayerScore(string _name, float _score, out int _index)
     {
-		return addPlayerScore(new Pair(_score, _name));
+		return addPlayerScore(new Pair(_score, _name), out _index);
 	}
 	
     //returns true if the player placed on the scoreboard
-    public bool addPlayerScore(Pair _player)
+    public bool addPlayerScore(Pair _player, out int _index)
     {
+        _index = -1;
         //early out if they didn't place
         if (scoreIsHighScore(_player.score) == false) return false;
 
@@ -112,6 +113,7 @@ public class HighScoreManager : MonoBehaviour
             {
                 //add player to list here, reshuffle rest of list
                 addAndShuffle(_player, i);
+                _index = i;
                 if (m_numScores < m_maxScores) m_numScores++;
                 placed = true;
                 break;
@@ -123,6 +125,7 @@ public class HighScoreManager : MonoBehaviour
         {
             //add player to list at m_numScores +1
             m_leaderBoard[m_numScores++] = _player;
+            _index = m_numScores;
             placed = true;
             Debug.Log("appending score");
         }

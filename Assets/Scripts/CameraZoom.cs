@@ -14,7 +14,7 @@ public class CameraZoom : MonoBehaviour {
 	void Update () {
         if (gameObject.transform.position.z < -12.25f)
         {
-            Debug.Log(gameObject.transform.position.z);
+
             gameObject.transform.position += Vector3.forward * zoomSpeed * Time.deltaTime;
         }
         else
