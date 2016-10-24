@@ -321,7 +321,7 @@ public class PlayerScript : MonoBehaviour
         if (Physics.SphereCast(transform.position, 0.6f, direction, out wall, rayDistance, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
         {
             Vector3 temp = Vector3.Cross(wall.normal, direction);
-            //direction = Vector3.Cross(temp, wall.normal);
+            direction = Vector3.Cross(temp, wall.normal);
         }
 
         return direction;

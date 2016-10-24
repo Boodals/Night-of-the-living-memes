@@ -45,6 +45,7 @@ public class ExitDoor : InteractiveMono
     {
         base.interact();
         GameManager.levelUp();
+        opening = true;
     }
 
     [Update(INACTIVE)]
@@ -145,7 +146,7 @@ public class ExitDoor : InteractiveMono
         {
             for(int i=0; i<doors.Length; i++)
             {
-                doors[i].transform.localPosition = Vector3.Lerp(doors[i].transform.localPosition, offsets[i], 0.1f * Time.deltaTime);
+                doors[i].transform.localPosition = Vector3.Lerp(doors[i].transform.localPosition, offsets[i], 0.99f * Time.deltaTime);
             }
         }
 

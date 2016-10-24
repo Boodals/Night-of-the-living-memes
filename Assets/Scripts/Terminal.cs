@@ -9,6 +9,15 @@ public class Terminal : InteractiveMono
     public const short ON = 2;
     public const short HACKED = 4;
 
+    public Material myScreen;
+    public Renderer myRenderer;
+    public Light myLight;
+
+    public Texture textureOff, textureAvailable, textureHacked;
+
+    public AudioClip hackSound;
+    AudioSource snd;
+
     public override void interact()
     {
         GameManager.gameManagerSingleton.m_exitManager.hackedATerminal();
@@ -20,35 +29,43 @@ public class Terminal : InteractiveMono
         base.init();
         m_SC = new StateContoller(this);
         m_SC.transition(OFF);
-        m_canInteract = false;
+        m_canInteract = false;       
     }
 
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
-    
+        if (myRenderer)
+            myScreen = myRenderer.materials[0];
+        else
+            Debug.Break();
+        //snd = GetComponent<AudioSource>();
     }
 
     [Transition(StateContoller.ANY_STATE, OFF)]
     private void anyToOff()
     {
         //TURN OFF MEME
-
+        myScreen.SetTexture("_MainTex", textureOff);
         m_canInteract = false;
+        myLight.enabled = false;
     }
     [Transition(StateContoller.ANY_STATE, ON)]
     private void anyToOn()
     {
         //TURN ON MEME
-
+        myScreen.SetTexture("_MainTex", textureAvailable);
         m_canInteract = true;
+        myLight.enabled = false;
     }
     [Transition(StateContoller.ANY_STATE, HACKED)]
     private void anyToHacked()
     {
         //SHOCKED EFFECT ON TERMINAL?
-
+        myScreen.SetTexture("_MainTex", textureHacked);
+        //GetComponent<AudioSource>().PlayOneShot(hackSound);
         m_canInteract = false;
+        myLight.color = Color.green;
     }
 
     [Update(HACKED)]

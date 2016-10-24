@@ -64,7 +64,7 @@ public class PhoneHUDScript : MonoBehaviour
        if(FlashlightBehaviour.flashlightSingleton.batteryCharge <= 75)
         {
             phoneCanvas.enabled = true;
-            Debug.Log("Battery below 75");
+            //Debug.Log("Battery below 75");
             batteryBars[3].enabled = false;
             barNumber = 2;
         }
