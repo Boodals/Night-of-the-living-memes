@@ -7,7 +7,7 @@ public class GunScript : MonoBehaviour
     public static GunScript gunSingleton;
     public GameObject bulletPrefab;
 
-    int PooledAmount = 20;
+    int PooledAmount = 50;
 
     List<GameObject> bulletPool;
 
@@ -24,6 +24,7 @@ public class GunScript : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        ammo = 3;       
         snd = GetComponentInParent<AudioSource>();
         bulletPool = new List<GameObject>();
         for (int i = 0; i < PooledAmount; i++)
@@ -34,6 +35,7 @@ public class GunScript : MonoBehaviour
         }
         anim = GetComponent<Animator>();
         gunSingleton = this;
+        HUDScript.HUDsingleton.UpdateAmmoTotal(ammo);
     }
 
     // Update is called once per frame
