@@ -455,6 +455,7 @@ ModelImporter:
     2300290: Cylinder_005
     2300292: Cylinder_006
     2300294: Cylinder_007
+    2300296: //RootNode
     3300000: ARCH
     3300002: ARCH.001
     3300004: ARCH.002
@@ -603,6 +604,7 @@ ModelImporter:
     3300290: Cylinder_005
     3300292: Cylinder_006
     3300294: Cylinder_007
+    3300296: //RootNode
     4300000: ARCH.003
     4300002: ARCH.002
     4300004: ARCH.001
@@ -899,6 +901,7 @@ ModelImporter:
     6400290: Cylinder_005
     6400292: Cylinder_006
     6400294: Cylinder_007
+    6400296: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
