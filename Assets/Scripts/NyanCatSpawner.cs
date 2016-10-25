@@ -46,7 +46,7 @@ public class NyanCatSpawner : MonoBehaviour
 
 		nyanCat.gameObject.SetActive(true);
 
-		Debug.Log("Spawned nyan cat");
+//		Debug.Log("Spawned nyan cat");
 	}
 
 

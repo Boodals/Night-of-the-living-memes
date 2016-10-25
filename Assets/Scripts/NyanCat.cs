@@ -89,7 +89,7 @@ public class NyanCat : MonoBehaviour
 
         glowMat.SetColor("_EmissionColor", Color.Lerp(glowColours[0], glowColours[1], Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 8))));
 		phone.distance = Vector3.Distance(targetTrans.position, transform.position);
-
+        
         m_curSpeed = m_navAgent.speed;
 
         if(m_attacking)
