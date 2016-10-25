@@ -219,6 +219,9 @@ public class TVManz : EnemyBase
     [Update(ATTACKING)]
     protected void attackingUpdate()
     {
+        myAnim.SetTrigger("Attack");
+        transform.rotation = Quaternion.LookRotation(PlayerScript.playerSingleton.transform.position - transform.position);
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
         m_player.LookAtThis(m_headTransform);
     }
 
