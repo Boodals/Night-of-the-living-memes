@@ -138,7 +138,7 @@ public class ExitDoor : InteractiveMono
     }
 
     // Update is called once per frame
-    virtual protected void Update()
+    override protected void Update()
     {
         base.Update();
 

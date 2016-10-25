@@ -18,7 +18,6 @@ public class FlashlightBehaviour : MonoBehaviour {
 
     void Awake()
     {
-        playerPhone = GameObject.Find("Phone").GetComponent<PhoneScript>();
         flashlightSingleton = this;
         switch (GameManager.currentStage)
         {
@@ -39,6 +38,7 @@ public class FlashlightBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        playerPhone = GameObject.Find("Phone").GetComponent<PhoneScript>();
         flashlight = gameObject.GetComponent<Light>();
     }
 	
