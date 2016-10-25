@@ -57,12 +57,12 @@ public class NyanCat : MonoBehaviour
 
 	private void Update()
     {
-        m_timer = +Time.deltaTime;
+        m_timer += Time.deltaTime;
         if (m_timer > navigationUpdateInterval && !m_attacking)
 		{
             m_navAgent.destination = targetTrans.position;
-            m_timer=0.0f;
-        }
+            m_timer -= navigationUpdateInterval;
+		}
 
         //accelerate
         if (m_navAgent.speed >= m_maxSpeed)
