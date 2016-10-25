@@ -27,7 +27,6 @@ public class ExitManager : MonoBehaviour
    
     public void init()
     {
-        Debug.Log("exit manager init");
         m_firstTick = true;
         GameObject[] doors = GameObject.FindGameObjectsWithTag(Tags.Door);
         m_doors = new List<ExitDoor>(doors.Length);
@@ -54,6 +53,7 @@ public class ExitManager : MonoBehaviour
         if (GameManager.currentStage < m_terminalsRequiredPerLevel.Length)
         {
             m_numTerminalsLeft = m_terminalsRequiredPerLevel[GameManager.currentStage];
+            if (m_numTerminalsLeft > m_terminals.Count) m_numTerminalsLeft = m_terminals.Count;
             List<Terminal> unused = new List<Terminal>();
             foreach (Terminal t in m_terminals)
             {
@@ -67,7 +67,7 @@ public class ExitManager : MonoBehaviour
                 //turn on terminal at that index
                 unused[index].m_SC.transition(Terminal.ON);
                 //remove from unused list
-                unused.Remove(unused[index]);
+                unused.RemoveAt(index);
             }
         }
         //no need to do slow list shinanigens if we're using all the terminals...
@@ -79,6 +79,7 @@ public class ExitManager : MonoBehaviour
                 m_terminals[i].m_SC.transition(Terminal.ON);
             }
         }
+
         activateRandomDoor();
     }
     

@@ -109,7 +109,6 @@ public class GunScript : MonoBehaviour
             if (Physics.Raycast(shotRay, out bulletLine, 1000, LayerMask.GetMask("Default"), QueryTriggerInteraction.Ignore))
             {
                 Debug.DrawLine(playerCam.transform.position, bulletLine.point, Color.red, 10);
-                Debug.Log(bulletLine.collider.gameObject.name);
                 firedBullet.transform.rotation = Quaternion.LookRotation(bulletLine.point - firedBullet.transform.position);
                 //Debug.Break();
             }

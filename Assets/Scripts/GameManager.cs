@@ -25,21 +25,23 @@ public class GameManager : MonoBehaviour
 
     float secondTimer;
     int seconds = 0, minutes = 0;
-
+    bool DO_NOT_USE;
     // Use this for initialization
     void Awake()
     {
         if (!gameManagerSingleton)
         {
+            DO_NOT_USE = false;
             gameManagerSingleton = this;
             DontDestroyOnLoad(gameObject);
-
+    
             init();
             m_fader.setStartColour(Color.black);
             m_fader.fade(3.0f, Color.clear, 0,0,null);
         }
         else
         {
+            DO_NOT_USE = true;
             Destroy(gameObject);
         }
     }
@@ -63,19 +65,21 @@ public class GameManager : MonoBehaviour
 
     private void init()
     {
-        Debug.Log("init");
         if (!IsCurrentGameState(GameStates.GAMEOVER))
         {
             m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
             m_enemyManager = GameObject.Find("Enemy stuff").GetComponent<EnemyManager>();
             m_exitManager = GameObject.Find("DoorAndTerminal").GetComponent<ExitManager>();
+            m_fader = GameObject.Find("FadeCanvas").GetComponent<Fader>();
             m_exitManager.init();
-
         }
     }
     
+
     public void OnLevelWasLoaded()
     {
+        if (DO_NOT_USE) return;
+        init();
         if (currentStage > 0)
         {
             m_exitManager.spawnPlayerAtRandomDoor(m_player);
