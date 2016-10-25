@@ -124,8 +124,8 @@ public class HighScoreManager : MonoBehaviour
         if (!placed  && m_numScores < m_maxScores)
         {
             //add player to list at m_numScores +1
-            m_leaderBoard[m_numScores++] = _player;
             _index = m_numScores;
+            m_leaderBoard[m_numScores++] = _player;
             placed = true;
             Debug.Log("appending score");
         }

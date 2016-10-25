@@ -32,9 +32,7 @@ public class Terminal : InteractiveMono
         m_SC = new StateContoller(this);
         m_SC.transition(OFF);
         m_canInteract = false;       
-
-
-
+        
     }
 
     // Use this for initialization
@@ -54,6 +52,7 @@ public class Terminal : InteractiveMono
         myScreen.SetTexture("_MainTex", textureOff);
         m_canInteract = false;
         myLight.enabled = false;
+        vapourWave.Stop();
     }
     [Transition(StateContoller.ANY_STATE, ON)]
     private void anyToOn()

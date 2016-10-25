@@ -10,7 +10,10 @@ public class NyanCat : MonoBehaviour
 
 	public float m_baseSpeed = 0.7f;
     public float m_maxSpeed = 3.0f;
-    public float m_accIncreasePerLevel = 0.0021f; //roughly 25 seconds faster to get player speed
+    public float m_timeToReachMaxSpeed;
+    public float m_minTimeToReachMaxSpeed;
+    public float m_timetoReachMaxSpeedReductionPerLevel;
+    
     private float m_acc = 0.01278f; //(playerspeed - m_baseSpeed) / timeUntillNyanspeedIsPlayerSpeed (180)
     private float navigationUpdateInterval = 0.2f;
     
@@ -41,15 +44,29 @@ public class NyanCat : MonoBehaviour
 	{
         m_navAgent = GetComponent<NavMeshAgent>();
         m_navAgent.speed = m_baseSpeed;
-        m_acc = m_accIncreasePerLevel * (GameManager.currentStage + 1);
 
         m_attacking = false;
 
         phone.distance = Mathf.Infinity;
         targetTrans = GameObject.Find("Player").transform;
+
+        float t = m_timeToReachMaxSpeed - (m_timetoReachMaxSpeedReductionPerLevel * GameManager.currentStage);
+        float u = m_baseSpeed;
+        float v = m_maxSpeed;
+        //avoid div-by-0
+        if (t <= 0)
+        {
+            m_acc = 0;
+        }
+        else
+        {
+            t = t < m_minTimeToReachMaxSpeed? m_minTimeToReachMaxSpeed: t;
+            m_acc = (v - u) / t;
+        }
     }
 
-	private void Start()
+
+    private void Start()
 	{
         m_navAgent.speed = m_baseSpeed;
         if (spawnOneShot != null)
