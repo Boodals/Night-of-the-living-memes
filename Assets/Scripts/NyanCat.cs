@@ -17,6 +17,7 @@ public class NyanCat : MonoBehaviour
 	public AudioClip spawnOneShot;
 	public AudioClip killedPlayerOneShot;
 	public AudioSource oneShotSource;
+	public AudioSource musicSource;
 
 	private float m_timer;
 
@@ -29,6 +30,12 @@ public class NyanCat : MonoBehaviour
     //for debugging...
     [SerializeField]
     private float m_curSpeed;
+
+	public float musicPitchMin = 1f;
+	public float musicPitchMax = 1.3f;
+
+	[Tooltip("Speed at which the max music pitch will be reached")]
+	public float musicPitchSpeedMax = 3f;
 
 	private void Awake()
 	{
@@ -72,7 +79,12 @@ public class NyanCat : MonoBehaviour
         else
         {
             m_navAgent.speed += m_acc * Time.deltaTime;
-        }
+
+			Debug.Log(musicPitchMin + " / " + musicPitchMax + ", " + Mathf.InverseLerp(m_baseSpeed, musicPitchSpeedMax, m_navAgent.speed));
+			Debug.Log(m_baseSpeed + " / " + musicPitchSpeedMax + ", " + m_navAgent.speed);
+
+			musicSource.pitch = Mathf.Lerp(musicPitchMin, musicPitchMax, Mathf.InverseLerp(m_baseSpeed, musicPitchSpeedMax, m_navAgent.speed));
+		}
         
 
         glowMat.SetColor("_EmissionColor", Color.Lerp(glowColours[0], glowColours[1], Mathf.Abs(Mathf.Sin(Time.timeSinceLevelLoad * 8))));

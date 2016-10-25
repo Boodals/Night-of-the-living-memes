@@ -30,6 +30,10 @@ public class HUDScript : MonoBehaviour
     float nyanTimer = 6.0f;
     float fadeTime = 4.0f;
     public bool displayNotif;
+
+    //rules
+    public Text rules;
+    float rulesTimer = 4.5f;
     
 
     void Awake()
@@ -74,7 +78,27 @@ public class HUDScript : MonoBehaviour
             nyanNotif.enabled = false;
         }
 
+        HandleRules();
 	}
+
+    void HandleRules()
+    {
+        if(rulesTimer<=0)
+        {
+            rules.color = Color.Lerp(rules.color, Color.clear, 2 * Time.deltaTime);
+        }
+        else
+        {
+            rulesTimer -= Time.deltaTime;
+            rules.color = Color.Lerp(rules.color, Color.white, 4 * Time.deltaTime);
+        }
+    }
+
+    public void SetObjective(string objective)
+    {
+        rules.text = objective;
+        rulesTimer = objective.Length * 0.3f;
+    }
 
     public void SetCrosshairScale(bool isCrouched, float scalingValue)
     {
@@ -96,11 +120,15 @@ public class HUDScript : MonoBehaviour
 
     public void ToggleExitNotif(bool exitAvailable)
     {
+        
+
         //turns on the exit icon to let player know they can leave the level
         if(exitAvailable)
         {
             exitNotif.enabled = true;
             exitText.enabled = true;
+
+            SetObjective("Find the exit and escape");
         }
         else
         {
@@ -116,7 +144,7 @@ public class HUDScript : MonoBehaviour
 
     public void UpdateScore(int score)
     {
-        scoreTxt.text = "" + score;
+        scoreTxt.text = "Score: " + score;
     }
 
     public void DisplayNyanNotif()

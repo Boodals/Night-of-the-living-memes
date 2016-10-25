@@ -18,6 +18,8 @@ public class Terminal : InteractiveMono
     public AudioClip hackSound;
     AudioSource snd;
 
+    public AudioSource vapourWave;
+
     public override void interact()
     {
         GameManager.gameManagerSingleton.m_exitManager.hackedATerminal();
@@ -60,6 +62,7 @@ public class Terminal : InteractiveMono
         myScreen.SetTexture("_MainTex", textureAvailable);
         m_canInteract = true;
         myLight.enabled = false;
+        vapourWave.Play();
     }
     [Transition(StateContoller.ANY_STATE, HACKED)]
     private void anyToHacked()
@@ -70,6 +73,8 @@ public class Terminal : InteractiveMono
         GetComponent<AudioSource>().PlayOneShot(hackSound);
         m_canInteract = false;
         myLight.color = Color.green;
+
+        vapourWave.Stop();
     }
 
     [Update(HACKED)]
