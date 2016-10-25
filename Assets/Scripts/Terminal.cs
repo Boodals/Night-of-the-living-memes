@@ -61,7 +61,7 @@ public class Terminal : InteractiveMono
         //TURN ON MEME
         myScreen.SetTexture("_MainTex", textureAvailable);
         m_canInteract = true;
-        myLight.enabled = false;
+        myLight.enabled = true;
         vapourWave.Play();
     }
     [Transition(StateContoller.ANY_STATE, HACKED)]
@@ -72,7 +72,7 @@ public class Terminal : InteractiveMono
 
         GetComponent<AudioSource>().PlayOneShot(hackSound);
         m_canInteract = false;
-        myLight.color = Color.green;
+        myLight.enabled = false;
 
         vapourWave.Stop();
     }

@@ -91,6 +91,12 @@ public class NyanCat : MonoBehaviour
 		phone.distance = Vector3.Distance(targetTrans.position, transform.position);
         
         m_curSpeed = m_navAgent.speed;
+
+        if(m_attacking)
+        {
+            transform.position = Vector3.Lerp(transform.position, PlayerScript.playerSingleton.myCamera.transform.position + PlayerScript.playerSingleton.myCamera.transform.forward * 0.1f, 14 * Time.deltaTime);
+            transform.LookAt(PlayerScript.playerSingleton.myCamera.transform.position);
+        }
     }
 
 	public void OnTriggerEnter(Collider other)
@@ -106,7 +112,7 @@ public class NyanCat : MonoBehaviour
 
                 //Stop the navigation updates
                 m_attacking = true;
-
+                
 				m_navAgent.Stop();
 
 				if (killedPlayerOneShot != null)
