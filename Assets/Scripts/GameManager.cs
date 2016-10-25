@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     
             init();
             m_fader.setStartColour(Color.black);
-            m_fader.fade(3.0f, Color.clear, 0,0,null);
+            m_fader.fade(2.0f, Color.clear, 0,0,null);
         }
         else
         {
