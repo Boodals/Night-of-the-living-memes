@@ -32,10 +32,10 @@ public class NyanCat : MonoBehaviour
     private float m_curSpeed;
 
 	public float musicPitchMin = 1f;
-	public float musicPitchMax = 1.4f;
+	public float musicPitchMax = 1.3f;
 
 	[Tooltip("Speed at which the max music pitch will be reached")]
-	public float musicPitchSpeedMax = 1.5f;
+	public float musicPitchSpeedMax = 3f;
 
 	private void Awake()
 	{
@@ -79,6 +79,9 @@ public class NyanCat : MonoBehaviour
         else
         {
             m_navAgent.speed += m_acc * Time.deltaTime;
+
+			Debug.Log(musicPitchMin + " / " + musicPitchMax + ", " + Mathf.InverseLerp(m_baseSpeed, musicPitchSpeedMax, m_navAgent.speed));
+			Debug.Log(m_baseSpeed + " / " + musicPitchSpeedMax + ", " + m_navAgent.speed);
 
 			musicSource.pitch = Mathf.Lerp(musicPitchMin, musicPitchMax, Mathf.InverseLerp(m_baseSpeed, musicPitchSpeedMax, m_navAgent.speed));
 		}

@@ -96,6 +96,7 @@ public class ExitDoor : InteractiveMono
             m_canInteract = true;
         }
 
+        
         HUDScript.HUDsingleton.ToggleExitNotif(true);
     }
     [Transition(StateContoller.ANY_STATE, HACKABLE)]

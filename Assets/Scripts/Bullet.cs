@@ -7,6 +7,12 @@ public class Bullet : MonoBehaviour {
     bool sleptEnemy = false;
 
     public GameObject zapEffect;
+    ParticleSystem myZapEffect;
+
+    void Start()
+    {
+        myZapEffect = GetComponentInChildren<ParticleSystem>();
+    }
 
 	// Use this for initialization
 	void OnEnable () {
@@ -29,6 +35,8 @@ public class Bullet : MonoBehaviour {
             sleptEnemy = true;
 
             Instantiate(zapEffect, col.collider.gameObject.transform.position, transform.rotation);
+
+            myZapEffect.Play();
         }
         else
         {
