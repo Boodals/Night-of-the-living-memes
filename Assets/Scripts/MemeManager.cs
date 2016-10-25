@@ -11,7 +11,7 @@ public class MemeManager : MonoBehaviour {
     Texture memeImage;
     public Texture[] memeImages;
     int randomArrayIndex;
-    int memeAmount = 21;
+    int memeAmount = 28;
     Material matToChange;
 
     void Start()
