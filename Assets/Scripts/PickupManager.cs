@@ -19,8 +19,7 @@ public class PickupManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        pickupObjects = new GameObject[20];
-        pickupLocations = new Transform[20];
+        pickupLocations = new Transform[30];
         usedValues = new List<int>();
 
         pickupObjects = GameObject.FindGameObjectsWithTag("AmmoSpawn");
@@ -52,7 +51,7 @@ public class PickupManager : MonoBehaviour {
 
         if (pickupsSpawned < amountOfPickupsToSpawn)
         {
-            randomIndex = Random.Range(0, 10);
+            randomIndex = Random.Range(0, 29);
             spawnObject = true;
 
             for (int i = 0; i != usedValues.Count; i++)
