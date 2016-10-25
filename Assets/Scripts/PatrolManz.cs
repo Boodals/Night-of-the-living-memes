@@ -3,12 +3,10 @@ using System.Collections;
 
 public class PatrolManz : TVManz
 {
-
+    public int m_minLevelToSpawn;
     public Transform[] m_patrolPoints;
     public bool m_circular;
-    [SerializeField]
     private int m_curTarget;
-    [SerializeField]
     private int m_dir;
 
     private const short PATROL = 1;
@@ -16,6 +14,13 @@ public class PatrolManz : TVManz
     // Use this for initialization
     void Start()
     {
+        //make sure the badboi doesn't spawn if the level isn't high enough
+        if (GameManager.currentStage < m_minLevelToSpawn)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         m_player = GameObject.Find("Player").GetComponent<PlayerScript>();
 
         //nav agent

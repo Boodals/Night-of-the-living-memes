@@ -97,8 +97,8 @@ public class NyanCat : MonoBehaviour
         {
             m_navAgent.speed += m_acc * Time.deltaTime;
 
-			Debug.Log(musicPitchMin + " / " + musicPitchMax + ", " + Mathf.InverseLerp(m_baseSpeed, musicPitchSpeedMax, m_navAgent.speed));
-			Debug.Log(m_baseSpeed + " / " + musicPitchSpeedMax + ", " + m_navAgent.speed);
+			//Debug.Log(musicPitchMin + " / " + musicPitchMax + ", " + Mathf.InverseLerp(m_baseSpeed, musicPitchSpeedMax, m_navAgent.speed));
+			//Debug.Log(m_baseSpeed + " / " + musicPitchSpeedMax + ", " + m_navAgent.speed);
 
 			musicSource.pitch = Mathf.Lerp(musicPitchMin, musicPitchMax, Mathf.InverseLerp(m_baseSpeed, musicPitchSpeedMax, m_navAgent.speed));
 		}
