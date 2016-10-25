@@ -33,6 +33,7 @@ public class ExitManager : MonoBehaviour
         for (int i = 0; i < doors.Length; ++i)
         {
             m_doors.Add(doors[i].GetComponent<ExitDoor>());
+            if (m_doors[i]!= null)
             m_doors[i].init();
         }
         m_curDoor = 0;

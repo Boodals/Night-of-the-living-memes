@@ -369,7 +369,7 @@ public class PlayerScript : MonoBehaviour
 
         if (myCrouchState == CrouchState.Crouching)
         {
-            footstepNoise *= 0.1f;
+            footstepNoise = 0;
         }
 
         MakeNoise(footstepNoise);

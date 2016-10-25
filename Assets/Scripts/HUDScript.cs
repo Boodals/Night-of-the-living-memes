@@ -139,7 +139,10 @@ public class HUDScript : MonoBehaviour
 
     public void UpdateAmmoTotal(int curAmmoAmount)
     {
-        ammoTxt.text = "" + curAmmoAmount + "/10";
+        if (ammoTxt)
+        {
+            ammoTxt.text = "" + curAmmoAmount + "/10";
+        }
     }
 
     public void UpdateScore(int score)

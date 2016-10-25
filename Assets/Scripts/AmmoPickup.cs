@@ -12,11 +12,6 @@ public class AmmoPickup : InteractiveMono {
         m_canInteract = true;
         snd = GameObject.Find("Player").GetComponent<AudioSource>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     public override void interact()
     {

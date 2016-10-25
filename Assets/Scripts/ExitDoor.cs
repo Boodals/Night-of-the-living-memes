@@ -138,8 +138,10 @@ public class ExitDoor : InteractiveMono
     }
 
     // Update is called once per frame
-    void Update()
+    virtual protected void Update()
     {
+        base.Update();
+
         m_SC.update();
         m_timer += Time.deltaTime;
 

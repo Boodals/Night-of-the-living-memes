@@ -14,15 +14,24 @@ public class InteractiveMono : MonoBehaviour
     public virtual void interact()
     { }
 
-    void OnTriggerStay(Collider _other)
+    virtual protected void Update()
     {
-        if (_other.tag == Tags.Player && Input.GetButtonDown("Action") && m_canInteract&& m_canInteractInternal)
+        if(m_canInteractInternal && Input.GetButtonDown("Action"))
         {
+            
             m_canInteractInternal = false;
             //hide help msg
             PromptDisplayScript.singleton.HidePrompt();
             interact();
         }
+    }
+
+    void OnTriggerStay(Collider _other)
+    {
+        //if (_other.tag == Tags.Player &&  && m_canInteract&& m_canInteractInternal)
+        //{
+
+        //}
     }
      
     void OnTriggerEnter(Collider _other)

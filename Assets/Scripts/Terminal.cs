@@ -40,8 +40,6 @@ public class Terminal : InteractiveMono
     {
         if (myRenderer)
             myScreen = myRenderer.materials[0];
-        else
-            Debug.Break();
         //snd = GetComponent<AudioSource>();
     }
 
@@ -89,8 +87,9 @@ public class Terminal : InteractiveMono
     }
 
     // Update is called once per frame
-    void Update ()
+    override protected void Update ()
     {
+        base.Update();
         m_SC.update();
     }
 }

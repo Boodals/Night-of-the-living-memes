@@ -35,6 +35,10 @@ public class GunScript : MonoBehaviour
         }
         anim = GetComponent<Animator>();
         gunSingleton = this;
+    }
+
+    void Start()
+    {
         HUDScript.HUDsingleton.UpdateAmmoTotal(ammo);
     }
 
