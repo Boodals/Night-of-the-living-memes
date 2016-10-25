@@ -1,11 +1,14 @@
 fileFormatVersion: 2
 guid: 1f4110c17fa89714c89cc5bc8c7d0b37
-timeCreated: 1476919495
+timeCreated: 1477414889
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - footstep1: {fileID: 8300000, guid: d3a40d4942d856440a99a445e92d64e5, type: 3}
+  - reloadSound: {instanceID: 0}
+  - deathSound: {instanceID: 0}
+  - outOfAmmoSound: {instanceID: 0}
+  - ricochet: {fileID: 8300000, guid: 54aaf72efe27b3f418921aea621c03a7, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

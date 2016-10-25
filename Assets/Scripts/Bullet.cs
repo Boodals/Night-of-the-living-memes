@@ -26,6 +26,12 @@ public class Bullet : MonoBehaviour {
     
     void OnCollisionEnter(Collision col)
     {
+        if(col.gameObject.name=="NyanCat")
+        {
+            //Debug.Break();
+            col.gameObject.GetComponent<AudioSource>().PlayOneShot(SoundBank.singleton.ricochet);
+        }
+
         if (col.transform.tag == Tags.Manz && sleptEnemy == false)
         {
             Debug.Log("Hit enemy");
