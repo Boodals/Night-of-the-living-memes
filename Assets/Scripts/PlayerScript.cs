@@ -55,7 +55,11 @@ public class PlayerScript : MonoBehaviour
     public Transform forceLookAtThis;
 
 
+    float footstepTimer = 1;
+
     float deathTimer = 0;
+    UnityStandardAssets.ImageEffects.MotionBlur camMotionBlur;
+
 
     void Awake()
     {
@@ -77,6 +81,8 @@ public class PlayerScript : MonoBehaviour
         cameraPositions[0] = new Vector3(0, 1.1f, 0);
         cameraPositions[1] = new Vector3(0, 0.3f, 0.0f);
         cameraPositions[2] = new Vector3(0, -0.65f, 0.35f);
+
+        camMotionBlur = myCamera.GetComponent<UnityStandardAssets.ImageEffects.MotionBlur>();
     }
 
 	void OnDestroy()
@@ -197,24 +203,30 @@ public class PlayerScript : MonoBehaviour
 
         if (myState == State.Sprinting)
         {
-            targetBobAmount = 1.55f;
-            bobSpeed = 12;
+            targetBobAmount = 1.25f;
+            bobSpeed = 19;
+
+            footstepTimer -= Time.deltaTime * 2.5f;
+        }
+
+        if(myCrouchState==CrouchState.Crouching)
+        {
+            footstepTimer += Time.deltaTime * movementIntensity*0.5f;
         }
 
         float sinAmount = Mathf.Sin(Time.timeSinceLevelLoad * bobSpeed);
 
         if (movementIntensity > 0.1f)
         {
-            if (Mathf.Abs(sinAmount) > 0.5f && waitingForFootstep)
+            footstepTimer -= Time.deltaTime * movementIntensity;
+
+            if (footstepTimer<=0)
             {
-                waitingForFootstep = false;
+                footstepTimer = 0.85f;
                 Footstep();
             }
 
-            if (Mathf.Abs(sinAmount) < 0.1f)
-            {
-                waitingForFootstep = true;
-            }
+
         }
 
 
@@ -226,6 +238,14 @@ public class PlayerScript : MonoBehaviour
     void HandleDying()
     {
         deathTimer += Time.deltaTime;
+
+        if(deathTimer>0.7f)
+        {
+            Vector3 rand = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f));
+            myCamera.transform.localPosition += rand * Time.deltaTime;
+
+            camMotionBlur.blurAmount += Time.deltaTime * 3;
+        }
 
         if(deathTimer>3f)
         {
@@ -342,7 +362,8 @@ public class PlayerScript : MonoBehaviour
 
     void Footstep()
     {
-        snd.PlayOneShot(SoundBank.singleton.GetRandomClip(SoundBank.singleton.playerFootsteps), movementIntensity * 0.5f);
+        //Debug.Log("FOOTSTEP");
+        snd.PlayOneShot(SoundBank.singleton.GetRandomClip(SoundBank.singleton.playerFootsteps), movementIntensity * 0.35f);
 
         float footstepNoise = movementIntensity;
 
